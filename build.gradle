@@ -1,0 +1,101 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.1.RELEASE'
+	}
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('se.transmode.gradle:gradle-docker:1.2')
+	}
+}
+
+plugins {
+	id "org.sonarqube" version "2.2"
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+apply plugin: 'jacoco'
+
+jacoco {
+	toolVersion = "0.7.+"
+}
+
+jar {
+	baseName = '17high'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+	jcenter()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile "org.flywaydb:flyway-core:4.1.2"
+
+	runtime('mysql:mysql-connector-java')
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile group: 'junit', name: 'junit', version: '4.+'
+	testCompile ('org.springframework:spring-test')
+}
+
+group = 'tw-wh-devops'
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = false
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		failOnViolation = true
+		rule {
+			enabled = false
+			limit {
+				minimum = 0.85
+			}
+		}
+	}
+}
+
+task startMysql(type: Exec) {
+	commandLine './startMysql.sh'
+}
+
+test.finalizedBy jacocoTestCoverageVerification
+//test.finalizedBy "sonarqube"
+
+def getLocalMysqlHost() {
+	return [ 'sh', '-c', 'docker-machine ssh mysql \'ifconfig eth1 | grep "inet addr:" | cut -d: -f2 | cut -d" " -f1\'' ].execute().text.trim()
+}
+
+bootRun {
+	environment 'MYSQL_HOST', getLocalMysqlHost()
+	environment 'MYSQL_PORT', '3306'
+	environment 'MYSQL_USER', '17high'
+	environment 'MYSQL_PASSWORD', '17high'
+	environment 'MYSQL_DATABASE', '17high'
+}
+
+bootRun.dependsOn startMysql
