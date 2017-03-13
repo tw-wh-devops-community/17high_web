@@ -27,7 +27,7 @@ jacoco {
 }
 
 jar {
-	baseName = '17high'
+	baseName = '17high_web'
 	version = '0.0.1-SNAPSHOT'
 }
 
@@ -43,8 +43,11 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-tomcat")
+    compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+    compile("javax.servlet:jstl")
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile "org.flywaydb:flyway-core:4.1.2"
+	compile('org.flywaydb:flyway-core:4.1.2')
 
 	runtime('mysql:mysql-connector-java')
 
@@ -69,9 +72,9 @@ task buildDocker(type: Docker, dependsOn: build) {
 
 jacocoTestCoverageVerification {
 	violationRules {
-		failOnViolation = true
+		failOnViolation = false
 		rule {
-			enabled = false
+			enabled = true
 			limit {
 				minimum = 0.85
 			}
@@ -79,11 +82,17 @@ jacocoTestCoverageVerification {
 	}
 }
 
+jacocoTestReport {
+	reports {
+		html.enabled = true
+	}
+}.dependsOn jacocoTestCoverageVerification
+
 task startMysql(type: Exec) {
 	commandLine './startMysql.sh'
 }
 
-test.finalizedBy jacocoTestCoverageVerification
+test.finalizedBy jacocoTestReport
 //test.finalizedBy "sonarqube"
 
 def getLocalMysqlHost() {
@@ -91,6 +100,14 @@ def getLocalMysqlHost() {
 }
 
 bootRun {
+	environment 'MYSQL_HOST', getLocalMysqlHost()
+	environment 'MYSQL_PORT', '3306'
+	environment 'MYSQL_USER', '17high'
+	environment 'MYSQL_PASSWORD', '17high'
+	environment 'MYSQL_DATABASE', '17high'
+}
+
+test {
 	environment 'MYSQL_HOST', getLocalMysqlHost()
 	environment 'MYSQL_PORT', '3306'
 	environment 'MYSQL_USER', '17high'

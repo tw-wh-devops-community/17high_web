@@ -13,7 +13,7 @@ services:
      - --character-set-server=utf8mb4
      - --collation-server=utf8mb4_unicode_ci
   17high:
-      image: "tw-wh-devops/17high"
+      image: "tw-wh-devops/17high_web"
       ports:
        - "8080:8080"
       environment:
