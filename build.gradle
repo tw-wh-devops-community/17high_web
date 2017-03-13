@@ -98,26 +98,10 @@ task startMysql(type: Exec) {
 test.finalizedBy jacocoTestReport
 //test.finalizedBy "sonarqube"
 
-def getLocalMysqlHost() {
-	return [ 'sh', '-c', 'docker-machine ssh mysql \'ifconfig eth1 | grep "inet addr:" | cut -d: -f2 | cut -d" " -f1\'' ].execute().text.trim()
-}
-
 bootRun {
-	environment 'MYSQL_HOST', getLocalMysqlHost()
+	environment 'MYSQL_HOST', '127.0.0.1'
 	environment 'MYSQL_PORT', '3306'
 	environment 'MYSQL_USER', '17high'
 	environment 'MYSQL_PASSWORD', '17high'
 	environment 'MYSQL_DATABASE', '17high'
 }
-
-test {
-	environment 'MYSQL_HOST', getLocalMysqlHost()
-	environment 'MYSQL_PORT', '3306'
-	environment 'MYSQL_USER', '17high'
-	environment 'MYSQL_PASSWORD', '17high'
-	environment 'MYSQL_DATABASE', '17high'
-}
-
-bootRun.dependsOn startMysql
-
-test.dependsOn startMysql
