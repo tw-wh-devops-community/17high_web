@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 env:
-  - MYSQL_HOST=127.0.0.1 MYSQL_PORT=3306 MYSQL_DATABASE=17high MYSQL_USER=17high MYSQL_PASSWORD=17high
+  - MYSQL_HOST=127.0.0.1 MYSQL_PORT=3306 MYSQL_DATABASE=17high MYSQL_USER=root MYSQL_PASSWORD=
 services:
   - mysql
 branches:
