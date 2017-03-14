@@ -4,7 +4,7 @@ jdk:
 services:
   - mysql
 env:
-  - MYSQL_HOST=127.0.0.1 MYSQL_PORT=3306 MYSQL_DATABASE=17high MYSQL_USER=root MYSQL_PASSWORD=
+  - MYSQL_HOST=127.0.0.1 MYSQL_PORT=3306 MYSQL_DATABASE=17high MYSQL_USER=travis MYSQL_PASSWORD=
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS 17high;'
 branches:
