@@ -1,0 +1,13 @@
+$red: #f00;
+
+.transition {
+  background: $red;
+  height: 100px;
+  transition: width 2s;
+  width: 100px;
+
+  &:hover {
+    width: 200px;
+  }
+
+}
