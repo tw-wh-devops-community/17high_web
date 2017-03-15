@@ -43,7 +43,8 @@
     "express": "^4.4.5",
     "jquery": "1.12.4",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-router": "^2.8.1"
   },
   "scripts": {
     "start": "yarn clean-dist && webpack && webpack-dev-server --inline --hot",
