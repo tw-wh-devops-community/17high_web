@@ -12,11 +12,11 @@ And then You just need to run yarn install
 Spring boot will auto run yarn bundle-watch
 ```
 ## Run Spring boot on local
-```
-gradle bootRun
-#或
-./gradlew bootRun
-```
+
+~~~
+./localrun.sh
+This script constains 'yarn bundle-watch' and './gradlew bootRun',so springboot will start, and react will automatic compile.
+~~~
 You need not start mysql on local manually. bootRun will start a loacl mysql Docker automaticly.
 
 ## Run Mysql on local Docker
