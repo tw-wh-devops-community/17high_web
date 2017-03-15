@@ -8,8 +8,7 @@
 ## install front develop dependency
 ```
 Enter src/websrc, read README.md and prepare develop environment
-And then You just need to run yarn install
-Spring boot will auto run yarn bundle-watch
+And then You need to do nothing but read  'Run Spring boot on local' section.
 ```
 ## Run Spring boot on local
 
