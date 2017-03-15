@@ -5,7 +5,12 @@
 ## Requirement:
 
 [Docker](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac) is installed;
-
+## install front develop dependency
+```
+Enter src/websrc, read README.md and prepare develop environment
+And then You just need to run yarn install
+Spring boot will auto run yarn bundle-watch
+```
 ## Run Spring boot on local
 ```
 gradle bootRun

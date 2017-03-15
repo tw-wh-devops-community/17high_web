@@ -23,5 +23,6 @@ yarn install
 - `yarn csslint` run scss lint
 - `yarn lint` run eslint and scss lint
 - `yarn test` run Jest test
+- `bundle-watch` bundle with webpack and watch file change
 
 For more information, please refer to our [wiki](https://github.com/ThoughtWorksWuhanUI/17high/wiki).
