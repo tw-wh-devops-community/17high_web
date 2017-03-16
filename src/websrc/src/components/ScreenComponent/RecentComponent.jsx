@@ -17,19 +17,24 @@ class RecentComponent extends Component {
       that.setState({items: data});
     });
     this.current = 0;
-    setInterval(function () {
+    this.interval = setInterval(function () {
       that.current++;
-      that.setState({items: that.state.items, current: that.current});
+      var items = that.state.items;
+      if(items == undefined || items.length == 0) {
+        return;
+      }
+      that.props.change(items[that.current%items.length]);
+      that.setState({items: items, current: that.current});
     }, 2000);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
   }
 
   render() {
 
     var size = this.state.items.length;
-    console.log("size:" + size);
-    console.log("current:" + this.current);
-
-    console.log("result: " + (this.current%size));
     var that = this;
     var items = this.state.items.map(function (activity, index) {
       return (

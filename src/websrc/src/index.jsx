@@ -1,6 +1,6 @@
 import React from "react";
 import {render} from "react-dom";
-import {Router, Route, hashHistory} from "react-router";
+import {Router, Route, hashHistory, Link} from "react-router";
 import DemoComponent from "./components/DemoComponent";
 import ScreenComponent from "./components/ScreenComponent";
 

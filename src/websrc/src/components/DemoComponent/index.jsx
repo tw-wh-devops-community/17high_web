@@ -1,8 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import { transition } from './DemoComponent.scss';
+import scss from './DemoComponent.scss';
+import { Link } from 'react-router'
 
 const DemoComponent = () =>
-  <p className={classNames(transition)}>Hi,fine,ok</p>;
+  <div  className={classNames(scss.screen)}>
+    <Link className={classNames(scss.screenlink)} to="screen"><h2>活动滚屏显示效果</h2></Link>
+  </div>
 
 export default DemoComponent;
