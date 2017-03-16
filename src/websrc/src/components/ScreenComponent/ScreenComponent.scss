@@ -169,9 +169,11 @@ html body {
 }
 .recentitemdiv{
   height: 140px;
+  color: #838283;
 }
 .recentitemactive{
   background-color: #000000;
+  color: #ffffff;
 }
 .recentitemdate{
   height: 36px;
@@ -182,7 +184,6 @@ html body {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #ffffff;
 }
 .recentitemtitle{
   height: 37px;
@@ -193,5 +194,4 @@ html body {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #ffffff;
 }
