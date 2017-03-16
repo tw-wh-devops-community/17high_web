@@ -8,18 +8,23 @@ html body {
 }
 
 .screen {
-  width: 1920px;
-  height: 1080px;
   background-image: url('./style1.jpg');
-  -moz-background-size: 1920px 1080px; /* 老版本的 Firefox */
-  background-size: 1920px 1080px;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   position: absolute;
+  right: 0px;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
 }
 
 .detaildiv {
   padding: 0px 115px 0px 108px;
-  width: 1420px;
+  width: 74%;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
 }
 
 .typediv {
@@ -136,13 +141,14 @@ html body {
 }
 
 .recentdiv {
-  width: 500px;
-  height: 1080px;
+  width: 26%;
   opacity: 0.7;
   background-color: #000000;
   padding-left: 61px;
   position: absolute;
   right: 0px;
+  top: 0px;
+  bottom: 0px;
 }
 
 .recenttext {
