@@ -10,25 +10,46 @@ class RecentComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {items: [],current: 0};
+    this.state = {items: [], current: 0};
     var that = this;
 
     activityApiService.list().then(function (data) {
+      that.notify(data[0]);
       that.setState({items: data});
     });
     this.current = 0;
-    this.interval = setInterval(function () {
-      that.current++;
-      var items = that.state.items;
-      if(items == undefined || items.length == 0) {
-        return;
-      }
-      that.props.change(items[that.current%items.length]);
-      that.setState({items: items, current: that.current});
-    }, 2000);
+    this.startLoop();
   }
 
-  componentWillUnmount(){
+  notify(currentActivity, preActivity){
+    this.props.change(currentActivity, preActivity);
+  }
+
+  startLoop() {
+    var that = this;
+    this.interval = setInterval(function () {
+      var items = that.state.items;
+      var index = that.current % items.length;
+      var pre = items[index];
+
+      that.current++;
+      if (items == undefined || items.length == 0) {
+        return;
+      }
+      index = that.current % items.length;
+      that.notify(items[index], pre);
+
+      that.setState({items: items, current: that.current});
+    }, 3000)
+  }
+
+
+
+  componentWillUnmount() {
+    this.stopLoop();
+  }
+
+  stopLoop() {
     clearInterval(this.interval);
   }
 
@@ -38,12 +59,12 @@ class RecentComponent extends Component {
     var that = this;
     var items = this.state.items.map(function (activity, index) {
       return (
-        <ItemComponent activity={activity} key={activity.id} active={index == (that.current%size)}/>
+        <ItemComponent activity={activity} key={activity.id} active={index == (that.current % size)}/>
       );
     });
     return (
       <div className={classNames(scss.recentdiv)}>
-        <div className={classNames(scss.recenttext)}>近期活动</div>
+        <div className={classNames(scss.recenttext)} onClick={this.stopLoop.bind(this)}>近期活动</div>
         <div className={classNames(scss.recentlistdiv)}>
           {items}
         </div>

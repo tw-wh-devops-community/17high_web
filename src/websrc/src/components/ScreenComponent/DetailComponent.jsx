@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import classNames from "classnames";
 import scss from "./ScreenComponent.scss";
-import gift from "./gift.png";
+import gift from "./image/gift.png";
 import DateUtilComponent from "./DateUtilComponent";
 
 var dateUtil = new DateUtilComponent();
@@ -9,8 +9,11 @@ var dateUtil = new DateUtilComponent();
 class DetailComponent extends Component {
   render() {
     var item = this.props.activity;
+    var style = classNames(scss.detaildiv, scss[item.imageURL]);
+
     return (
-      <div className={classNames(scss.detaildiv)}>
+      <div className={style} data-additionflag={this.props.addition}>
+
         <div className={classNames(scss.typediv)}>
           <img src={gift} className={classNames(scss.typeicon)}/><span className={classNames(scss.typetext)}>活动</span>
         </div>

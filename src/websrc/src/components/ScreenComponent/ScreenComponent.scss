@@ -8,7 +8,6 @@ html body {
 }
 
 .screen {
-  background-image: url('./style1.jpg');
   background-repeat: repeat;
   position: absolute;
   right: 0px;
@@ -17,14 +16,37 @@ html body {
   bottom: 0px;
 }
 
+.style1 {
+  background-image: url('./image/background1.jpg');
+}
+.style2 {
+  background-image: url('./image/background2.jpg');
+}
+.style3 {
+  background-image: url('./image/background3.jpg');
+}
+.style4 {
+  background-image: url('./image/background4.jpg');
+}
+.style5 {
+  background-image: url('./image/background5.jpg');
+}
+.style6 {
+  background-image: url('./image/background6.jpg');
+}
+
 .detaildiv {
   padding: 0px 115px 0px 108px;
-  width: 74%;
   position: absolute;
   right: 0px;
   left: 0px;
   top: 0px;
   bottom: 0px;
+  -webkit-transition: all 1s ease-in;
+  -moz-transition: all 1s ease-in;
+  -o-transition: all 1s ease-in;
+  transition: all 1s ease-in;
+  overflow: hidden;
 }
 
 .typediv {
@@ -59,6 +81,7 @@ html body {
 }
 
 .datediv {
+  width: 74%;
   height: 69px;
   font-family: FZLTTHB-B51-0;
   margin-top: 105px;
@@ -76,6 +99,7 @@ html body {
 }
 
 .titlediv {
+  width: 74%;
   height: 277px;
   margin-top: 105px;
 }
@@ -92,6 +116,7 @@ html body {
 }
 
 .locationdiv {
+  width: 74%;
   height: 57px;
   font-family: FZLTZHB-B51-0;
   font-size: 40px;
@@ -128,6 +153,7 @@ html body {
 }
 
 .describediv {
+  width: 74%;
   height: 102px;
   font-family: FZLTXHB-B51-0;
   font-size: 36px;
@@ -152,7 +178,6 @@ html body {
 }
 
 .recenttext {
-  width: 200px;
   height: 70px;
   font-family: PingFangSC;
   font-size: 50px;
@@ -195,3 +220,4 @@ html body {
   line-height: normal;
   letter-spacing: normal;
 }
+

@@ -19,9 +19,10 @@ class ItemComponent extends Component {
 
     var activity = this.props.activity;
 
+    var formatFromTo = dateUtil.formatFromTo(activity.startTime, activity.startTime);
     return (
       <div className={recentStyle}>
-        <div className={classNames(scss.recentitemdate)}>{dateUtil.formatFromTo(activity.startTime, activity.startTime)}</div>
+        <div className={classNames(scss.recentitemdate)}>{formatFromTo}</div>
         <div className={classNames(scss.recentitemtitle)}>{activity.name}</div>
       </div>
     );
