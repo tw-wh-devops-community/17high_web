@@ -1,0 +1,197 @@
+* {
+  box-sizing: border-box;
+}
+
+html body {
+  margin: 0px;
+  height: 100%;
+}
+
+.screen {
+  background-image: url('./style1.jpg');
+  background-repeat: repeat;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+
+.detaildiv {
+  padding: 0px 115px 0px 108px;
+  width: 74%;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+
+.typediv {
+  width: 300px;
+  height: 110px;
+  background-color: rgba(0, 0, 0, 0.4);
+  margin-top: 94px;
+  padding: 30px 0 30px 0;
+  position: relative;
+  left: -108px;
+}
+
+.typeicon {
+  width: 50px;
+  height: 50px;
+  margin-left: 76px;
+}
+
+.typetext {
+  width: 80px;
+  height: 56px;
+  font-family: PingFangSC;
+  font-size: 40px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  margin-left: 17px;
+  vertical-align: bottom;
+}
+
+.datediv {
+  height: 69px;
+  font-family: FZLTTHB-B51-0;
+  margin-top: 105px;
+}
+
+.datetext {
+  font-size: 50px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+
+}
+
+.titlediv {
+  height: 277px;
+  margin-top: 105px;
+}
+
+.titletext {
+  font-family: OpenSans;
+  font-size: 100px;
+  font-weight: 800;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+.locationdiv {
+  height: 57px;
+  font-family: FZLTZHB-B51-0;
+  font-size: 40px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  margin-top: 17px;
+}
+
+.locationdivtext {
+  font-family: PingFangSC;
+  font-weight: 600;
+}
+
+.ownerdiv {
+  height: 57px;
+  font-family: FZLTZHB-B51-0;
+  font-size: 40px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  margin-top: 6px;
+}
+
+.ownertext {
+  font-family: PingFangSC;
+  font-weight: 600;
+}
+
+.describediv {
+  height: 102px;
+  font-family: FZLTXHB-B51-0;
+  font-size: 36px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  margin-top: 63px;
+}
+
+.recentdiv {
+  width: 26%;
+  opacity: 0.7;
+  background-color: #000000;
+  padding-left: 61px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+
+.recenttext {
+  width: 200px;
+  height: 70px;
+  font-family: PingFangSC;
+  font-size: 50px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  margin-top:77px;
+}
+.recentlistdiv{
+  margin-top:50px;
+}
+.recentitemdiv{
+  height: 140px;
+  color: #838283;
+}
+.recentitemactive{
+  background-color: #000000;
+  color: #ffffff;
+}
+.recentitemdate{
+  height: 36px;
+  font-family: FZLTZHB-B51-0;
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+.recentitemtitle{
+  height: 37px;
+  font-family: FZLTZHB-B51-0;
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}

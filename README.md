@@ -5,13 +5,17 @@
 ## Requirement:
 
 [Docker](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac) is installed;
-
+## install front develop dependency
+```
+Enter src/websrc, read README.md and prepare develop environment
+And then You need to do nothing but read  'Run Spring boot on local' section.
+```
 ## Run Spring boot on local
-```
-gradle bootRun
-#或
-./gradlew bootRun
-```
+
+~~~
+./localrun.sh
+This script constains 'yarn bundle-watch' and './gradlew bootRun',so springboot will start, and react will automatic compile.
+~~~
 You need not start mysql on local manually. bootRun will start a loacl mysql Docker automaticly.
 
 ## Run Mysql on local Docker
