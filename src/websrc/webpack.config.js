@@ -2,7 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const BUILD_DIR = path.resolve(__dirname, '../main/resources/static');
+//const BUILD_DIR = path.resolve(__dirname, '../main/resources/static');
+const BUILD_DIR = path.resolve(__dirname, 'public');
+
 const APP_DIR = path.resolve(__dirname, 'src');
 
 const extractCSS = new ExtractTextPlugin('styles.css');
@@ -31,6 +33,10 @@ const config = {
           'file?hash=sha512&digest=hex&name=[path][name].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
+      },
+      {
+        test: /\.css$/,
+        loader: extractCSS.extract("style-loader", "css-loader")
       }
     ]
   },
@@ -42,7 +48,7 @@ const config = {
       template: 'src/index.html',
       inject: false,
     }),
-    extractCSS,
+    extractCSS
   ],
 };
 
