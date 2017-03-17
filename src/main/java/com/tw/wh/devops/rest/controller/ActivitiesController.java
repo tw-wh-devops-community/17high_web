@@ -1,6 +1,7 @@
 package com.tw.wh.devops.rest.controller;
 
 import com.tw.wh.devops.domains.Activity;
+import com.tw.wh.devops.domains.NewActivity;
 import com.tw.wh.devops.repositories.ActivityRepository;
 import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by xjzhou on 2/15/17.
@@ -46,5 +48,11 @@ public class ActivitiesController {
     @SuppressWarnings("unused")
     public void setActivityRepository(ActivityRepository activityRepository) {
         this.activityRepository = activityRepository;
+    }
+
+    @RequestMapping(method = POST)
+    public Activity addActivity(NewActivity activity) {
+        System.out.println("request " + activity.toString());
+        return null;
     }
 }
