@@ -14,9 +14,11 @@ class ScreenComponent extends Component {
       name: "",
       startTime: new Date(),
       endTime: new Date(),
-      sponsor: {lastName: "", firstName: ""},
+      sponsor: "",
+      guest: "",
+      type: "SESSION",
       location: "",
-      longDescription: "",
+      description: "",
       imageURL: "style1"
     };
     this.activity = this.defaultActivity;

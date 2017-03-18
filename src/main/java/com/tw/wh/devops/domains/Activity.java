@@ -1,13 +1,10 @@
 package com.tw.wh.devops.domains;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by xjzhou on 2/13/17.
@@ -19,9 +16,10 @@ public class Activity implements Serializable {
     private Long id;
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="SPONSOR_ID")
-    private User sponsor;
+    private String sponsor;
+
+    private String guest;
+
     private String imageURL;
     private String status;
     private String location;
@@ -29,21 +27,10 @@ public class Activity implements Serializable {
     private Date startTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
-    private String shortDescription;
-    private String longDescription;
+    private String description;
 
-    @JsonIgnore
-    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY)
-    private List<User> participants = new ArrayList<>();
-
-
-    public List<User> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
-    }
+    @Enumerated(EnumType.STRING)
+    private ActivityType type;
 
     public Long getId() {
         return id;
@@ -59,14 +46,6 @@ public class Activity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public User getSponsor() {
-        return sponsor;
-    }
-
-    public void setSponsor(User sponsor) {
-        this.sponsor = sponsor;
     }
 
     public String getImageURL() {
@@ -109,19 +88,35 @@ public class Activity implements Serializable {
         this.endTime = endTime;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getLongDescription() {
-        return longDescription;
+    public String getSponsor() {
+        return sponsor;
     }
 
-    public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
+    public void setSponsor(String sponsor) {
+        this.sponsor = sponsor;
+    }
+
+    public String getGuest() {
+        return guest;
+    }
+
+    public void setGuest(String guest) {
+        this.guest = guest;
+    }
+
+    public ActivityType getType() {
+        return type;
+    }
+
+    public void setType(ActivityType type) {
+        this.type = type;
     }
 }
