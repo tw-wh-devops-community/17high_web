@@ -97,7 +97,6 @@ task startMysql(type: Exec) {
 }
 
 test.finalizedBy jacocoTestReport
-//test.finalizedBy "sonarqube"
 
 bootRun {
 	environment 'MYSQL_HOST', '127.0.0.1'

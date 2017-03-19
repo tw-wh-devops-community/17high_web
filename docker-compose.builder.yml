@@ -1,16 +1,19 @@
 version: '2'
 services:
-  17high:
+  builder:
       image: "tw-wh-devops/dev"
-      ports:
-       - "8080:8080"
       environment:
        - MYSQL_HOST=database
        - MYSQL_DATABASE=17high
        - MYSQL_USER=17high
        - MYSQL_PASSWORD=17high
+       - MYSQL_PORT=3306
+       - GRADLE_OPTS="-Dorg.gradle.daemon=false"
+      volumes:
+       - '.:/app'
       links:
        - database
+      command: gradle clean build
   database:
     image: "mysql:5.7"
     ports:
@@ -23,7 +26,9 @@ services:
     command:
      - --character-set-server=utf8mb4
      - --collation-server=utf8mb4_unicode_ci
-
+  image:
+    build: .
+    image: tw-wh-devops/17high
 #  backup:
 #    image: "schickling/mysql-backup-s3"
 #    environment:
