@@ -1,19 +1,16 @@
 language: java
 jdk:
   - oraclejdk8
-install: true
-sudo: required
 services:
-  - docker
+  - mysql
+dist: trusty
+sudo: required
 env:
-  - DOCKER_COMPOSE_VERSION=1.11.2
+  - MYSQL_HOST=localhost MYSQL_PORT=3306 MYSQL_DATABASE=17high MYSQL_USER=17high MYSQL_PASSWORD=17high
 before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-before_script: true
-script: docker-compose -f docker-compose.builder.yml run builder
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS 17high;'
+  - mysql -e "CREATE USER '17high'@'localhost' IDENTIFIED BY '17high';"
+  - mysql -e "GRANT ALL ON 17high.* TO '17high'@'localhost';"
 branches:
   only:
   - /.*/
