@@ -11,6 +11,8 @@ before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS 17high;'
   - mysql -e "CREATE USER '17high'@'localhost' IDENTIFIED BY '17high';"
   - mysql -e "GRANT ALL ON 17high.* TO '17high'@'localhost';"
+after_success:
+  - gradle buildDocker
 branches:
   only:
   - /.*/

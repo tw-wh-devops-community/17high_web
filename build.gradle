@@ -60,10 +60,10 @@ dependencies {
 
 
 
-group = 'tw-wh-devops'
+group = 'twwhdevops'
 
 task buildDocker(type: Docker, dependsOn: build) {
-    push = false
+    push = true
     applicationName = jar.baseName
     dockerfile = file('src/main/docker/Dockerfile')
     doFirst {
@@ -99,6 +99,14 @@ task startMysql(type: Exec) {
 test.finalizedBy jacocoTestReport
 
 bootRun {
+	environment 'MYSQL_HOST', '127.0.0.1'
+	environment 'MYSQL_PORT', '3306'
+	environment 'MYSQL_USER', '17high'
+	environment 'MYSQL_PASSWORD', '17high'
+	environment 'MYSQL_DATABASE', '17high'
+}
+
+test {
 	environment 'MYSQL_HOST', '127.0.0.1'
 	environment 'MYSQL_PORT', '3306'
 	environment 'MYSQL_USER', '17high'

@@ -28,7 +28,7 @@ services:
      - --collation-server=utf8mb4_unicode_ci
   image:
     build: .
-    image: tw-wh-devops/17high
+    image: twwhdevops/17high_web
 #  backup:
 #    image: "schickling/mysql-backup-s3"
 #    environment:

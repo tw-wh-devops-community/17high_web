@@ -1,16 +1,5 @@
 version: '2'
 services:
-  17high:
-      image: "twwhdevops/dev"
-      ports:
-       - "8080:8080"
-      environment:
-       - MYSQL_HOST=database
-       - MYSQL_DATABASE=17high
-       - MYSQL_USER=17high
-       - MYSQL_PASSWORD=17high
-      links:
-       - database
   database:
     image: "mysql:5.7"
     ports:
@@ -23,19 +12,29 @@ services:
     command:
      - --character-set-server=utf8mb4
      - --collation-server=utf8mb4_unicode_ci
-
-#  backup:
-#    image: "schickling/mysql-backup-s3"
-#    environment:
-#     - S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}
-#     - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
-#     - S3_BUCKET=17high
-#     - MYSQLDUMP_DATABASE=17high
-#     - MYSQL_HOST=database
-#     - MYSQL_USER=17high
-#     - MYSQL_PASSWORD=17high
-#     - S3_REGION=ap-northeast-1
-#     - MULTI_FILES=yes
-#     - SCHEDULE=@daily
-#    links:
-#      - database
+  17high:
+      image: "twwhdevops/17high"
+      ports:
+       - "8080:8080"
+      environment:
+       - MYSQL_HOST=database
+       - MYSQL_DATABASE=17high
+       - MYSQL_USER=17high
+       - MYSQL_PASSWORD=17high
+      links:
+       - database
+  backup:
+    image: "schickling/mysql-backup-s3"
+    environment:
+     - S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}
+     - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
+     - S3_BUCKET=17high
+     - MYSQLDUMP_DATABASE=17high
+     - MYSQL_HOST=database
+     - MYSQL_USER=17high
+     - MYSQL_PASSWORD=17high
+     - S3_REGION=ap-northeast-1
+     - MULTI_FILES=yes
+     - SCHEDULE=@daily
+    links:
+      - database
