@@ -9,7 +9,7 @@ class ActivityEditor extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      selectedTemplateId: 0
+      selectedTemplateId: 0,
     };
   }
 
@@ -26,7 +26,8 @@ class ActivityEditor extends React.Component {
       <form className='formContainer' onSubmit={this.handleSubmit.bind(this)}>
         <div className='inputBlock'>
           {this.getInputName('活动名称', true)}
-          <div><input name="name" className='newsNameInput' type="text" placeholder="请输入活动名称,15个字内"/></div>
+          <div><input name="name" className='newsNameInput'
+                      type="text" placeholder="请输入活动名称,15个字内"/></div>
         </div>
         <div className='inputBlock'>
           {this.getInputName('活动时间', true)}

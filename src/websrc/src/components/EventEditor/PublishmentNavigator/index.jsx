@@ -22,7 +22,7 @@ class Navigator extends React.Component {
               发布活动
             </div>
           </div>
-          <div>
+          <div className="activityNavBlock">
             <div
               className={this.state.selectedIndex == 1 ? 'newsNavSelected' : 'newsNav'}
               onClick={() => {
