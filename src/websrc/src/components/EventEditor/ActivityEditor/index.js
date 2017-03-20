@@ -103,21 +103,30 @@ class ActivityEditor extends React.Component {
     console.log('selectedTemplateId ' + selectedTemplateId);
     console.log('type ' + type);
 
-    $.post('http://localhost:8080/v1/activities',
-      {
-        eventName: eventName,
+    $.ajax({
+      url: 'http://127.0.0.1:8080/v1/activities',
+      type: 'post',
+      xhrFields: { withCredentials: true },
+      data: JSON.stringify({
+        name: eventName,
         startTime: startTime,
         endTime: endTime,
-        organizer: organizer,
+        sponsor: organizer,
         guest: guest,
         description: description,
-        selectedTem: selectedTemplateId,
-        type: type
+        location: location,
+        imageURL: selectedTemplateId,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
       },
-      function (data, status) {
+      success: function (data) {
         console.log(data);
+      },
+      error: function(xhr, status, err) {
+        console.error("here", status, err.toString());
       }
-    );
+    });
 
   }
 
