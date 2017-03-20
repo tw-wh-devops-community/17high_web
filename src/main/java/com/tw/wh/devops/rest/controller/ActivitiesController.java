@@ -5,10 +5,13 @@ import com.tw.wh.devops.domains.NewActivity;
 import com.tw.wh.devops.repositories.ActivityRepository;
 import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -24,16 +27,17 @@ public class ActivitiesController {
     private ActivityRepository activityRepository;
 
     @RequestMapping(method = GET)
-    public Iterable getActivities(@RequestParam(defaultValue = "${17high.page.size}") int size,
+    public Iterator getActivities(@RequestParam(defaultValue = "${17high.page.size}") int size,
                                   @RequestParam(defaultValue = "${17high.page.number}") int page,
                                   @RequestParam(required = false, defaultValue = "") String type,
                                   @RequestParam(required = false, defaultValue = "") String status,
                                   @RequestParam(required = false, defaultValue = "") String sort,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-
-        Iterable<Activity> activities = activityRepository.findAll();
-        return activities;
+        PageRequest pageRequest = new PageRequest(page, size);
+        Page<Activity> all = activityRepository.findAll(pageRequest);
+        Iterator<Activity> iterator = all.getContent().iterator();
+        return iterator;
     }
 
     @RequestMapping(path = "/{id}", method = GET)

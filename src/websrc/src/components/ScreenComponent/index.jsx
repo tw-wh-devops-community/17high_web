@@ -1,66 +1,115 @@
-import React from 'react';
-import classNames from 'classnames';
-import scss from './ScreenComponent.scss';
-import gift from './gift.png';
+import React, {Component} from "react";
+import {findDOMNode} from "react-dom";
+import classNames from "classnames";
+import scss from "./ScreenComponent.scss";
+import RecentComponent from "./RecentComponent";
+import DetailComponent from "./DetailComponent";
+import $ from "jquery";
 
-const ScreenComponent = () =>
-  <div className={classNames(scss.screen)}>
+class ScreenComponent extends Component {
 
-    <div className={classNames(scss.recentdiv)}>
-      <div className={classNames(scss.recenttext)}>近期活动</div>
-      <div className={classNames(scss.recentlistdiv)}>
-        <div className={classNames(scss.recentitemdiv)}>
-          <div className={classNames(scss.recentitemdate)}>3月2日 12:00－14:00</div>
-          <div className={classNames(scss.recentitemtitle)}>OFFICE UPDATE</div>
-        </div>
-        <div className={classNames(scss.recentitemdiv)}>
-          <div className={classNames(scss.recentitemdate)}>3月4日 9:00－17:00</div>
-          <div className={classNames(scss.recentitemtitle)}>设计思维工作坊</div>
-        </div>
-        <div className={classNames(scss.recentitemdiv, scss.recentitemactive)}>
-          <div className={classNames(scss.recentitemdate)}>3月7日 9:00－3月8日 17:00</div>
-          <div className={classNames(scss.recentitemtitle)}>三月八日放假通知</div>
-        </div>
-        <div className={classNames(scss.recentitemdiv)}>
-          <div className={classNames(scss.recentitemdate)}>3月12日 9:00－17:00</div>
-          <div className={classNames(scss.recentitemtitle)}>BATTT培训第4期</div>
-        </div>
-        <div className={classNames(scss.recentitemdiv)}>
-          <div className={classNames(scss.recentitemdate)}>3月16日 9:00－17:00</div>
-          <div className={classNames(scss.recentitemtitle)}>TW技术分享大会</div>
-        </div>
-        <div className={classNames(scss.recentitemdiv)}>
-          <div className={classNames(scss.recentitemdate)}>3月22日 12:00－13:30</div>
-          <div className={classNames(scss.recentitemtitle)}>摄影 session 分享</div>
-        </div>
-      </div>
-    </div>
+  constructor(props) {
+    super(props);
+    this.defaultActivity = {
+      name: "",
+      startTime: new Date(),
+      endTime: new Date(),
+      sponsor: "",
+      guest: "",
+      type: "SESSION",
+      location: "",
+      description: "",
+      imageURL: "style1"
+    };
+    this.activity = this.defaultActivity;
+    this.preActivity = this.defaultActivity;
 
-    <div className={classNames(scss.detaildiv)}>
-      <div className={classNames(scss.typediv)}>
-        <img src={gift} className={classNames(scss.typeicon)} /><span className={classNames(scss.typetext)}>活动</span>
-      </div>
-      <div className={classNames(scss.datediv)}>
-        <span className={classNames(scss.datetext)}>3月4日 9:00 - 17:00</span>
-      </div>
-      <div className={classNames(scss.titlediv)}>
-        <span className={classNames(scss.titletext)}>Thoughtworks Android Session技术大会</span>
-      </div>
-      <div className={classNames(scss.locationdiv)}>
-        <span className={classNames(scss.locationdivtext)}>武汉 武当山会议室</span>
-      </div>
-      <div className={classNames(scss.ownerdiv)}>
-        <span>主办方:</span>
-        <span>谢威 QA community</span>
-        /
-        <span>活动嘉宾:</span>
-        <span>万学凡</span>
-      </div>
-      <div className={classNames(scss.describediv)}>
-        面对充满负责和不确定的商业环境，只依靠经验，运用左脑思维方式解决问题是远远不够的，小伙伴赶紧报名来参加吧，机会难得哦~
-      </div>
-    </div>
+    this.screens = ["firstDetail", "secondDetail", "thirdDetail"];
+    this.current = 0;
+  }
 
-  </div>;
+  onChange(activiy, preActivity) {
+    if (preActivity == undefined) {
+      preActivity = this.defaultActivity;
+    }
+    this.activity = activiy;
+    this.preActivity = preActivity;
+    this.setState({time: new Date()});
+  }
+
+  componentDidMount() {
+    this.inturnShowDetail();
+  }
+
+  inturnShowDetail(dealwithTopMethod) {
+
+    --this.current;
+    if(this.current < 0) {
+      this.current = this.screens.length - 1;
+    }
+
+    const el = findDOMNode(this);
+    var windowHeight = el.clientHeight;
+
+    var outScreenName = this.screens[(this.current + 2) % this.screens.length];
+    var $outerScreen = $("[name='detailScreen'] [data-additionflag='" + outScreenName + "']");
+    $outerScreen.css("top", windowHeight);
+    $outerScreen.css("bottom", -windowHeight);
+
+    if(dealwithTopMethod != undefined) {
+      dealwithTopMethod.call(this, $outerScreen);
+    }
+
+
+    var preScreenName = this.screens[(this.current + 1) % this.screens.length];
+    var $preScreen = $("[name='detailScreen'] [data-additionflag='" + preScreenName + "']");
+    $preScreen.css("top", -windowHeight);
+    $preScreen.css("bottom", windowHeight);
+
+    var currentScreenName = this.screens[(this.current) % this.screens.length];
+    var $currentScreen = $("[name='detailScreen'] [data-additionflag='" + currentScreenName + "']");
+    $currentScreen.css("top", 0);
+    $currentScreen.css("bottom", 0);
+  }
+
+  componentDidUpdate() {
+    this.inturnShowDetail(function($outerScreen){
+      $outerScreen.css("display", "none");
+      setTimeout(function () {
+        $outerScreen.css("display", "");
+      }, 1300);
+    });
+  }
+
+  render() {
+    var first = this.activity, second = this.activity, third = this.activity;
+    switch (this.current) {
+      case 0:
+        first = this.preActivity;
+        third = this.activity;
+        break;
+      case 1:
+        second = this.preActivity;
+        first = this.activity;
+        break;
+      case 2:
+        third = this.preActivity;
+        second = this.activity;
+        break;
+      default:
+        ;
+    }
+    return (
+      <div className={classNames(scss.screen)}>
+        <div name="detailScreen">
+          <DetailComponent activity={third} addition={this.screens[2]}/>
+          <DetailComponent activity={second} addition={this.screens[1]}/>
+          <DetailComponent activity={first} addition={this.screens[0]}/>
+        </div>
+        <RecentComponent change={this.onChange.bind(this)} />
+      </div>
+    );
+  }
+}
 
 export default ScreenComponent;
