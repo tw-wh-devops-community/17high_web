@@ -90,13 +90,11 @@ jacocoTestReport {
 	reports {
 		html.enabled = true
 	}
-}.dependsOn jacocoTestCoverageVerification
+}
 
 task startMysql(type: Exec) {
 	commandLine './startMysql.sh'
 }
-
-test.finalizedBy jacocoTestReport
 
 bootRun {
 	environment 'MYSQL_HOST', '127.0.0.1'
