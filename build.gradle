@@ -1,3 +1,5 @@
+import groovy.sql.Sql
+
 buildscript {
 	ext {
 		springBootVersion = '1.5.1.RELEASE'
@@ -103,6 +105,26 @@ def getLocalMysqlHost() {
 	return [ 'sh', '-c', 'docker-machine ssh mysql \'ifconfig eth1 | grep "inet addr:" | cut -d: -f2 | cut -d" " -f1\'' ].execute().text.trim()
 }
 
+task cleanDB << {
+	println 'Clean Database......'
+	URLClassLoader loader = GroovyObject.class.classLoader
+
+	configurations.runtime.each { File file ->
+		loader.addURL(file.toURL())
+	}
+	def mysqlIp = getLocalMysqlHost()
+	def url = "jdbc:mysql://" + mysqlIp;
+	def username = "root"
+	def password = "5ecret"
+	def driver = "com.mysql.jdbc.Driver"
+
+	def sql = Sql.newInstance(url, username, password, driver)
+	sql.execute("DROP DATABASE IF EXISTS 17high")
+	sql.execute("CREATE DATABASE 17high CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'")
+	sql.close()
+}
+
+
 bootRun {
 	environment 'MYSQL_HOST', getLocalMysqlHost()
 	environment 'MYSQL_PORT', '3306'
@@ -118,7 +140,7 @@ test {
 	environment 'MYSQL_PASSWORD', '17high'
 	environment 'MYSQL_DATABASE', '17high'
 }
-
-bootRun.dependsOn startMysql
+cleanDB.mustRunAfter(startMysql)
+bootRun.dependsOn cleanDB, startMysql
 
 test.dependsOn startMysql

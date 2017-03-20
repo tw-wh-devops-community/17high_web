@@ -8,39 +8,63 @@ html body {
 }
 
 .screen {
-  width: 1920px;
-  height: 1080px;
-  background-image: url('./style1.jpg');
-  -moz-background-size: 1920px 1080px; /* 老版本的 Firefox */
-  background-size: 1920px 1080px;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   position: absolute;
+  right: 0px;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+
+.style1 {
+  background-image: url('./image/background1.jpg');
+}
+.style2 {
+  background-image: url('./image/background2.jpg');
+}
+.style3 {
+  background-image: url('./image/background3.jpg');
+}
+.style4 {
+  background-image: url('./image/background4.jpg');
+}
+.style5 {
+  background-image: url('./image/background5.jpg');
+}
+.style6 {
+  background-image: url('./image/background6.jpg');
 }
 
 .detaildiv {
-  padding: 0px 115px 0px 108px;
-  width: 1420px;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  -webkit-transition: all 1s ease-in;
+  -moz-transition: all 1s ease-in;
+  -o-transition: all 1s ease-in;
+  transition: all 1s ease-in;
+  overflow: hidden;
 }
 
 .typediv {
-  width: 300px;
-  height: 110px;
+  width: 15.6%;
+  height: 10.2%;
   background-color: rgba(0, 0, 0, 0.4);
-  margin-top: 94px;
-  padding: 30px 0 30px 0;
+  margin-top: 4.89%;
   position: relative;
-  left: -108px;
 }
 
 .typeicon {
-  width: 50px;
-  height: 50px;
-  margin-left: 76px;
+  width: 16.66%;
+  height: 45.45%;
+  top: 25%;
+  position: relative;
+  left: 35%;
 }
 
 .typetext {
-  width: 80px;
-  height: 56px;
   font-family: PingFangSC;
   font-size: 40px;
   font-weight: 500;
@@ -49,14 +73,18 @@ html body {
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
-  margin-left: 17px;
-  vertical-align: bottom;
+  display: inline-block;
+  position: relative;
+  top: 17%;
+  left: 40%;
 }
 
 .datediv {
-  height: 69px;
+  width: 62.2%;
+  height: 6.5%;
   font-family: FZLTTHB-B51-0;
-  margin-top: 105px;
+  margin-top: 5.46%;
+  margin-left: 5.6%;
 }
 
 .datetext {
@@ -71,8 +99,10 @@ html body {
 }
 
 .titlediv {
-  height: 277px;
-  margin-top: 105px;
+  width: 62.2%;
+  height: 25.6%;
+  margin-top: 0.88%;
+  margin-left: 5.6%;
 }
 
 .titletext {
@@ -87,7 +117,8 @@ html body {
 }
 
 .locationdiv {
-  height: 57px;
+  width: 62.2%;
+  height: 5.3%;
   font-family: FZLTZHB-B51-0;
   font-size: 40px;
   font-weight: normal;
@@ -96,7 +127,8 @@ html body {
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
-  margin-top: 17px;
+  margin-top: 0.677%;
+  margin-left: 5.6%;
 }
 
 .locationdivtext {
@@ -105,7 +137,7 @@ html body {
 }
 
 .ownerdiv {
-  height: 57px;
+  height: 5.3%;
   font-family: FZLTZHB-B51-0;
   font-size: 40px;
   font-weight: normal;
@@ -114,7 +146,8 @@ html body {
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
-  margin-top: 6px;
+  margin-top: 0.31%;
+  margin-left: 5.6%;
 }
 
 .ownertext {
@@ -123,6 +156,7 @@ html body {
 }
 
 .describediv {
+  width: 62.2%;
   height: 102px;
   font-family: FZLTXHB-B51-0;
   font-size: 36px;
@@ -132,21 +166,21 @@ html body {
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
-  margin-top: 63px;
+  margin-top: 3.28%;
+  margin-left: 5.6%;
 }
 
 .recentdiv {
-  width: 500px;
-  height: 1080px;
+  width: 26%;
   opacity: 0.7;
   background-color: #000000;
-  padding-left: 61px;
   position: absolute;
   right: 0px;
+  top: 0px;
+  bottom: 0px;
 }
 
 .recenttext {
-  width: 200px;
   height: 70px;
   font-family: PingFangSC;
   font-size: 50px;
@@ -156,16 +190,21 @@ html body {
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
-  margin-top:77px;
+  margin-top:15.4%;
+  margin-left: 12.2%
 }
 .recentlistdiv{
-  margin-top:50px;
+  margin-top:10%;
+  margin-left: 12.2%;
+  height: 100%;
 }
 .recentitemdiv{
-  height: 140px;
+  height: 13%;
+  color: #838283;
 }
 .recentitemactive{
   background-color: #000000;
+  color: #ffffff;
 }
 .recentitemdate{
   height: 36px;
@@ -176,7 +215,8 @@ html body {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #ffffff;
+  position: relative;
+  top: 19.3%;
 }
 .recentitemtitle{
   height: 37px;
@@ -187,5 +227,11 @@ html body {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #ffffff;
+  position: relative;
+  top: 33%;
+}
+
+.hideinfo{
+  display: none;
+  visibility: hidden;
 }

@@ -4,10 +4,13 @@ import com.tw.wh.devops.domains.Activity;
 import com.tw.wh.devops.repository.ActivityRepository;
 import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -23,16 +26,17 @@ public class ActivitiesController {
 
 
     @RequestMapping(method = GET)
-    public Iterable getActivities(@RequestParam(defaultValue = "${17high.page.size}") int size,
+    public Iterator getActivities(@RequestParam(defaultValue = "${17high.page.size}") int size,
                                   @RequestParam(defaultValue = "${17high.page.number}") int page,
                                   @RequestParam(required = false, defaultValue = "") String type,
                                   @RequestParam(required = false, defaultValue = "") String status,
                                   @RequestParam(required = false, defaultValue = "") String sort,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-
-        Iterable<Activity> activities = activityRepository.findAll();
-        return activities;
+        PageRequest pageRequest = new PageRequest(page, size);
+        Page<Activity> all = activityRepository.findAll(pageRequest);
+        Iterator<Activity> iterator = all.getContent().iterator();
+        return iterator;
     }
 
     @RequestMapping(path = "/{id}", method = GET)
@@ -53,14 +57,14 @@ public class ActivitiesController {
     public Activity addActivity(@RequestBody Activity activity) {
 
         Activity tempActivity = new Activity();
-        tempActivity.setEventName(activity.getEventName());
+        tempActivity.setName(activity.getName());
         tempActivity.setStartTime(activity.getStartTime());
         tempActivity.setEndTime(activity.getEndTime());
-        tempActivity.setEventDescription(activity.getEventDescription());
-        tempActivity.setEventOrganizer(activity.getEventOrganizer());
-        tempActivity.setEventGuest(activity.getEventGuest());
-        tempActivity.setEventType(activity.getEventType());
-        tempActivity.setTemplateId(activity.getTemplateId());
+        tempActivity.setDescription(activity.getDescription());
+        tempActivity.setSponsor(activity.getSponsor());
+        tempActivity.setGuest(activity.getGuest());
+        tempActivity.setType(activity.getType());
+        tempActivity.setImageURL(activity.getImageURL());
 
         return activityRepository.save(tempActivity);
 

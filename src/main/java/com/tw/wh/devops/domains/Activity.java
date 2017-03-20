@@ -11,17 +11,24 @@ public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String eventName;
-    private String eventLocation;
-    private String eventOrganizer;
-    private String eventGuest;
-    private String eventDescription;
-    private String templateId;
-    private String eventType;
-  //  @JsonFormat(pattern = "yyyy-MM-dd")
-    private String startTime;
-  //  @JsonFormat(pattern = "yyyy-MM-dd")
-    private String endTime;
+
+    private String name;
+
+    private String sponsor;
+
+    private String guest;
+
+    private String imageURL;
+    private String status;
+    private String location;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date endTime;
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    private ActivityType type;
 
     public Activity() {
     }
@@ -34,77 +41,83 @@ public class Activity {
         this.id = id;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getName() {
+        return name;
     }
 
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEventLocation() {
-        return eventLocation;
+    public String getSponsor() {
+        return sponsor;
     }
 
-    public void setEventLocation(String eventLocation) {
-        this.eventLocation = eventLocation;
+    public void setSponsor(String sponsor) {
+        this.sponsor = sponsor;
     }
 
-    public String getEventOrganizer() {
-        return eventOrganizer;
+    public String getGuest() {
+        return guest;
     }
 
-    public void setEventOrganizer(String eventOrganizer) {
-        this.eventOrganizer = eventOrganizer;
+    public void setGuest(String guest) {
+        this.guest = guest;
     }
 
-    public String getEventGuest() {
-        return eventGuest;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setEventGuest(String eventGuest) {
-        this.eventGuest = eventGuest;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
-    public String getEventDescription() {
-        return eventDescription;
+    public String getStatus() {
+        return status;
     }
 
-    public void setEventDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getTemplateId() {
-        return templateId;
+    public String getLocation() {
+        return location;
     }
 
-    public void setTemplateId(String templateId) {
-        this.templateId = templateId;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
-
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ActivityType getType() {
+        return type;
+    }
+
+    public void setType(ActivityType type) {
+        this.type = type;
+    }
 }
