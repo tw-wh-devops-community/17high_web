@@ -1,7 +1,7 @@
 package com.tw.wh.devops.rest.controller;
 
 import com.tw.wh.devops.domains.Activity;
-import com.tw.wh.devops.repository.ActivityRepository;
+import com.tw.wh.devops.repositories.ActivityRepository;
 import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
