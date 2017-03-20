@@ -1,7 +1,7 @@
 package com.tw.wh.devops.rest.controller;
 
 import com.tw.wh.devops.domains.Activity;
-import com.tw.wh.devops.repositories.ActivityRepository;
+import com.tw.wh.devops.repository.ActivityRepository;
 import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,10 +44,10 @@ public class ActivitiesController {
         return activity;
     }
 
-    @SuppressWarnings("unused")
-    public void setActivityRepository(ActivityRepository activityRepository) {
-        this.activityRepository = activityRepository;
-    }
+//    @SuppressWarnings("unused")
+//    public void setActivityRepository(ActivityRepository activityRepository) {
+//        this.activityRepository = activityRepository;
+//    }
 
     @PostMapping
     public Activity addActivity(@RequestBody Activity activity) {
