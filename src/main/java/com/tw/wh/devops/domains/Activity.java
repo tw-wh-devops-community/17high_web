@@ -1,48 +1,29 @@
 package com.tw.wh.devops.domains;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-/**
- * Created by xjzhou on 2/13/17.
- */
 @Entity
-public class Activity implements Serializable {
+public class Activity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private String eventName;
+    private String eventLocation;
+    private String eventOrganizer;
+    private String eventGuest;
+    private String eventDescription;
+    private String templateId;
+    private String eventType;
+  //  @JsonFormat(pattern = "yyyy-MM-dd")
+    private String startTime;
+  //  @JsonFormat(pattern = "yyyy-MM-dd")
+    private String endTime;
 
-    @ManyToOne
-    @JoinColumn(name="SPONSOR_ID")
-    private User sponsor;
-    private String imageURL;
-    private String status;
-    private String location;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date endTime;
-    private String shortDescription;
-    private String longDescription;
-
-    @JsonIgnore
-    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY)
-    private List<User> participants = new ArrayList<>();
-
-
-    public List<User> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
+    public Activity() {
     }
 
     public Long getId() {
@@ -53,75 +34,77 @@ public class Activity implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public User getSponsor() {
-        return sponsor;
+    public String getEventLocation() {
+        return eventLocation;
     }
 
-    public void setSponsor(User sponsor) {
-        this.sponsor = sponsor;
+    public void setEventLocation(String eventLocation) {
+        this.eventLocation = eventLocation;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getEventOrganizer() {
+        return eventOrganizer;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setEventOrganizer(String eventOrganizer) {
+        this.eventOrganizer = eventOrganizer;
     }
 
-    public String getStatus() {
-        return status;
+    public String getEventGuest() {
+        return eventGuest;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setEventGuest(String eventGuest) {
+        this.eventGuest = eventGuest;
     }
 
-    public String getLocation() {
-        return location;
+    public String getEventDescription() {
+        return eventDescription;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
 
-    public Date getStartTime() {
+    public String getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getLongDescription() {
-        return longDescription;
-    }
-
-    public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
-    }
 }
