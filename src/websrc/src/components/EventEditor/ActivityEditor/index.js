@@ -1,6 +1,7 @@
 import React from 'react';
 import TemplateSelector from '../TemplateSelector';
 import $ from 'jquery';
+
 var DatePicker = require('react-datetime');
 
 class ActivityEditor extends React.Component {
@@ -9,7 +10,7 @@ class ActivityEditor extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      selectedTemplateId: 0,
+      selectedTemplateId: 0
     };
   }
 
@@ -26,8 +27,7 @@ class ActivityEditor extends React.Component {
       <form className='formContainer' onSubmit={this.handleSubmit.bind(this)}>
         <div className='inputBlock'>
           {this.getInputName('活动名称', true)}
-          <div><input name="name" className='newsNameInput'
-                      type="text" placeholder="请输入活动名称,15个字内"/></div>
+          <div><input name="name" className='newsNameInput' type="text" placeholder="请输入活动名称,15个字内"/></div>
         </div>
         <div className='inputBlock'>
           {this.getInputName('活动时间', true)}
@@ -104,21 +104,31 @@ class ActivityEditor extends React.Component {
     console.log('selectedTemplateId ' + selectedTemplateId);
     console.log('type ' + type);
 
-    $.post('http://localhost:8080/v1/activities',
-      {
-        eventName: eventName,
-        startTime: startTime,
-        endTime: endTime,
-        organizer: organizer,
-        guest: guest,
-        description: description,
-        selectedTem: selectedTemplateId,
-        type: type
+    $.ajax({
+      url: 'http://127.0.0.1:8080/v1/activities',
+      type: 'post',
+      xhrFields: { withCredentials: true },
+      data: {
+        name: "Friday Drink",
+        startTime: "2017-03-17 14:23:01",
+        endTime: "2017-03-17 17:00:01",
+        sponsor: "Yuzirui",
+        guest: "Wuhan",
+        description: "都来参加22222",
+        location: "wudangshan",
+        imageURL: "http://kkkk.com",
       },
-      function (data, status) {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      success: function (data) {
         console.log(data);
+      },
+      error: function(xhr, status, err) {
+        console.error("here", status, err.toString());
       }
-    );
+    });
 
   }
 

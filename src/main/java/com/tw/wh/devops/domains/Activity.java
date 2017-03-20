@@ -120,4 +120,21 @@ public class Activity {
     public void setType(ActivityType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sponsor='" + sponsor + '\'' +
+                ", guest='" + guest + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", status='" + status + '\'' +
+                ", location='" + location + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

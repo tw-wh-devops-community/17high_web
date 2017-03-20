@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by xjzhou on 2/15/17.
@@ -53,9 +54,9 @@ public class ActivitiesController {
 //        this.activityRepository = activityRepository;
 //    }
 
-    @PostMapping
+    @RequestMapping(method = POST)
     public Activity addActivity(@RequestBody Activity activity) {
-
+        System.out.println("we are here");
         Activity tempActivity = new Activity();
         tempActivity.setName(activity.getName());
         tempActivity.setStartTime(activity.getStartTime());
@@ -65,7 +66,6 @@ public class ActivitiesController {
         tempActivity.setGuest(activity.getGuest());
         tempActivity.setType(activity.getType());
         tempActivity.setImageURL(activity.getImageURL());
-
         return activityRepository.save(tempActivity);
 
     }

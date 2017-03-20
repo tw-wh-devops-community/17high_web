@@ -1,5 +1,7 @@
 .contentContainer {
   background-color: #fafafa;
+  overflow: scroll
+
 }
 
 .content {
@@ -8,6 +10,7 @@
   padding-top: 35px;
   margin: auto;
   background-color: #ffffff;
+  overflow: scroll
 }
 
 .activityEditor {
