@@ -4,8 +4,6 @@ import Nav from './PublishmentNavigator'
 import ActivityEditor from './ActivityEditor'
 import NewsEditor from './NewsEditor'
 
-import Webshim from 'webshim';
-
 import '../css/react-datetime.css'
 const COLUMN_NUMBER = 3;
 
@@ -19,7 +17,6 @@ export default class PublishActivity extends React.Component {
       selectedTab: 0,
       selectedEditor: editors[0]
     };
-    Webshim.polyfill();
   }
 
   render() {
