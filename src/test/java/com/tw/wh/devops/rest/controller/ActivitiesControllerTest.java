@@ -36,7 +36,7 @@ public class ActivitiesControllerTest {
         mockMvc.perform(get("/v1/activities/1").contentType(APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.code", is("404")))
-                .andExpect(jsonPath("$.message", is("Activity can not be found.")));
+                .andExpect(jsonPath("$.message", is("Activities can not be found.")));
 
     }
 

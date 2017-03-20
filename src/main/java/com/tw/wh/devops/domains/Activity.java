@@ -3,17 +3,15 @@ package com.tw.wh.devops.domains;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by xjzhou on 2/13/17.
- */
 @Entity
-public class Activity implements Serializable {
+public class Activity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
 
     private String sponsor;
@@ -32,6 +30,9 @@ public class Activity implements Serializable {
     @Enumerated(EnumType.STRING)
     private ActivityType type;
 
+    public Activity() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -46,6 +47,22 @@ public class Activity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(String sponsor) {
+        this.sponsor = sponsor;
+    }
+
+    public String getGuest() {
+        return guest;
+    }
+
+    public void setGuest(String guest) {
+        this.guest = guest;
     }
 
     public String getImageURL() {
@@ -94,22 +111,6 @@ public class Activity implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getSponsor() {
-        return sponsor;
-    }
-
-    public void setSponsor(String sponsor) {
-        this.sponsor = sponsor;
-    }
-
-    public String getGuest() {
-        return guest;
-    }
-
-    public void setGuest(String guest) {
-        this.guest = guest;
     }
 
     public ActivityType getType() {

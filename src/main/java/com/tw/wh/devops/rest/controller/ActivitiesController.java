@@ -1,7 +1,6 @@
 package com.tw.wh.devops.rest.controller;
 
 import com.tw.wh.devops.domains.Activity;
-import com.tw.wh.devops.domains.NewActivity;
 import com.tw.wh.devops.repositories.ActivityRepository;
 import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by xjzhou on 2/15/17.
@@ -25,6 +23,7 @@ public class ActivitiesController {
 
     @Autowired
     private ActivityRepository activityRepository;
+
 
     @RequestMapping(method = GET)
     public Iterator getActivities(@RequestParam(defaultValue = "${17high.page.size}") int size,
@@ -44,19 +43,31 @@ public class ActivitiesController {
     public @ResponseBody Activity getActivity(@PathVariable(value = "id") long id) {
         Activity activity = activityRepository.findOne(id);
         if (null == activity) {
-            throw new ResourceNotFoundException("Activity can not be found.");
+            throw new ResourceNotFoundException("Activities can not be found.");
         }
         return activity;
     }
 
-    @SuppressWarnings("unused")
-    public void setActivityRepository(ActivityRepository activityRepository) {
-        this.activityRepository = activityRepository;
+//    @SuppressWarnings("unused")
+//    public void setActivityRepository(ActivityRepository activityRepository) {
+//        this.activityRepository = activityRepository;
+//    }
+
+    @PostMapping
+    public Activity addActivity(@RequestBody Activity activity) {
+
+        Activity tempActivity = new Activity();
+        tempActivity.setName(activity.getName());
+        tempActivity.setStartTime(activity.getStartTime());
+        tempActivity.setEndTime(activity.getEndTime());
+        tempActivity.setDescription(activity.getDescription());
+        tempActivity.setSponsor(activity.getSponsor());
+        tempActivity.setGuest(activity.getGuest());
+        tempActivity.setType(activity.getType());
+        tempActivity.setImageURL(activity.getImageURL());
+
+        return activityRepository.save(tempActivity);
+
     }
 
-    @RequestMapping(method = POST)
-    public Activity addActivity(NewActivity activity) {
-        System.out.println("request " + activity.toString());
-        return null;
-    }
 }

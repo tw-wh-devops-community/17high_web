@@ -13,7 +13,7 @@ public class ActivitiesWebController {
 
     @GetMapping("/activity")
     public String addActivities(Model model) {
-        model.addAttribute("title", "Add a new Activity");
+        model.addAttribute("title", "Add a new Activities");
         return "addActivityForm";
     }
 }
