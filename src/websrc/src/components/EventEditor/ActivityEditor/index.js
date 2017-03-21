@@ -95,17 +95,8 @@ class ActivityEditor extends React.Component {
     let selectedTemplateId = this.state.selectedTemplateId;
     let type = 'activity';
 
-    console.log('eventName ' + eventName);
-    console.log('startTime ' + startTime);
-    console.log('endTime ' + endTime);
-    console.log('organizer ' + organizer);
-    console.log('guest ' + guest);
-    console.log('description ' + description);
-    console.log('selectedTemplateId ' + selectedTemplateId);
-    console.log('type ' + type);
-
     $.ajax({
-      url: 'http://127.0.0.1:8080/v1/activities',
+      url: 'http://localhost:8080/v1/activities',
       type: 'post',
       xhrFields: { withCredentials: true },
       data: JSON.stringify({
@@ -118,6 +109,7 @@ class ActivityEditor extends React.Component {
         location: location,
         imageURL: selectedTemplateId,
       }),
+      dataType:'json',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -125,7 +117,7 @@ class ActivityEditor extends React.Component {
         console.log(data);
       },
       error: function(xhr, status, err) {
-        console.error("here", status, err.toString());
+        console.error("error", status, err.toString());
       }
     });
 
