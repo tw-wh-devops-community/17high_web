@@ -1,7 +1,6 @@
 package com.tw.wh.devops.rest.controller;
 
 import com.tw.wh.devops.domains.Activity;
-import com.tw.wh.devops.domains.NewActivity;
 import com.tw.wh.devops.repositories.ActivityRepository;
 import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +55,12 @@ public class ActivitiesController {
 //    }
 
     @RequestMapping(method = POST)
-    public Activity addActivity(NewActivity activity) {
+    public Activity addActivity(@RequestBody Activity activity) {
         System.out.println("we are here");
         Activity tempActivity = new Activity();
         tempActivity.setName(activity.getName());
-//        tempActivity.setStartTime(activity.getStartTime());
-//        tempActivity.setEndTime(activity.getEndTime());
+        tempActivity.setStartTime(activity.getStartTime());
+        tempActivity.setEndTime(activity.getEndTime());
         tempActivity.setDescription(activity.getDescription());
         tempActivity.setSponsor(activity.getSponsor());
         tempActivity.setGuest(activity.getGuest());
