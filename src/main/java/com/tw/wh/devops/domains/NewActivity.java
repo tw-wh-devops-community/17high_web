@@ -1,26 +1,83 @@
 package com.tw.wh.devops.domains;
 
-/**
- * Created by genli on 3/17/17.
- */
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.util.Date;
+
 public class NewActivity {
-    String eventName;
-    String startTime;
-    String endTime;
 
-    String location;
-    String organizer;
-    String guest;
-    String description;
-    String selectedTemplateId;
-    String type;
+    private Long id;
 
-    public String getEventName() {
-        return eventName;
+    private String name;
+
+    private String sponsor;
+
+    private String guest;
+
+    private String imageURL;
+    private String status;
+    private String location;
+    private String startTime;
+    private String endTime;
+    private String description;
+
+    private ActivityType type;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(String sponsor) {
+        this.sponsor = sponsor;
+    }
+
+    public String getGuest() {
+        return guest;
+    }
+
+    public void setGuest(String guest) {
+        this.guest = guest;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getStartTime() {
@@ -39,30 +96,6 @@ public class NewActivity {
         this.endTime = endTime;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getOrganizer() {
-        return organizer;
-    }
-
-    public void setOrganizer(String organizer) {
-        this.organizer = organizer;
-    }
-
-    public String getGuest() {
-        return guest;
-    }
-
-    public void setGuest(String guest) {
-        this.guest = guest;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -71,34 +104,28 @@ public class NewActivity {
         this.description = description;
     }
 
-    public String getSelectedTemplateId() {
-        return selectedTemplateId;
-    }
-
-    public void setSelectedTemplateId(String selectedTemplateId) {
-        this.selectedTemplateId = selectedTemplateId;
-    }
-
-    public String getType() {
+    public ActivityType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ActivityType type) {
         this.type = type;
     }
 
     @Override
     public String toString() {
-        return "NewActivity{" +
-                "eventName='" + eventName + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", location='" + location + '\'' +
-                ", organizer='" + organizer + '\'' +
+        return "Activity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sponsor='" + sponsor + '\'' +
                 ", guest='" + guest + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", status='" + status + '\'' +
+                ", location='" + location + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
                 ", description='" + description + '\'' +
-                ", selectedTemplateId='" + selectedTemplateId + '\'' +
-                ", type='" + type + '\'' +
+                ", type=" + type +
                 '}';
     }
 }

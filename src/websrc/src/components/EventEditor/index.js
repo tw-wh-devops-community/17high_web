@@ -21,7 +21,7 @@ export default class PublishActivity extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="pageContainer">
         <Header/>
         <div className='contentContainer'>
           <div className="content">

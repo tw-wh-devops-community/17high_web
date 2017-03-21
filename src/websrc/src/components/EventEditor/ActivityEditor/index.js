@@ -32,15 +32,15 @@ class ActivityEditor extends React.Component {
         <div className='inputBlock'>
           {this.getInputName('活动时间', true)}
           <div className="timeBlock">
-            <DatePicker inputProps={{name: 'startDay'}} className='newsTimeDay'
+            <DatePicker inputProps={{name: 'startDay',readOnly:'readonly'}} className='newsTimeDay'
                         viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}/>
-            <DatePicker inputProps={{name: 'startHour'}} className='newsTimeHour'
-                        viewMode="time" dateFormat={false}/>
+            <DatePicker inputProps={{name: 'startHour',readOnly:'readonly'}} className='newsTimeHour'
+                        viewMode="time" dateFormat={false} timeFormat="HH:mm"/>
             <div className='timeDivider'>-</div>
-            <DatePicker inputProps={{name: 'endDay'}} className='newsTimeDay'
+            <DatePicker inputProps={{name: 'endDay',readOnly:'readonly'}} className='newsTimeDay'
                         viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}/>
-            <DatePicker inputProps={{name: 'endHour'}} className='newsTimeHour'
-                        viewMode="time" dateFormat={false}/>
+            <DatePicker inputProps={{name: 'endHour',readOnly:'readonly'}} className='newsTimeHour'
+                        viewMode="time" dateFormat={false} timeFormat="HH:mm"/>
           </div>
         </div>
         <div className="inputBlock">
@@ -104,11 +104,8 @@ class ActivityEditor extends React.Component {
     console.log('selectedTemplateId ' + selectedTemplateId);
     console.log('type ' + type);
 
-    $.ajax({
-      url: 'http://127.0.0.1:8080/v1/activities',
-      type: 'post',
-      xhrFields: { withCredentials: true },
-      data: {
+    $.post('http://localhost:8080/v1/activities',
+      {
         name: "Friday Drink",
         startTime: "2017-03-17 14:23:01",
         endTime: "2017-03-17 17:00:01",
@@ -116,19 +113,12 @@ class ActivityEditor extends React.Component {
         guest: "Wuhan",
         description: "都来参加22222",
         location: "wudangshan",
-        imageURL: "http://kkkk.com",
+        imageURL: "http://kkkk.com"
       },
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      success: function (data) {
+      function (data, status) {
         console.log(data);
-      },
-      error: function(xhr, status, err) {
-        console.error("here", status, err.toString());
       }
-    });
+    );
 
   }
 
