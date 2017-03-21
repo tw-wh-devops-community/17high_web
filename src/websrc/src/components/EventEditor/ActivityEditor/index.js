@@ -1,7 +1,7 @@
 import React from 'react';
 import TemplateSelector from '../TemplateSelector';
 import $ from 'jquery';
-
+import Validation from 'jquery-validation'
 var DatePicker = require('react-datetime');
 
 class ActivityEditor extends React.Component {
@@ -24,32 +24,34 @@ class ActivityEditor extends React.Component {
 
   getForm() {
     return (
-      <form className='formContainer' onSubmit={this.handleSubmit.bind(this)}>
+      <form id="editorForm" className='formContainer' onSubmit={this.handleSubmit.bind(this)}>
         <div className='inputBlock'>
           {this.getInputName('活动名称', true)}
-          <div><input name="name" className='newsNameInput' type="text" placeholder="请输入活动名称,15个字内"/></div>
+          <div><input name="name" className='newsNameInput' type="text"
+                      placeholder="请输入活动名称,15个字内"
+                      required maxLength="15"/></div>
         </div>
         <div className='inputBlock'>
           {this.getInputName('活动时间', true)}
           <div className="timeBlock">
-            <DatePicker inputProps={{name: 'startDay',readOnly:'readonly'}} className='newsTimeDay'
+            <DatePicker inputProps={{name: 'startDay', readOnly: 'readonly'}} className='newsTimeDay'
                         viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}/>
-            <DatePicker inputProps={{name: 'startHour',readOnly:'readonly'}} className='newsTimeHour'
+            <DatePicker inputProps={{name: 'startHour', readOnly: 'readonly'}} className='newsTimeHour'
                         viewMode="time" dateFormat={false} timeFormat="HH:mm"/>
             <div className='timeDivider'>-</div>
-            <DatePicker inputProps={{name: 'endDay',readOnly:'readonly'}} className='newsTimeDay'
+            <DatePicker inputProps={{name: 'endDay', readOnly: 'readonly'}} className='newsTimeDay'
                         viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}/>
-            <DatePicker inputProps={{name: 'endHour',readOnly:'readonly'}} className='newsTimeHour'
+            <DatePicker inputProps={{name: 'endHour', readOnly: 'readonly'}} className='newsTimeHour'
                         viewMode="time" dateFormat={false} timeFormat="HH:mm"/>
           </div>
         </div>
         <div className="inputBlock">
           {this.getInputName('活动地点', true)}
-          <div><input name="location" className='newsNameInput' type="text"/></div>
+          <div><input name="location" className='newsNameInput' type="text" required/></div>
         </div>
         <div className="inputBlock">
           {this.getInputName('主办方', true)}
-          <div><input name="organizer" className='newsNameInput' type="text"/></div>
+          <div><input name="organizer" className='newsNameInput' type="text" required/></div>
         </div>
         <div className="inputBlock">
           {this.getInputName('活动嘉宾', false)}
@@ -57,7 +59,7 @@ class ActivityEditor extends React.Component {
         </div>
         <div className="inputBlock">
           {this.getInputName('活动描述', true)}
-          <div><textarea name="description" className='newsDescriptionInput' type="text"/></div>
+          <div><textarea name="description" className='newsDescriptionInput' type="text" required/></div>
         </div>
         <TemplateSelector onSelect={this.onTemplateSelect.bind(this)}/>
         <div className="newsSubmit">
@@ -79,6 +81,9 @@ class ActivityEditor extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    $('#editorForm').validate();
+
     let eventName = document.getElementsByName('name')[0].value;
 
     let startDay = document.getElementsByName('startDay')[0].value;
@@ -98,7 +103,7 @@ class ActivityEditor extends React.Component {
     $.ajax({
       url: 'http://localhost:8080/v1/activities',
       type: 'post',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       data: JSON.stringify({
         name: eventName,
         startTime: startTime,
@@ -109,14 +114,14 @@ class ActivityEditor extends React.Component {
         location: location,
         imageURL: selectedTemplateId,
       }),
-      dataType:'json',
+      dataType: 'json',
       headers: {
         'Content-Type': 'application/json'
       },
       success: function (data) {
         console.log(data);
       },
-      error: function(xhr, status, err) {
+      error: function (xhr, status, err) {
         console.error("error", status, err.toString());
       }
     });
