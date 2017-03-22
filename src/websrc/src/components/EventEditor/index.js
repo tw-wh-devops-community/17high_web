@@ -5,7 +5,7 @@ import ActivityEditor from './ActivityEditor'
 import NewsEditor from './NewsEditor'
 
 import '../css/react-datetime.css'
-const COLUMN_NUMBER = 3;
+import '../css/editor.css';
 
 const editors = [ActivityEditor, NewsEditor];
 
