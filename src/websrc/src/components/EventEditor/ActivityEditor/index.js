@@ -12,7 +12,6 @@ class ActivityEditor extends EditorBase {
           {this.getInputName('活动名称', true)}
           <div>
             <input name="name" className='newsNameInput' type="text"
-                   value='123123213'
                    placeholder="请输入活动名称,20个字内"
                    onBlur={() => {
                      this.validateElement("input[name='name']")
@@ -27,7 +26,6 @@ class ActivityEditor extends EditorBase {
           {this.getInputName('活动地点', true)}
           <div>
             <input name="location" className='newsNameInput' type="text"
-                   value='123123213'
                    placeholder="请输入活动地点，20个字内"
                    onBlur={() => {
                      this.validateElement("input[name='location']")
@@ -39,7 +37,6 @@ class ActivityEditor extends EditorBase {
           {this.getInputName('主办方', true)}
           <div>
             <input name="organizer" className='newsNameInput' type="text"
-                   value='123123213'
                    placeholder="请输入主办方，建议不超过10个字"
                    onBlur={() => {
                      this.validateElement("input[name='organizer']")
@@ -57,7 +54,6 @@ class ActivityEditor extends EditorBase {
           {this.getInputName('活动描述', true)}
           <div>
             <textarea name="description" className='newsDescriptionInput' type="text"
-                      value='123123213'
                       placeholder="请输入一句简短的宣传语吧，为了显示效果，建议不超过50字"
                       onBlur={() => {
                         this.validateElement("textarea[name='description']")
