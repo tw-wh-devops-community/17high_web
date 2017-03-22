@@ -8,12 +8,12 @@ class TemplateSelector extends React.Component {
     super(props);
     this.state = {
       templates: [
-        {id: 1, url: 'http://upload.art.ifeng.com/2015/0811/1439261016833.jpg'},
-        {id: 2, url: 'http://upload.art.ifeng.com/2015/0811/1439261016228.jpg'},
-        {id: 3, url: 'http://upload.art.ifeng.com/2015/0811/1439261016273.jpg'},
-        {id: 4, url: 'http://upload.art.ifeng.com/2015/0811/1439261016360.jpg'},
-        {id: 5, url: 'http://upload.art.ifeng.com/2015/0811/1439261016443.jpg'},
-        {id: 6, url: 'http://upload.art.ifeng.com/2015/0811/1439261016241.jpg'},
+        {id: 1, url: require('../../../image/temp_icon1.png')},
+        {id: 2, url: require('../../../image/temp_icon2.png')},
+        {id: 3, url: require('../../../image/temp_icon3.png')},
+        {id: 4, url: require('../../../image/temp_icon4.png')},
+        {id: 5, url: require('../../../image/temp_icon5.png')},
+        {id: 6, url: require('../../../image/temp_icon6.png')},
       ],
       selectedTemplate: 0
     }
