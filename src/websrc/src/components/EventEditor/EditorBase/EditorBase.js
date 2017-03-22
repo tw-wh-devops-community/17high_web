@@ -48,49 +48,7 @@ class EditorBase extends React.Component {
     if (!this.validateAllElements()) {
       return;
     }
-
-    let eventName = document.getElementsByName('name')[0].value;
-
-    let startDay = document.getElementsByName('startDay')[0].value;
-    let startHour = document.getElementsByName('startHour')[0].value;
-    let startTime = startDay + " " + startHour;
-    let endDay = document.getElementsByName('endDay')[0].value;
-    let endHour = document.getElementsByName('endHour')[0].value;
-    let endTime = endDay + " " + endHour;
-
-    let location = document.getElementsByName('location')[0].value;
-    let organizer = document.getElementsByName('organizer')[0].value;
-    let guest = document.getElementsByName('guest')[0].value;
-    let description = document.getElementsByName('description')[0].value;
-    let selectedTemplateId = this.state.selectedTemplateId;
-    let type = this.getEditorType();
-
-    $.ajax({
-      url: 'http://localhost:8080/v1/activities',
-      type: 'post',
-      xhrFields: {withCredentials: true},
-      data: JSON.stringify({
-        name: eventName,
-        startTime: startTime,
-        endTime: endTime,
-        sponsor: organizer,
-        guest: guest,
-        description: description,
-        location: location,
-        imageURL: selectedTemplateId,
-        type: type
-      }),
-      dataType: 'json',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      success: function (data) {
-        console.log(data);
-      },
-      error: function (xhr, status, err) {
-        console.error("error", status, err.toString());
-      }
-    });
+    this.onSubmit();
 
   }
 
@@ -137,16 +95,13 @@ class EditorBase extends React.Component {
 
 
   validateAllElements() {
-
     if (!this.validateElement("input[name='name']")) {
       this.formValidator.focusInvalid();
       return false;
     } else if (!this.validateTime()) {
       //not to focus,just change all time input border.
       return false;
-    } else if (!this.validateElement("input[name='location']")
-      || !this.validateElement("input[name='organizer']")
-      || !this.validateElement("textarea[name='description']")) {
+    } else if (!this.validateContent()) {
       this.formValidator.focusInvalid();
       return false;
     }
@@ -161,7 +116,7 @@ class EditorBase extends React.Component {
     return (
       <div className="timeBlock">
         <DatePicker inputProps={{name: 'startDay', readOnly: 'readonly'}} className='newsTimeDay'
-                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
+                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="2017-01-02" timeFormat={false}
                     isValidDate={(currentDate, selectedDate) => {
                       let now = Moment();
                       return currentDate.diff(now, 'days') >= 0;
@@ -171,14 +126,14 @@ class EditorBase extends React.Component {
                     }}
         />
         <DatePicker inputProps={{name: 'startHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="09:00"
                     onBlur={() => {
                       this.validateTime();
                     }}
         />
         <div className='timeDivider'>-</div>
         <DatePicker inputProps={{name: 'endDay', readOnly: 'readonly'}} className='newsTimeDay'
-                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
+                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="2017-01-03" timeFormat={false}
                     isValidDate={(currentDate, selectedDate) => {
                       let now = Moment();
                       return currentDate.diff(now, 'days') >= 0;
@@ -188,7 +143,7 @@ class EditorBase extends React.Component {
                     }}
         />
         <DatePicker inputProps={{name: 'endHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="09:00"
                     onBlur={() => {
                       this.validateTime();
                     }}
@@ -211,7 +166,10 @@ class EditorBase extends React.Component {
     return rt == 1;
   }
 
-  getValidHour() {
+  onSubmit() {
+  }
+
+  validateContent() {
 
   }
 }
