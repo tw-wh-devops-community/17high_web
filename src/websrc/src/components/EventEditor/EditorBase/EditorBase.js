@@ -2,6 +2,7 @@ import React from 'react';
 import TemplateSelector from '../TemplateSelector';
 import $ from 'jquery';
 import  'jquery-validation';
+import Moment from 'moment';
 var DatePicker = require('react-datetime');
 
 
@@ -13,11 +14,9 @@ class EditorBase extends React.Component {
       selectedTab: 0,
       selectedTemplateId: 0
     };
-    console.log('super con');
   }
 
   render() {
-    console.log('super render');
     return (
       <form noValidate="noValidate" id="editorForm" className='formContainer'>
         {this.onRenderContent()}
@@ -104,13 +103,28 @@ class EditorBase extends React.Component {
       return /^(([0-1]?[0-9])|([2][0-3])):([0-5]?[0-9])(:([0-5]?[0-9]))?$/.test(value);
     }, null);
 
+    $.validator.addMethod("startBeforeEnd", function (value, element) {
+      function isValidDate(value) {
+        return /^[1-2][0-9][0-9][0-9]-([1][0-2]|0?[1-9])-([12][0-9]|3[01]|0?[1-9]) ([01][0-9]|[2][0-3]):[0-5][0-9]$/.test(value);
+      }
+
+      let startDay = document.getElementsByName('startDay')[0].value;
+      let startHour = document.getElementsByName('startHour')[0].value;
+      let startTime = startDay + " " + startHour;
+      let endDay = document.getElementsByName('endDay')[0].value;
+      let endHour = document.getElementsByName('endHour')[0].value;
+      let endTime = endDay + " " + endHour;
+
+      return isValidDate(startTime) && isValidDate(endTime) && startTime < endTime;
+    }, null);
+
     this.formValidator = $("#editorForm").validate({
       rules: {
         name: {required: true},
-        startDay: {required: true, date: true},
-        startHour: {required: true, time24: true},
-        endDay: {required: true, date: true},
-        endHour: {required: true, time24: true},
+        startDay: {required: true, startBeforeEnd: true},
+        startHour: {required: true, startBeforeEnd: true},
+        endDay: {required: true, startBeforeEnd: true},
+        endHour: {required: true, startBeforeEnd: true},
         location: {required: true},
         organizer: {required: true},
         description: {required: true}
@@ -123,12 +137,14 @@ class EditorBase extends React.Component {
 
 
   validateAllElements() {
-    if (!this.validateElement("input[name='name']")
-      || !this.validateElement("input[name='startDay']")
-      || !this.validateElement("input[name='startHour']")
-      || !this.validateElement("input[name='endDay']")
-      || !this.validateElement("input[name='endHour']")
-      || !this.validateElement("input[name='location']")
+
+    if (!this.validateElement("input[name='name']")) {
+      this.formValidator.focusInvalid();
+      return false;
+    } else if (!this.validateTime()) {
+      //not to focus,just change all time input border.
+      return false;
+    } else if (!this.validateElement("input[name='location']")
       || !this.validateElement("input[name='organizer']")
       || !this.validateElement("textarea[name='description']")) {
       this.formValidator.focusInvalid();
@@ -138,7 +154,6 @@ class EditorBase extends React.Component {
   }
 
   validateElement(name) {
-    console.log('name' + name);
     return $(name).valid();
   }
 
@@ -147,49 +162,57 @@ class EditorBase extends React.Component {
       <div className="timeBlock">
         <DatePicker inputProps={{name: 'startDay', readOnly: 'readonly'}} className='newsTimeDay'
                     viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
-                    onChange={() => {
-                      $("input[name='startDay']").removeClass('error');
+                    isValidDate={(currentDate, selectedDate) => {
+                      let now = Moment();
+                      return currentDate.diff(now, 'days') >= 0;
                     }}
                     onBlur={() => {
-                      this.validateElement("input[name='startDay']")
+                      this.validateTime();
                     }}
         />
         <DatePicker inputProps={{name: 'startHour', readOnly: 'readonly'}} className='newsTimeHour'
                     viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
-                    onChange={() => {
-                      $("input[name='startHour']").removeClass('error');
-                    }}
                     onBlur={() => {
-                      this.validateElement("input[name='startHour']")
+                      this.validateTime();
                     }}
         />
         <div className='timeDivider'>-</div>
         <DatePicker inputProps={{name: 'endDay', readOnly: 'readonly'}} className='newsTimeDay'
                     viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
-                    onChange={() => {
-                      $("input[name='endDay']").removeClass('error');
+                    isValidDate={(currentDate, selectedDate) => {
+                      let now = Moment();
+                      return currentDate.diff(now, 'days') >= 0;
                     }}
                     onBlur={() => {
-                      this.validateElement("input[name='endDay']")
+                      this.validateTime();
                     }}
         />
         <DatePicker inputProps={{name: 'endHour', readOnly: 'readonly'}} className='newsTimeHour'
                     viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
-                    onChange={() => {
-                      $("input[name='endHour']").removeClass('error');
-                    }}
                     onBlur={() => {
-                      this.validateElement("input[name='endHour']")
+                      this.validateTime();
                     }}
         />
       </div>
-    )
+    );
   }
 
   onRenderContent() {
   }
 
   getEditorType() {
+  }
+
+  validateTime() {
+    let rt = this.validateElement("input[name='startDay']") |
+      this.validateElement("input[name='startHour']") |
+      this.validateElement("input[name='endDay']") |
+      this.validateElement("input[name='endHour']");
+    return rt == 1;
+  }
+
+  getValidHour() {
+
   }
 }
 
