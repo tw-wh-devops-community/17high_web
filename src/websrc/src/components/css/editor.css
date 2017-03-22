@@ -110,7 +110,7 @@
   height: 100px;
 }
 
-.newsNameInput:focus,.newsDescriptionInput:focus {
+.newsNameInput:focus, .newsDescriptionInput:focus {
   border: solid 1px #6397d8;
   outline: 0;
 }
@@ -228,7 +228,6 @@ input.error, textarea.error {
   width: 147px;
   height: 59px;
   image-rendering: -webkit-optimize-contrast;
-  border: 1px solid #9b9b9b;
 }
 
 .templatesImgSelected {
