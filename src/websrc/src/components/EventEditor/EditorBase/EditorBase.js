@@ -116,7 +116,7 @@ class EditorBase extends React.Component {
     return (
       <div className="timeBlock">
         <DatePicker inputProps={{name: 'startDay', readOnly: 'readonly'}} className='newsTimeDay'
-                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="2017-01-02" timeFormat={false}
+                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
                     isValidDate={(currentDate, selectedDate) => {
                       let now = Moment();
                       return currentDate.diff(now, 'days') >= 0;
@@ -126,14 +126,14 @@ class EditorBase extends React.Component {
                     }}
         />
         <DatePicker inputProps={{name: 'startHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="09:00"
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
                     onBlur={() => {
                       this.validateTime();
                     }}
         />
         <div className='timeDivider'>-</div>
         <DatePicker inputProps={{name: 'endDay', readOnly: 'readonly'}} className='newsTimeDay'
-                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="2017-01-03" timeFormat={false}
+                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
                     isValidDate={(currentDate, selectedDate) => {
                       let now = Moment();
                       return currentDate.diff(now, 'days') >= 0;
@@ -143,7 +143,7 @@ class EditorBase extends React.Component {
                     }}
         />
         <DatePicker inputProps={{name: 'endHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="09:00"
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
                     onBlur={() => {
                       this.validateTime();
                     }}
