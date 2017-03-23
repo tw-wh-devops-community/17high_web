@@ -1,0 +1,94 @@
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 410px auto auto auto;
+  border: 1px solid #888;
+  width: 445px;
+  height: 180px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+.close {
+  float: right;
+  position: relative;
+  top: -15px;
+  font-size: 24px;
+  color: #979797;
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 18px;
+}
+
+.modal-header {
+  margin-left: 37px;
+  margin-top: 21px;
+  font-family: PingFangSC;
+  font-size: 20px;
+  color: #4a4a4a;
+  margin-bottom: 13px;
+}
+
+.modal-body {
+  height: 21px;
+  margin-left: 37px;
+  font-family: PingFangSC;
+  font-size: 15px;
+  color: #4a4a4a;
+}
+
+.modal-footer {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: 32px;
+  margin-bottom: 26px;
+}
+
+.publish {
+  margin-right: 15px;
+}
+
+.cancelPublish {
+  margin-right: 25px;
+}

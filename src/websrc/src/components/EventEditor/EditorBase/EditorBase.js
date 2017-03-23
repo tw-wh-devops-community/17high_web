@@ -4,6 +4,7 @@ import $ from 'jquery';
 import  'jquery-validation';
 import Moment from 'moment';
 var DatePicker = require('react-datetime');
+import Dialog from '../Dialog'
 
 
 class EditorBase extends React.Component {
@@ -22,12 +23,22 @@ class EditorBase extends React.Component {
         {this.onRenderContent()}
         <TemplateSelector onSelect={this.onTemplateSelect.bind(this)}/>
         <div className="newsSubmit">
-          <button className="publish" onClick={this.handleSubmit.bind(this)}>发布
-          </button>
+          <div className="publish" onClick={this.publishEvent.bind(this)}>发布
+          </div>
           <div className="cancelPublish">取消</div>
         </div>
+        <Dialog
+          ref='dialog'
+          title="发布公告"
+          message="一经发布，将不可自行修改，确认要发布这篇公告吗"
+          positiveText="确认"
+          negativeText="取消"
+          onPositiveClick={() => {
+            this.handleSubmit();
+          }}
+        />
       </form>
-    )
+    );
   }
 
   componentDidMount() {
@@ -42,14 +53,18 @@ class EditorBase extends React.Component {
     )
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
 
+  publishEvent() {
     if (!this.validateAllElements()) {
       return;
     }
-    this.onSubmit();
+    console.log('try to submit');
+    this.refs.dialog.showDialog();
+  }
 
+  handleSubmit() {
+    console.log('try to submit');
+    this.onSubmit();
   }
 
   onTemplateSelect(templateId) {
@@ -99,7 +114,7 @@ class EditorBase extends React.Component {
       this.formValidator.focusInvalid();
       return false;
     } else if (!this.validateTime()) {
-      //not to focus,just change all time input border.
+      //not to focus,just change all time input border color.
       return false;
     } else if (!this.validateContent()) {
       this.formValidator.focusInvalid();
@@ -170,8 +185,8 @@ class EditorBase extends React.Component {
   }
 
   validateContent() {
-
   }
+
 }
 
 export default EditorBase
