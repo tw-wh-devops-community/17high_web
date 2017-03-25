@@ -14,16 +14,16 @@ And then You need to do nothing but read  'Run Spring boot on local' section.
 
 ~~~
 ./localrun.sh
-This script constains 'yarn bundle-watch' and './gradlew bootRun',so springboot will start, and react will automatic compile.
+This script contains 'yarn bundle-watch' and './gradlew bootRun',so springboot will start, and react will automatic compile.
 ~~~
-You need not start mysql on local manually. bootRun will start a loacl mysql Docker automaticly.
+You don't need start mysql on local manually. bootRun will start a local mysql Docker automatically.
 
 ## Run Mysql on local Docker
 you can run
 ```
 ./startMysql.sh
 ```
-to start a local Dcoker with Mysql 5.7 ( This step is already integrated to gradle bootRun)
+to start a local Docker with Mysql 5.7 ( This step is already integrated to gradle bootRun)
 
 ## Run Sonarqube on local
 
