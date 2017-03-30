@@ -12,7 +12,7 @@ if [ -z "$TRAVIS_PULL_REQUEST" ] || [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
     # Build and push
     echo "building and pushing docker image"
-    ../gradlew buildDocker
+    ./gradlew buildDocker
 #    docker build -t $IMAGE_NAME .
 #    echo "Pushing $IMAGE_NAME:latest"
 #    docker tag $IMAGE_NAME:latest "$REMOTE_IMAGE_URL:latest"

@@ -65,13 +65,10 @@ dependencies {
 
 group = 'twwhdevops'
 
-docker {
-    registry = 'daocloud.io'
-}
-
 task buildDocker(type: Docker) {
     push = true
-    applicationName = jar.baseName
+    registry = 'daocloud.io/wjyao'
+    applicationName = '17high'
     dockerfile = file('src/main/docker/Dockerfile')
     doFirst {
         copy {
