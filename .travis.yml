@@ -13,7 +13,7 @@ before_install:
   - mysql -e "GRANT ALL ON 17high.* TO '17high'@'localhost';"
   - chmod +x deploy/*.sh
 after_success:
-  - docker login daocloud.io -u $DAOCLOUD_DOCKER_USER -p $DAOCLOUD_DOCKER_PASSWORD
+  - docker login registry.cn-hangzhou.aliyuncs.com -u $ALI_DOCKER_USER -p $ALI_DOCKER_PASSWORD
   - deploy/docker_push.sh
   - docker logout
 branches:
