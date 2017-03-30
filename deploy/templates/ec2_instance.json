@@ -1,0 +1,35 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description" : "EC2 block device mapping",
+  "Parameters" : {
+  },
+  "Resources" : {
+    "WebServerSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Enable HTTP access via port 8081 for 17high app",
+        "SecurityGroupIngress" : [
+          {"IpProtocol" : "tcp", "FromPort" : "8081", "ToPort" : "8081", "CidrIp" : "0.0.0.0/0"}
+        ]
+      }
+    },
+    "AppInstance" : {
+      "Type": "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId" : "ami-7439ee19",
+        "InstanceType" : "r4.large",
+        "SecurityGroups" : [
+          {
+            "Ref" : "WebServerSecurityGroup"
+          }
+        ],
+        "KeyName" : "WuhanTest"
+      },
+      "CreationPolicy" : {
+        "ResourceSignal" : {
+          "Timeout" : "PT15M"
+        }
+      }
+    }
+  }
+}
