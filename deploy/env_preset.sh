@@ -18,7 +18,7 @@ fi
 if ! type "docker-compose" > /dev/null; then
     wget "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)"
     sudo mv ./"docker-compose-$(uname -s)-$(uname -m)" /usr/bin/docker-compose
-    sudo chmod +x /usr/bin/docker-compose
+    chmod +x /usr/bin/docker-compose
     docker-compose --version
 fi
 
@@ -26,7 +26,10 @@ if [ -d "17high_web" ]; then
     cd 17high_web
     git clean -df
     git checkout .
-    git pull origin development
+    git checkout deploy
+    git pull origin deploy
 else
     git clone https://github.com/tw-wh-devops-community/17high_web.git
+    cd 17high_web
+    git checkout deploy
 fi

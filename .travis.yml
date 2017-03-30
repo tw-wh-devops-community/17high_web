@@ -12,8 +12,8 @@ before_install:
   - mysql -e "CREATE USER '17high'@'localhost' IDENTIFIED BY '17high';"
   - mysql -e "GRANT ALL ON 17high.* TO '17high'@'localhost';"
 after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - ./gradlew buildDocker
+  - docker login daocloud.io -u $DAOCLOUD_DOCKER_USER -p $DAOCLOUD_DOCKER_PASSWORD
+  - deploy/docker_push.sh
   - docker logout
 branches:
   only:
