@@ -15,7 +15,7 @@ services:
   17high:
       image: "registry.cn-hangzhou.aliyuncs.com/wjyao/17high_web"
       ports:
-       - "8080:8080"
+       - "8081:8080"
       environment:
        - MYSQL_HOST=database
        - MYSQL_DATABASE=17high
