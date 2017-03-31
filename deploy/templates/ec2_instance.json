@@ -1,7 +1,16 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
-  "Description" : "EC2 block device mapping",
+  "Description" : "17high Web app deployment",
   "Parameters" : {
+    "SSHLocation" : {
+      "Description" : " The IP address range that can be used to SSH to the EC2 instances",
+      "Type": "String",
+      "MinLength": "9",
+      "MaxLength": "18",
+      "Default": "0.0.0.0/0",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
+    }
   },
   "Resources" : {
     "WebServerSecurityGroup" : {
@@ -9,8 +18,15 @@
       "Properties" : {
         "GroupDescription" : "Enable HTTP access via port 8081 for 17high app",
         "SecurityGroupIngress" : [
-          {"IpProtocol" : "tcp", "FromPort" : "8081", "ToPort" : "8081", "CidrIp" : "0.0.0.0/0"}
+          {"IpProtocol" : "tcp", "FromPort" : "8081", "ToPort" : "8081", "CidrIp" : "0.0.0.0/0"},
+          {"IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : { "Ref" : "SSHLocation"}}
         ]
+      }
+    },
+    "DBBackupS3" : {
+      "Type" : "AWS::S3::Bucket",
+      "Properties" : {
+        "BucketName" : "17high"
       }
     },
     "AppInstance" : {
@@ -23,7 +39,32 @@
             "Ref" : "WebServerSecurityGroup"
           }
         ],
-        "KeyName" : "WuhanTest"
+        "KeyName" : "WuhanTest",
+        "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
+          "#!/bin/bash -xe\n",
+          "yum install -y aws-cfn-bootstrap\n",
+
+          "# Install the files and packages from the metadata\n",
+          "/opt/aws/bin/cfn-init -v ",
+          "         --stack ", { "Ref" : "AWS::StackName" },
+          "         --resource WebServerInstance ",
+          "         --configsets Install ",
+          "         --region ", { "Ref" : "AWS::Region" }, "\n"
+        ]]}}
+      },
+      "Metadata" : {
+        "AWS::CloudFormation::Init" : {
+          "configSets" : {
+            "Install" : ["Install"]
+          },
+          "Install" : {
+            "packages" : {
+              "yum": {
+                "git": []
+              }
+            }
+          }
+        }
       },
       "CreationPolicy" : {
         "ResourceSignal" : {
