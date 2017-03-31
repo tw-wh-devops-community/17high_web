@@ -1,7 +1,7 @@
 version: '2'
 services:
   database:
-    image: "mysql:5.7"
+    image: "daocloud.io/library/mysql:5.7"
     ports:
      - "3306:3306"
     environment:
@@ -13,7 +13,7 @@ services:
      - --character-set-server=utf8mb4
      - --collation-server=utf8mb4_unicode_ci
   17high:
-      image: "twwhdevops/17high"
+      image: "registry.cn-hangzhou.aliyuncs.com/wjyao/17high_web"
       ports:
        - "8080:8080"
       environment:
@@ -24,7 +24,7 @@ services:
       links:
        - database
   backup:
-    image: "schickling/mysql-backup-s3"
+    image: "daocloud.io/wjyao/mysql-backup-s3"
     environment:
      - S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}
      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
@@ -33,7 +33,7 @@ services:
      - MYSQL_HOST=database
      - MYSQL_USER=17high
      - MYSQL_PASSWORD=17high
-     - S3_REGION=ap-northeast-1
+     - S3_REGION=cn-north-1
      - MULTI_FILES=yes
      - SCHEDULE=@daily
     links:
