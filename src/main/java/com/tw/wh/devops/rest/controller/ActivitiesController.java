@@ -8,10 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -33,13 +29,10 @@ public class ActivitiesController {
                                   @RequestParam(defaultValue = "${17high.page.number}") int page,
                                   @RequestParam(required = false, defaultValue = "") String type,
                                   @RequestParam(required = false, defaultValue = "") String status,
-                                  @RequestParam(required = false, defaultValue = "") String sort,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) {
+                                  @RequestParam(required = false, defaultValue = "") String sort) {
         PageRequest pageRequest = new PageRequest(page, size);
         Page<Activity> all = activityRepository.findAll(pageRequest);
-        Iterator<Activity> iterator = all.getContent().iterator();
-        return iterator;
+        return all.getContent().iterator();
     }
 
     @RequestMapping(path = "/{id}", method = GET)
@@ -58,18 +51,7 @@ public class ActivitiesController {
 
     @RequestMapping(method = POST)
     public Activity addActivity(@RequestBody Activity activity) {
-        System.out.println("we are here");
-        Activity tempActivity = new Activity();
-        tempActivity.setName(activity.getName());
-        tempActivity.setStartTime(activity.getStartTime());
-        tempActivity.setEndTime(activity.getEndTime());
-        tempActivity.setDescription(activity.getDescription());
-        tempActivity.setSponsor(activity.getSponsor());
-        tempActivity.setGuest(activity.getGuest());
-        tempActivity.setType(activity.getType());
-        tempActivity.setImageURL(activity.getImageURL());
-        return activityRepository.save(tempActivity);
-
+        return activityRepository.saveAndFlush(activity);
     }
 
 }
