@@ -24,7 +24,29 @@ apply plugin: 'docker'
 apply plugin: 'jacoco'
 apply plugin: 'application'
 
-applicationDefaultJvmArgs = [ "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" ]
+sourceSets {
+    test {
+        java.srcDirs = ['src/test/unit/java']
+    }
+    integration {
+        java.srcDirs = ['src/test/integration/java']
+        resources.srcDir 'src/test/resources'
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+configurations {
+    integrationCompile.extendsFrom testCompile
+    integrationRuntime.extendsFrom testRuntime
+}
+
+task integration(type: Test, description: 'Runs the integration tests.', group: 'Verification') {
+    testClassesDir = sourceSets.integration.output.classesDir
+    classpath = sourceSets.integration.runtimeClasspath
+}
+
+applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]
 
 jacoco {
     toolVersion = "0.7.+"
@@ -59,6 +81,7 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'junit', name: 'junit', version: '4.+'
     testCompile('org.springframework:spring-test')
+    testCompile('com.h2database:h2:1.4+')
 }
 
 
@@ -96,7 +119,6 @@ jacocoTestReport {
 }
 
 test.finalizedBy jacocoTestReport
-//test.finalizedBy "sonarqube"
 
 bootRun {
     environment 'MYSQL_HOST', '127.0.0.1'
@@ -105,6 +127,11 @@ bootRun {
     environment 'MYSQL_PASSWORD', '17high'
     environment 'MYSQL_DATABASE', '17high'
 }
+
+integration {
+    systemProperties['spring.profiles.active']=project.gradle.startParameter.systemPropertiesArgs['spring.profiles.active']
+}
+
 
 test {
     environment 'MYSQL_HOST', '127.0.0.1'
