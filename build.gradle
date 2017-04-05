@@ -129,8 +129,11 @@ bootRun {
 }
 
 integration {
-    systemProperties['spring.profiles.active']=project.gradle.startParameter.systemPropertiesArgs['spring.profiles.active']
+    systemProperties['spring.profiles.active']='test'
 }
+
+check.dependsOn integration
+integration.mustRunAfter test
 
 
 test {
