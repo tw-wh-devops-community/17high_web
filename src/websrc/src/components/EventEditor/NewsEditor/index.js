@@ -16,7 +16,7 @@ class NewsEditor extends EditorBase {
           {this.getInputName('新闻名称', true)}
           <div>
             <input name="name" className='newsNameInput' type="text"
-                   placeholder="请输入活动名称,20个字内"
+                   placeholder="请输入活动名称,20个字内" maxLength='20'
                    onBlur={() => {
                      this.validateElement("input[name='name']")
                    }}/>
@@ -32,7 +32,7 @@ class NewsEditor extends EditorBase {
           {this.getInputName('新闻内容', true)}
           <div>
             <textarea name="description" className='newsDescriptionInput' type="text"
-                      placeholder="请输入内容详情，为了方便阅读，建议不超过100字"
+                      placeholder="请输入内容详情，为了方便阅读，建议不超过100字" maxLength='100'
                       onBlur={() => {
                         this.validateElement("textarea[name='description']")
                       }}/>
