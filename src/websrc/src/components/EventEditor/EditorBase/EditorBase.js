@@ -23,12 +23,12 @@ class EditorBase extends React.Component {
         {this.onRenderContent()}
         <TemplateSelector onSelect={this.onTemplateSelect.bind(this)}/>
         <div className="newsSubmit">
-          <div className="publish" onClick={this.publishEvent.bind(this)}>发布
-          </div>
-          <div className="cancelPublish">取消</div>
+          <div className="publish" onClick={this.publishEvent.bind(this)}>发布</div>
+          <div className="cancelPublish" onClick={this.cancelPublish.bind(this)}>取消</div>
         </div>
         <Dialog
           ref='dialog'
+          id="publishActivity"
           title="发布公告"
           message="一经发布，将不可自行修改，确认要发布这篇公告吗"
           positiveText="确认"
@@ -37,8 +37,27 @@ class EditorBase extends React.Component {
             this.handleSubmit();
           }}
         />
+        <Dialog
+          ref='dialog'
+          id="cancelPublish"
+          title="放弃发布"
+          message="确认要放弃发布这篇公告吗?"
+          positiveText="确认"
+          negativeText="取消"
+          onPositiveClick={() => {
+            this.backToDashboard();
+          }}
+          />
       </form>
     );
+  }
+
+  cancelPublish() {
+    this.refs.dialog.showDialog("cancelPublish");
+  }
+
+  backToDashboard() {
+    window.location = '/';
   }
 
   componentDidMount() {
@@ -59,7 +78,7 @@ class EditorBase extends React.Component {
       return;
     }
     console.log('try to submit');
-    this.refs.dialog.showDialog();
+    this.refs.dialog.showDialog("publishActivity");
   }
 
   handleSubmit() {

@@ -7,7 +7,7 @@ class Dialog extends React.Component {
   render() {
     return (
       <div>
-        <div id="modalDialog" className="modal">
+        <div id={this.props.id} className="modal">
           <div className="modal-content">
             <div className="modal-header">
               <span className="close" onClick={this.onCancel.bind(this)}>&times;</span>
@@ -28,7 +28,7 @@ class Dialog extends React.Component {
   }
 
   dismiss() {
-    $('#modalDialog')[0].style.display = "none";
+    $('#'+ this.props.id)[0].style.display = "none";
   }
 
   onCancel() {
@@ -52,8 +52,8 @@ class Dialog extends React.Component {
     this.dismiss();
   }
 
-  showDialog() {
-    var modal = $('#modalDialog')[0];
+  showDialog(id) {
+    var modal = $('#'+ id)[0];
     modal.style.display = "block";
   }
 }
