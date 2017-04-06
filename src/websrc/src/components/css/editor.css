@@ -311,3 +311,13 @@ input.error, textarea.error {
   vertical-align: middle;
   font-weight: normal;
 }
+
+.newsTimeHour > .rdtPicker {
+  width: 130px;
+}
+
+.invalidTimeError {
+  display: none;
+  margin-top: 10px;
+  color: red;
+}
