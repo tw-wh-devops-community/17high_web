@@ -274,3 +274,40 @@ input.error, textarea.error {
   margin-left: 17px;
   display: flex;
 }
+
+.leftContainer {
+  height: 42px;
+}
+
+.backButton {
+  display: inline-block;
+  height: 42px;
+  margin-left: 10px;
+  border-right: 1px solid #ffffff;
+  cursor: pointer;
+}
+
+.backIcon {
+  width: 42px;
+  vertical-align: middle;
+}
+
+.backText {
+  color: #ffffff;
+  font-size: 22px;
+  vertical-align: middle;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.launch {
+  display: inline-block;
+  background-color: #2a3a48;
+  margin-left: 20px;
+}
+
+.launchText {
+  margin: 0;
+  vertical-align: middle;
+  font-weight: normal;
+}

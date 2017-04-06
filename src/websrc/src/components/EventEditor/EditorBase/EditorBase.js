@@ -37,17 +37,6 @@ class EditorBase extends React.Component {
             this.handleSubmit();
           }}
         />
-        <Dialog
-          ref='dialog'
-          id="cancelPublish"
-          title="放弃发布"
-          message="确认要放弃发布这篇公告吗?"
-          positiveText="确认"
-          negativeText="取消"
-          onPositiveClick={() => {
-            this.backToDashboard();
-          }}
-          />
       </form>
     );
   }
@@ -57,7 +46,7 @@ class EditorBase extends React.Component {
   }
 
   backToDashboard() {
-    window.location = '/';
+    window.location = '/#/editor';
   }
 
   componentDidMount() {
