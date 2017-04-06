@@ -16,6 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 /**
  * Created by xjzhou on 2/15/17.
  */
+@CrossOrigin(origins = "${cross.origin.url}")
 @RestController
 @RequestMapping("/v1/activities")
 public class ActivitiesController {
