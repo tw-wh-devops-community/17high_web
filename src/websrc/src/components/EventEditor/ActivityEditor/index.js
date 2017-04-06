@@ -12,7 +12,10 @@ class ActivityEditor extends EditorBase {
           {this.getInputName('活动名称', true)}
           <div>
             <input name="name" className='newsNameInput' type="text"
-                   placeholder="请输入活动名称, 最多40个字符" maxLength='40'/>
+                   placeholder="请输入活动名称, 最多40个字符" maxLength='40'
+                   onInput={(event) => {
+                     this.inputBytesLimiter(event, 40);
+                   }}/>
           </div>
         </div>
         <div className='inputBlock'>
@@ -26,28 +29,40 @@ class ActivityEditor extends EditorBase {
           {this.getInputName('活动地点', true)}
           <div>
             <input name="location" className='newsNameInput' type="text"
-                   placeholder="请输入活动地点, 最多40个字符" maxLength='40'/>
+                   placeholder="请输入活动地点, 最多40个字符" maxLength='40'
+                   onInput={(event) => {
+                     this.inputBytesLimiter(event, 40);
+                   }}/>
           </div>
         </div>
         <div className="inputBlock">
           {this.getInputName('主办方', true)}
           <div>
             <input name="organizer" className='newsNameInput' type="text"
-                   placeholder="请输入主办方, 最多20个字符" maxLength='20'/>
+                   placeholder="请输入主办方, 最多20个字符" maxLength='20'
+                   onInput={(event) => {
+                     this.inputBytesLimiter(event, 20);
+                   }}/>
           </div>
         </div>
         <div className="inputBlock">
           {this.getInputName('活动嘉宾', false)}
           <div>
             <input name="guest" className='newsNameInput' type="text"
-                   placeholder="请输入活动嘉宾, 最多40个字符" maxLength='40'/>
+                   placeholder="请输入活动嘉宾, 最多40个字符" maxLength='40'
+                   onInput={(event) => {
+                     this.inputBytesLimiter(event, 40);
+                   }}/>
           </div>
         </div>
         <div className="inputBlock">
           {this.getInputName('活动描述', true)}
           <div>
             <textarea name="description" className='newsDescriptionInput' type="text"
-                      placeholder="请输入一句简短的宣传语, 最多100个字符" maxLength='100'/>
+                      placeholder="请输入一句简短的宣传语, 最多100个字符" maxLength='100'
+                      onInput={(event) => {
+                        this.inputBytesLimiter(event, 100);
+                      }}/>
           </div>
         </div>
       </div>
