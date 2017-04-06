@@ -18,6 +18,22 @@ This script contains 'yarn bundle-watch' and './gradlew bootRun',so springboot w
 ~~~
 You don't need start mysql on local manually. bootRun will start a local mysql Docker automatically.
 
+## Run backend test
+~~~
+./gradlew check
+~~~
+
+## Run backend unit test alone
+~~~
+./gradlew test
+~~~
+
+## Run backend integration test alone
+~~~
+./gradlew integration
+~~~
+integration test will use h2 in memory database as its data backbone.
+
 ## Run Mysql on local Docker
 you can run
 ```

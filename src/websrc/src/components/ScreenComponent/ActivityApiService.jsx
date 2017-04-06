@@ -1,10 +1,11 @@
-import axios from "axios"
+import axios from "axios";
+import '../../axiosConfig';
 
-class ActivityApiService {
+export default class ActivityApiService {
   list(){
-    var promise = new Promise(function(resolve, reject) {
-      axios.get("/v1/activities?size=6&page=0").then(function(result){
-        if(result.status != 200) {
+    return new Promise(function (resolve, reject) {
+      axios.get("/v1/activities?size=6&page=0").then(function (result) {
+        if (result.status != 200) {
           resolve([]);
           console.error("invalid error");
           console.error(result);
@@ -15,9 +16,6 @@ class ActivityApiService {
         reject(e);
       })
     });
-    return promise;
 
   }
-}
-
-export default ActivityApiService
+};
