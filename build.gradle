@@ -81,7 +81,7 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'junit', name: 'junit', version: '4.+'
     testCompile('org.springframework:spring-test')
-    testCompile('com.h2database:h2:1.4+')
+    compile('com.h2database:h2:1.4+')
 }
 
 
@@ -121,6 +121,7 @@ jacocoTestReport {
 test.finalizedBy jacocoTestReport
 
 bootRun {
+    systemProperties['spring.profiles.active']='dev'
     environment 'MYSQL_HOST', '127.0.0.1'
     environment 'MYSQL_PORT', '3306'
     environment 'MYSQL_USER', '17high'
