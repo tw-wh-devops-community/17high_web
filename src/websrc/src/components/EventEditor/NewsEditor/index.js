@@ -16,7 +16,10 @@ class NewsEditor extends EditorBase {
           {this.getInputName('新闻名称', true)}
           <div>
             <input name="name" className='newsNameInput' type="text"
-                   placeholder="请输入活动名称, 最多40个字符" maxLength='40'/>
+                   placeholder="请输入活动名称, 最多40个字符" maxLength='40'
+                   onInput={(event) => {
+                     this.inputBytesLimiter(event, 40);
+                   }}/>
           </div>
         </div>
         <div className='inputBlock'>
@@ -30,7 +33,10 @@ class NewsEditor extends EditorBase {
           {this.getInputName('新闻内容', true)}
           <div>
             <textarea name="description" className='newsDescriptionInput' type="text"
-                      placeholder="请输入内容详情, 最多200个字符" maxLength='200'/>
+                      placeholder="请输入内容详情, 最多200个字符" maxLength='200'
+                      onInput={(event) => {
+                        this.inputBytesLimiter(event, 200);
+                      }}/>
           </div>
         </div>
       </div>

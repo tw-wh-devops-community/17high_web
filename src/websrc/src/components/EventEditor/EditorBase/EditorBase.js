@@ -156,7 +156,12 @@ class EditorBase extends React.Component {
                       return currentDate.diff(startDay, 'days') >= 0;
                     }}/>
         <DatePicker inputProps={{name: 'endHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm"/>
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm"
+                    onBlur={() => {
+                      if(this.validateTime()){
+                        this.hideInvalidTimeError();
+                      }
+                    }}/>
       </div>
     );
   }
@@ -185,6 +190,22 @@ class EditorBase extends React.Component {
     $('.invalidTimeError').css('display', 'block');
   }
 
+  hideInvalidTimeError() {
+    $('.invalidTimeError').css('display', 'none');
+  }
+
+  inputBytesLimiter(event, maxBytes) {
+    var bytesCounter = 0;
+    for(var i = 0; i < maxBytes && bytesCounter < maxBytes; i++ ) {
+      var c = event.target.value.charCodeAt(i);
+      if((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+        bytesCounter++;
+      }else {
+        bytesCounter+=2;
+      }
+    }
+    event.target.maxLength = i;
+  }
 }
 
 export default EditorBase
