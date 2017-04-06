@@ -12,7 +12,6 @@ const Editor = () => <EventEditor/>;
 render((
   <Router history={hashHistory} queryKey="false">
     <Route path="/" component={Demo}/>
-    <Route path="/repos" component={Demo}/>
     <Route path="/screen" component={Screen}/>
     <Route path="/editor" component={Editor}/>
   </Router>
