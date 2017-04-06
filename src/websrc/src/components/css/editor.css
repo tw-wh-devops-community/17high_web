@@ -300,13 +300,13 @@ input.error, textarea.error {
   margin-right: 20px;
 }
 
-.launch {
+.eventEditorPage .launch {
   display: inline-block;
   background-color: #2a3a48;
   margin-left: 20px;
 }
 
-.launchText {
+.eventEditorPage .launchText {
   margin: 0;
   vertical-align: middle;
   font-weight: normal;
