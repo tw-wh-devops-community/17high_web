@@ -123,6 +123,7 @@ class EditorBase extends React.Component {
       return false;
     } else if (!this.validateTime()) {
       //not to focus,just change all time input border color.
+      this.showInvalidTimeError();
       return false;
     } else if (!this.validateContent()) {
       this.formValidator.focusInvalid();
@@ -136,41 +137,26 @@ class EditorBase extends React.Component {
   }
 
   getDateInput() {
+    let now = Moment();
+
     return (
       <div className="timeBlock">
         <DatePicker inputProps={{name: 'startDay', readOnly: 'readonly'}} className='newsTimeDay'
-                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
+                    viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}
                     isValidDate={(currentDate, selectedDate) => {
-                      let now = Moment();
                       return currentDate.diff(now, 'days') >= 0;
-                    }}
-                    onBlur={() => {
-                      this.validateTime();
-                    }}
-        />
+                    }}/>
         <DatePicker inputProps={{name: 'startHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
-                    onBlur={() => {
-                      this.validateTime();
-                    }}
-        />
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm"/>
         <div className='timeDivider'>-</div>
         <DatePicker inputProps={{name: 'endDay', readOnly: 'readonly'}} className='newsTimeDay'
-                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
+                    viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}
                     isValidDate={(currentDate, selectedDate) => {
-                      let now = Moment();
-                      return currentDate.diff(now, 'days') >= 0;
-                    }}
-                    onBlur={() => {
-                      this.validateTime();
-                    }}
-        />
+                      let startDay = Moment($("input[name='startDay']").val());
+                      return currentDate.diff(startDay, 'days') >= 0;
+                    }}/>
         <DatePicker inputProps={{name: 'endHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
-                    onBlur={() => {
-                      this.validateTime();
-                    }}
-        />
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm"/>
       </div>
     );
   }
@@ -193,6 +179,10 @@ class EditorBase extends React.Component {
   }
 
   validateContent() {
+  }
+
+  showInvalidTimeError() {
+    $('.invalidTimeError').css('display', 'block');
   }
 
 }
