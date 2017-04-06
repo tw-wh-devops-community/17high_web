@@ -46,7 +46,7 @@ class EditorBase extends React.Component {
   }
 
   backToDashboard() {
-    window.location = '/#/editor';
+    window.location = '/#/home';
   }
 
   componentDidMount() {

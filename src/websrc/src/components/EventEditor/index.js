@@ -22,7 +22,7 @@ export default class PublishActivity extends React.Component {
 
   render() {
     return (
-      <div className="pageContainer">
+      <div className="pageContainer eventEditorPage">
         { this.renderHeader() }
         <div className='contentContainer'>
           <div className="content">
@@ -74,7 +74,7 @@ export default class PublishActivity extends React.Component {
   }
 
   backToDashboard() {
-    window.location = '/#/editor';
+    window.location = '/#/home';
   }
 
   handleSelect(selectedKey) {

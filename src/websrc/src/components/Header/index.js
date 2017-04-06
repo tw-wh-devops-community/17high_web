@@ -17,7 +17,7 @@ class Header extends React.Component {
             17 high
           </div>
           <div className='launch'>
-            <div className="launchText">+ 发布公告</div>
+            <div className="launchText" onClick={this.goToEditorPage.bind(this)}>+ 发布公告</div>
           </div>
 
           <div className="rightContainer">
@@ -34,6 +34,10 @@ class Header extends React.Component {
         </div>
       </div>
     )
+  }
+
+  goToEditorPage() {
+    window.location = '/#/editor'
   }
 }
 
