@@ -29,7 +29,7 @@ export default class PublishActivity extends React.Component {
             <Nav onSelect={(index) => {
               this.handleSelect(index);
             }}
-            />
+              />
             <this.state.selectedEditor/>
           </div>
         </div>
@@ -52,18 +52,8 @@ export default class PublishActivity extends React.Component {
     return (
       <div className='headerContainer'>
         <div className='header'>
-          <div className='projectName'>
-            17 high
-          </div>
-          <div className="leftContainer">
-            <div className="backButton" onClick={this.cancelPublish.bind(this)}>
-              <img className="backIcon" src={require('../../image/back.png')}/>
-              <span className="backText">返回</span>
-            </div>
-            <div className='launch'>
-              <span className="launchText">发布公告</span>
-            </div>
-          </div>
+          <div className='projectName'>17 High</div>
+          <div className="launchText">发布公告</div>
         </div>
       </div>
     )
