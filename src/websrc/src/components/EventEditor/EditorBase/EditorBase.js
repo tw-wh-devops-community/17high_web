@@ -23,8 +23,8 @@ class EditorBase extends React.Component {
         {this.onRenderContent()}
         <TemplateSelector onSelect={this.onTemplateSelect.bind(this)}/>
         <div className="newsSubmit">
-          <div className="publish" onClick={this.publishEvent.bind(this)}>发布</div>
-          <div className="cancelPublish" onClick={this.cancelPublish.bind(this)}>取消</div>
+          <div className="publish" onClick={() => this.publishEvent()}>发布</div>
+          <div className="cancelPublish" onClick={() => this.cancelPublish()}>取消</div>
         </div>
         <Dialog
           ref='dialog'
@@ -37,6 +37,17 @@ class EditorBase extends React.Component {
             this.handleSubmit();
           }}
         />
+        <Dialog
+          ref='dialog'
+          id="cancelPublish"
+          title="放弃发布"
+          message="确认要放弃发布这篇公告吗?"
+          positiveText="确认"
+          negativeText="取消"
+          onPositiveClick={() => {
+            this.backToDashboard();
+          }}
+          />
       </form>
     );
   }
@@ -124,7 +135,7 @@ class EditorBase extends React.Component {
     const invalidAria = $("[aria-invalid=true]").not("[class='form-control error']");
     if(invalidAria.length > 0 ) {
       invalidAria.filter(":first").focus();
-      return false
+      return false;
     }
     return true;
   }
@@ -134,7 +145,7 @@ class EditorBase extends React.Component {
   }
 
   getDateInput() {
-    let now = Moment();
+    const now = Moment();
 
     return (
       <div className="timeBlock">
@@ -187,17 +198,17 @@ class EditorBase extends React.Component {
   }
 
   showInvalidTimeError() {
-    $('.invalidTimeError').css('display', 'block');
+    $('.invalidTimeError').show();
   }
 
   hideInvalidTimeError() {
-    $('.invalidTimeError').css('display', 'none');
+    $('.invalidTimeError').hide();
   }
 
   inputBytesLimiter(event, maxBytes) {
-    var bytesCounter = 0;
-    for(var i = 0; i < maxBytes && bytesCounter < maxBytes; i++ ) {
-      var c = event.target.value.charCodeAt(i);
+    let bytesCounter = 0;
+    for(let i = 0; i < maxBytes && bytesCounter < maxBytes; i++ ) {
+      let c = event.target.value.charCodeAt(i);
       if((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
         bytesCounter++;
       }else {
@@ -211,4 +222,4 @@ class EditorBase extends React.Component {
   }
 }
 
-export default EditorBase
+export default EditorBase;

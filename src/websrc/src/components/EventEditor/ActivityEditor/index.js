@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import  'jquery-validation';
-import EditorBase from '../EditorBase/EditorBase'
+import EditorBase from '../EditorBase/EditorBase';
 
 const imageURLMap = {
   0: 'style1',
@@ -22,9 +22,7 @@ class ActivityEditor extends EditorBase {
           <div>
             <input name="name" className='newsNameInput' type="text"
                    placeholder="请输入活动名称, 最多40个字符" maxLength='40'
-                   onInput={(event) => {
-                     this.inputBytesLimiter(event, 40);
-                   }}/>
+                   onInput={(event) => this.inputBytesLimiter(event, 40)}/>
           </div>
         </div>
         <div className='inputBlock'>
@@ -39,9 +37,7 @@ class ActivityEditor extends EditorBase {
           <div>
             <input name="location" className='newsNameInput' type="text"
                    placeholder="请输入活动地点, 最多40个字符" maxLength='40'
-                   onInput={(event) => {
-                     this.inputBytesLimiter(event, 40);
-                   }}/>
+                   onInput={(event) => this.inputBytesLimiter(event, 40)}/>
           </div>
         </div>
         <div className="inputBlock">
@@ -49,9 +45,7 @@ class ActivityEditor extends EditorBase {
           <div>
             <input name="organizer" className='newsNameInput' type="text"
                    placeholder="请输入主办方, 最多20个字符" maxLength='20'
-                   onInput={(event) => {
-                     this.inputBytesLimiter(event, 20);
-                   }}/>
+                   onInput={(event) => this.inputBytesLimiter(event, 20)}/>
           </div>
         </div>
         <div className="inputBlock">
@@ -59,9 +53,7 @@ class ActivityEditor extends EditorBase {
           <div>
             <input name="guest" className='newsNameInput' type="text"
                    placeholder="请输入活动嘉宾, 最多20个字符" maxLength='20'
-                   onInput={(event) => {
-                     this.inputBytesLimiter(event, 40);
-                   }}/>
+                   onInput={(event) => this.inputBytesLimiter(event, 40)}/>
           </div>
         </div>
         <div className="inputBlock">
@@ -69,9 +61,7 @@ class ActivityEditor extends EditorBase {
           <div>
             <textarea name="description" className='newsDescriptionInput' type="text"
                       placeholder="请输入一句简短的宣传语, 最多100个字符" maxLength='100'
-                      onInput={(event) => {
-                        this.inputBytesLimiter(event, 100);
-                      }}/>
+                      onInput={(event) => this.inputBytesLimiter(event, 100)}/>
           </div>
         </div>
       </div>

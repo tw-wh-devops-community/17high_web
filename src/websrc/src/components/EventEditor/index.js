@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from '../Header'
-import Nav from './PublishmentNavigator'
-import ActivityEditor from './ActivityEditor'
-import NewsEditor from './NewsEditor'
-import Dialog from './Dialog'
+import Header from '../Header';
+import Nav from './PublishmentNavigator';
+import ActivityEditor from './ActivityEditor';
+import NewsEditor from './NewsEditor';
+import Dialog from './Dialog';
 
-import '../css/react-datetime.css'
+import '../css/react-datetime.css';
 import '../css/editor.css';
 
 const editors = [ActivityEditor, NewsEditor];
@@ -28,22 +28,10 @@ export default class PublishActivity extends React.Component {
           <div className="content">
             <Nav onSelect={(index) => {
               this.handleSelect(index);
-            }}
-              />
+            }}/>
             <this.state.selectedEditor/>
           </div>
         </div>
-        <Dialog
-          ref='dialog'
-          id="cancelPublish"
-          title="放弃发布"
-          message="确认要放弃发布这篇公告吗?"
-          positiveText="确认"
-          negativeText="取消"
-          onPositiveClick={() => {
-            this.backToDashboard();
-          }}
-          />
       </div>
     )
   }

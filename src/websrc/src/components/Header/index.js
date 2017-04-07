@@ -37,7 +37,7 @@ class Header extends React.Component {
   }
 
   goToEditorPage() {
-    window.location = '/#/editor'
+    window.location = '/#/editor';
   }
 }
 
