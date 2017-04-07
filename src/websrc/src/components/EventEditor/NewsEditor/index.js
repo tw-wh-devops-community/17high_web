@@ -69,7 +69,7 @@ class NewsEditor extends EditorBase {
         startTime: startTime,
         endTime: endTime,
         description: description,
-        imageURL: selectedTemplateId,
+        imageURL: `style${selectedTemplateId + 1}`,
         type: type
       }),
       dataType: 'json',

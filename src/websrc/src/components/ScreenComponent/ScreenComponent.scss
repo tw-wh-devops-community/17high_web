@@ -43,10 +43,6 @@ html body {
   top: 0px;
   bottom: 0px;
   background-size: 100vw 100vh;
-  -webkit-transition: all 1s ease-in;
-  -moz-transition: all 1s ease-in;
-  -o-transition: all 1s ease-in;
-  transition: all 1s ease-in;
   overflow: hidden;
 }
 
@@ -143,7 +139,7 @@ html body {
   height: 5.3%;
   width: 62.2%;
   font-family: lantingheiTC;
-  font-size: 5vh;
+  font-size: 4.5vh;
   color: #ffffff;
   margin-top: 0.31%;
   margin-left: 5.6%;
@@ -184,7 +180,7 @@ html body {
   margin-left: 12.2%
 }
 .recentlistdiv{
-  margin-top:10%;
+  margin-top: 5%;
   height: 100%;
 }
 .recentitemdiv{

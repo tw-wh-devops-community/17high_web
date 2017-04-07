@@ -120,7 +120,7 @@ class ActivityEditor extends EditorBase {
         guest: guest,
         description: description,
         location: location,
-        imageURL: selectedTemplateId,
+        imageURL: `style${selectedTemplateId + 1}`,
         type: type
       }),
       dataType: 'json',

@@ -4,7 +4,7 @@ import '../../axiosConfig';
 export default class ActivityApiService {
   list(){
     return new Promise(function (resolve, reject) {
-      axios.get("/v1/activities?size=6&page=0").then(function (result) {
+      axios.get("/v1/activities?size=6&page=0&validation=true").then(function (result) {
         if (result.status != 200) {
           return;
         }

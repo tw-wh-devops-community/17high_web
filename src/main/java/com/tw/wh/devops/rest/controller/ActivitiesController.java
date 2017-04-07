@@ -37,7 +37,7 @@ public class ActivitiesController {
                                   @RequestParam(required = false, defaultValue = "") String status,
                                   @RequestParam(required = false, defaultValue = "") String sort,
                                   @RequestParam(required = false, defaultValue = "") boolean validation) {
-        PageRequest pageRequest = new PageRequest(page, size);
+        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.ASC, "startTime");
         Page<Activity> all;
         if (validation) {
             all = activityRepository.findAllWithStartTimeLaterThan(new Date(), pageRequest);
@@ -45,15 +45,6 @@ public class ActivitiesController {
             all = activityRepository.findAll(pageRequest);
         }
         return all.getContent().iterator();
-
-//        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.ASC, "startTime");
-//        Page<Activity> all = activityRepository.findAll(pageRequest);
-//        Iterator<Activity> iterator = all.getContent().stream()
-//                .filter(activity ->
-//                  new Date().before(activity.getStartTime()))
-//                .collect(Collectors.toList())
-//                .iterator();
-//        return iterator;
     }
 
     @RequestMapping(path = "/{id}", method = GET)
