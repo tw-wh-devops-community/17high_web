@@ -1,9 +1,7 @@
 import React from 'react';
-import Header from '../Header';
 import Nav from './PublishmentNavigator';
 import ActivityEditor from './ActivityEditor';
 import NewsEditor from './NewsEditor';
-import Dialog from './Dialog';
 
 import '../css/react-datetime.css';
 import '../css/editor.css';
@@ -23,37 +21,35 @@ export default class PublishActivity extends React.Component {
   render() {
     return (
       <div className="pageContainer eventEditorPage">
-        { this.renderHeader() }
-        <div className='contentContainer'>
+        { PublishActivity.renderHeader() }
+        <div className="contentContainer">
           <div className="content">
-            <Nav onSelect={(index) => {
-              this.handleSelect(index);
-            }}/>
-            <this.state.selectedEditor/>
+            <Nav
+              onSelect={index => this.handleSelect(index)} />
+            <this.state.selectedEditor />
           </div>
         </div>
       </div>
-    )
+    );
   }
 
-  renderHeader() {
+  static renderHeader() {
     return (
-      <div className='headerContainer'>
-        <div className='header'>
-          <div className='projectName'>17 High</div>
+      <div className="headerContainer">
+        <div className="header">
+          <div className="projectName">17 High</div>
           <div className="launchText">发布公告</div>
         </div>
       </div>
-    )
+    );
   }
 
-  handleSelect(selectedKey) {
-    if (this.state.selectedTab != selectedKey) {
+  handleSelect = (selectedKey) => {
+    if (this.state.selectedTab !== selectedKey) {
       this.setState({
-          selectedTab: selectedKey,
-          selectedEditor: editors[selectedKey]
-        }
-      );
+        selectedTab: selectedKey,
+        selectedEditor: editors[selectedKey]
+      });
     }
-  }
+  };
 }

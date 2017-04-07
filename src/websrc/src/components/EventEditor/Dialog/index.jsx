@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import '../../css/dialog.css';
 
+/* eslint-disable */
 class Dialog extends React.Component {
 
   render() {
@@ -10,16 +11,15 @@ class Dialog extends React.Component {
         <div id={this.props.id} className="modal">
           <div className="modal-content">
             <div className="modal-header">
-              <span className="close" onClick={this.onCancel.bind(this)}>&times;</span>
+              <button className="close" onClick={this.onCancel()}>&times;</button>
               {this.props.title}
             </div>
             <div className="modal-body">
               {this.props.message}
             </div>
             <div className="modal-footer">
-              <div className="publish" onClick={this.onPositiveClick.bind(this)}>{this.props.positiveText}</div>
-              <div className="cancelPublish"
-                      onClick={this.onNegativeClick.bind(this)}>{this.props.negativeText}</div>
+              <button className="publish" onClick={this.onPositiveClick()}>{this.props.positiveText}</button>
+              <button className="cancelPublish" onClick={this.onNegativeClick()}>{this.props.negativeText}</button>
             </div>
           </div>
         </div>
@@ -28,34 +28,34 @@ class Dialog extends React.Component {
   }
 
   dismiss() {
-    $('#'+ this.props.id)[0].style.display = "none";
+    $(`#${this.props.id}`)[0].style.display = 'none';
   }
 
-  onCancel() {
+  onCancel = () => {
     if (this.props.onNegativeClick) {
       this.props.onPositiveClick();
     }
     this.dismiss();
-  }
+  };
 
-  onPositiveClick() {
+  onPositiveClick = () => {
     if (this.props.onPositiveClick()) {
       this.props.onPositiveClick();
     }
     this.dismiss();
-  }
+  };
 
-  onNegativeClick() {
+  onNegativeClick = () => {
     if (this.props.onNegativeClick) {
       this.props.onPositiveClick();
     }
     this.dismiss();
-  }
+  };
 
-  showDialog(id) {
-    var modal = $('#'+ id)[0];
-    modal.style.display = "block";
+  showDialog() {
+    const modal = $(`#${this.props.id}`)[0];
+    modal.style.display = 'block';
   }
 }
 
-export default Dialog
+export default Dialog;
