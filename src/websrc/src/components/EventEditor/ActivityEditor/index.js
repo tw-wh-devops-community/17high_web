@@ -3,6 +3,15 @@ import $ from 'jquery';
 import  'jquery-validation';
 import EditorBase from '../EditorBase/EditorBase'
 
+const imageURLMap = {
+  0: 'style1',
+  1: 'style2',
+  2: 'style3',
+  3: 'style4',
+  4: 'style5',
+  5: 'style6'
+};
+
 class ActivityEditor extends EditorBase {
 
   onRenderContent() {
@@ -105,8 +114,9 @@ class ActivityEditor extends EditorBase {
     let organizer = document.getElementsByName('organizer')[0].value;
     let guest = document.getElementsByName('guest')[0].value;
     let description = document.getElementsByName('description')[0].value;
-    let selectedTemplateId = this.state.selectedTemplateId;
+    let imageURL = this.getImageURL(this.state.selectedTemplateId);
     let type = this.getEditorType();
+    let status = this.getStatus();
 
     $.ajax({
       url: 'http://localhost:8080/v1/activities',
@@ -120,8 +130,9 @@ class ActivityEditor extends EditorBase {
         guest: guest,
         description: description,
         location: location,
-        imageURL: `style${selectedTemplateId + 1}`,
-        type: type
+        imageURL: imageURL,
+        type: type,
+        status: status
       }),
       dataType: 'json',
       headers: {
@@ -140,6 +151,14 @@ class ActivityEditor extends EditorBase {
 
   getEditorType() {
     return 'SESSION';
+  }
+
+  getStatus() {
+    return 'PUBLISHED';
+  }
+
+  getImageURL(index) {
+    return imageURLMap[index];
   }
 }
 
