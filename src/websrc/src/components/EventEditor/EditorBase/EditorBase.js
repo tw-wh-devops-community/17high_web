@@ -118,16 +118,13 @@ class EditorBase extends React.Component {
 
 
   validateAllElements() {
-    if (!this.validateElement("input[name='name']")) {
-      this.formValidator.focusInvalid();
-      return false;
-    } else if (!this.validateTime()) {
-      //not to focus,just change all time input border color.
-      this.showInvalidTimeError();
-      return false;
-    } else if (!this.validateContent()) {
-      this.formValidator.focusInvalid();
-      return false;
+    this.validateElement("input[name='name']")
+    this.validateTime();
+    this.validateContent();
+    const invalidAria = $("[aria-invalid=true]");
+    if(invalidAria.length > 0 ) {
+      invalidAria.filter(":first").focus();
+      return false
     }
     return true;
   }
@@ -173,11 +170,14 @@ class EditorBase extends React.Component {
   }
 
   validateTime() {
-    let rt = this.validateElement("input[name='startDay']") |
-      this.validateElement("input[name='startHour']") |
-      this.validateElement("input[name='endDay']") |
-      this.validateElement("input[name='endHour']");
-    return rt == 1;
+    this.validateElement("input[name='startDay']");
+    this.validateElement("input[name='startHour']");
+    this.validateElement("input[name='endDay']");
+    if(!this.validateElement("input[name='endHour']")){
+      this.showInvalidTimeError();
+      return false;
+    }
+    return true;
   }
 
   onSubmit() {
@@ -203,6 +203,9 @@ class EditorBase extends React.Component {
       }else {
         bytesCounter+=2;
       }
+    }
+    if(i == maxBytes/2) {
+      event.target.value = event.target.value.substring(0, i);
     }
     event.target.maxLength = i;
   }

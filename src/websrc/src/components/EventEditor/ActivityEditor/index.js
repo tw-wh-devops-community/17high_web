@@ -49,7 +49,7 @@ class ActivityEditor extends EditorBase {
           {this.getInputName('活动嘉宾', false)}
           <div>
             <input name="guest" className='newsNameInput' type="text"
-                   placeholder="请输入活动嘉宾, 最多40个字符" maxLength='40'
+                   placeholder="请输入活动嘉宾, 最多20个字符" maxLength='20'
                    onInput={(event) => {
                      this.inputBytesLimiter(event, 40);
                    }}/>
@@ -70,9 +70,9 @@ class ActivityEditor extends EditorBase {
   }
 
   validateContent() {
-    return (this.validateElement("input[name='location']")
-    && this.validateElement("input[name='organizer']")
-    && this.validateElement("textarea[name='description']"));
+    this.validateElement("input[name='location']");
+    this.validateElement("input[name='organizer']");
+    this.validateElement("textarea[name='description']");
   }
 
   onSubmit() {
