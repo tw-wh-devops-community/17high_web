@@ -8,20 +8,15 @@ import java.util.Date;
 public class NewActivity {
 
     private Long id;
-
     private String name;
-
     private String sponsor;
-
     private String guest;
-
     private String imageURL;
     private String status;
     private String location;
     private String startTime;
     private String endTime;
     private String description;
-
     private ActivityType type;
 
     public Long getId() {

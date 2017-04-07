@@ -6,6 +6,7 @@ import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -36,9 +40,13 @@ public class ActivitiesController {
                                   @RequestParam(required = false, defaultValue = "") String sort,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        PageRequest pageRequest = new PageRequest(page, size);
+        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.ASC, "startTime");
         Page<Activity> all = activityRepository.findAll(pageRequest);
-        Iterator<Activity> iterator = all.getContent().iterator();
+        Iterator<Activity> iterator = all.getContent().stream()
+                .filter(activity ->
+                  new Date().before(activity.getStartTime()))
+                .collect(Collectors.toList())
+                .iterator();
         return iterator;
     }
 
