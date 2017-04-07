@@ -275,41 +275,10 @@ input.error, textarea.error {
   display: flex;
 }
 
-.leftContainer {
-  height: 42px;
-}
-
-.backButton {
-  display: inline-block;
-  height: 42px;
-  margin-left: 10px;
-  border-right: 1px solid #ffffff;
-  cursor: pointer;
-}
-
-.backIcon {
-  width: 42px;
-  vertical-align: middle;
-}
-
-.backText {
-  color: #ffffff;
-  font-size: 22px;
-  vertical-align: middle;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-.eventEditorPage .launch {
-  display: inline-block;
-  background-color: #2a3a48;
-  margin-left: 20px;
-}
-
 .eventEditorPage .launchText {
-  margin: 0;
+  margin-left: 40px;
   vertical-align: middle;
-  font-weight: normal;
+  font-weight: 100;
   cursor: default;
 }
 
