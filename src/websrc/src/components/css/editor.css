@@ -310,6 +310,7 @@ input.error, textarea.error {
   margin: 0;
   vertical-align: middle;
   font-weight: normal;
+  cursor: default;
 }
 
 .newsTimeHour > .rdtPicker {
