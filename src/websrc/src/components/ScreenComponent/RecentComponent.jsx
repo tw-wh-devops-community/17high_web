@@ -13,24 +13,24 @@ class RecentComponent extends Component {
 
     this.current = 0;
     this.timer = [];
-    this.fetchData();
+    this.fetchData(true);
     this.startLoop();
-  }
-
-  notify(currentActivity, preActivity){
-    this.props.change(currentActivity, preActivity);
   }
 
   componentDidMount() {
     this.timer.push(setInterval(this.fetchData, 1000));
   }
 
+  notify(currentActivity, preActivity){
+    this.props.change(currentActivity, preActivity);
+  }
+
   fetchData = (firstTime) => {
     activityApiService.list().then(items => {
       if(JSON.stringify(this.state.items) !== JSON.stringify(items)) {
-        // if(firstTime) {
-        //   this.notify(items[0]);
-        // }
+        if(firstTime) {
+          this.notify(items[0]);
+        }
         this.setState({items});
       }
     });
