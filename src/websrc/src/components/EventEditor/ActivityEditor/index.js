@@ -113,6 +113,8 @@ class ActivityEditor extends EditorBase {
       },
       success: function (data) {
         console.log(data);
+        console.log("活动发布成功");
+        window.location = '/#/home?publishSuccessful';
       },
       error: function (xhr, status, err) {
         console.error("error", status, err.toString());

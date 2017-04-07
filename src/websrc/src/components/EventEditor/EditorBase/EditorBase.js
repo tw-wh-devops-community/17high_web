@@ -121,7 +121,7 @@ class EditorBase extends React.Component {
     this.validateElement("input[name='name']")
     this.validateTime();
     this.validateContent();
-    const invalidAria = $("[aria-invalid=true]");
+    const invalidAria = $("[aria-invalid=true]").not("[class='form-control error']");
     if(invalidAria.length > 0 ) {
       invalidAria.filter(":first").focus();
       return false
