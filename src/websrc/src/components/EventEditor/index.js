@@ -59,14 +59,6 @@ export default class PublishActivity extends React.Component {
     )
   }
 
-  cancelPublish() {
-    this.refs.dialog.showDialog("cancelPublish");
-  }
-
-  backToDashboard() {
-    window.location = '/#/home';
-  }
-
   handleSelect(selectedKey) {
     if (this.state.selectedTab != selectedKey) {
       this.setState({
