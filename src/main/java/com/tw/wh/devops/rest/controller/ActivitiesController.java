@@ -54,7 +54,6 @@ public class ActivitiesController {
 //                .collect(Collectors.toList())
 //                .iterator();
 //        return iterator;
-
     }
 
     @RequestMapping(path = "/{id}", method = GET)
