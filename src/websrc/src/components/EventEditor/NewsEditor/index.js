@@ -16,26 +16,23 @@ class NewsEditor extends EditorBase {
           {this.getInputName('新闻名称', true)}
           <div>
             <input name="name" className='newsNameInput' type="text"
-                   placeholder="请输入活动名称,20个字内"
-                   onBlur={() => {
-                     this.validateElement("input[name='name']")
-                   }}/>
+                   placeholder="请输入活动名称, 最多40个字符" maxLength='40'
+                   onInput={(event) => this.inputBytesLimiter(event, 40)}/>
           </div>
         </div>
         <div className='inputBlock'>
           {this.getInputName('展示时间', true)}
           <div>
             {this.getDateInput()}
+            <div className="invalidTimeError">活动时间不能为空且结束时间不能早于开始时间</div>
           </div>
         </div>
         <div className="inputBlock">
           {this.getInputName('新闻内容', true)}
           <div>
             <textarea name="description" className='newsDescriptionInput' type="text"
-                      placeholder="请输入内容详情，为了方便阅读，建议不超过100字"
-                      onBlur={() => {
-                        this.validateElement("textarea[name='description']")
-                      }}/>
+                      placeholder="请输入内容详情, 最多200个字符" maxLength='200'
+                      onInput={(event) => this.inputBytesLimiter(event, 200)}/>
           </div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 import React from 'react';
-import Header from '../Header'
-import Nav from './PublishmentNavigator'
-import ActivityEditor from './ActivityEditor'
-import NewsEditor from './NewsEditor'
+import Header from '../Header';
+import Nav from './PublishmentNavigator';
+import ActivityEditor from './ActivityEditor';
+import NewsEditor from './NewsEditor';
+import Dialog from './Dialog';
 
-import '../css/react-datetime.css'
+import '../css/react-datetime.css';
 import '../css/editor.css';
 
 const editors = [ActivityEditor, NewsEditor];
@@ -21,16 +22,26 @@ export default class PublishActivity extends React.Component {
 
   render() {
     return (
-      <div className="pageContainer">
-        <Header/>
+      <div className="pageContainer eventEditorPage">
+        { this.renderHeader() }
         <div className='contentContainer'>
           <div className="content">
             <Nav onSelect={(index) => {
               this.handleSelect(index);
-            }}
-            />
+            }}/>
             <this.state.selectedEditor/>
           </div>
+        </div>
+      </div>
+    )
+  }
+
+  renderHeader() {
+    return (
+      <div className='headerContainer'>
+        <div className='header'>
+          <div className='projectName'>17 High</div>
+          <div className="launchText">发布公告</div>
         </div>
       </div>
     )
