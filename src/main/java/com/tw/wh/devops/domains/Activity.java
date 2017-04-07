@@ -11,13 +11,9 @@ public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
-
     private String sponsor;
-
     private String guest;
-
     private String imageURL;
     private String status;
     private String location;
@@ -26,7 +22,6 @@ public class Activity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
     private String description;
-
     @Enumerated(EnumType.STRING)
     private ActivityType type;
 

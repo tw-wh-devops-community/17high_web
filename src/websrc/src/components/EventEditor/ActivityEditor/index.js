@@ -13,6 +13,11 @@ class ActivityEditor extends EditorBase {
           <div>
             <input name="name" className='newsNameInput' type="text"
                    placeholder="请输入活动名称,20个字内"
+                   onKeyUp={() => {
+                     console.log(this);
+                     console.log($.validator);
+                     this.inputLimiter(this.name, 20)
+                   }}
                    onBlur={() => {
                      this.validateElement("input[name='name']")
                    }}/>
@@ -62,6 +67,22 @@ class ActivityEditor extends EditorBase {
         </div>
       </div>
     )
+  }
+
+  inputLimiter(str, maxBytes) {
+    var w = 0;
+    for(var i=0; i<str.length; i++) {
+      var c = str.charCodeAt(i);
+      if((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+        w++;
+      }else {
+        w+=2;
+      }
+    }
+
+    if(w > maxBytes) {
+      str = str.substr(0, i);
+    }
   }
 
   validateContent() {

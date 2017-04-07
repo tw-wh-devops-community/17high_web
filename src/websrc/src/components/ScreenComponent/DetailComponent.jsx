@@ -1,30 +1,33 @@
 import React, {Component} from "react";
 import classNames from "classnames";
 import scss from "./ScreenComponent.scss";
-import gift from "./image/gift.png";
-import news from "./image/news.png";
+import NewsIcon from "./svg/NewsIcon";
+import ActivityIcon from "./svg/ActivityIcon";
+import LogoIcon from "./svg/LogoIcon";
 import DateUtilComponent from "./DateUtilComponent";
 
-var dateUtil = new DateUtilComponent();
+const dateUtil = new DateUtilComponent();
 
 class DetailComponent extends Component {
   render() {
-    var item = this.props.activity;
-    var style = classNames(scss.detaildiv, scss[item.imageURL]);
-    var typeText = "活动";
-    var typeicon = gift;
-    var hideNewsField="";
+    let item = this.props.activity;
+    let style = classNames(scss.detaildiv, scss[item.imageURL]);
+    let typeText = "活动";
+    let hideNewsField="";
+    let typeicon = ActivityIcon;
     if(item.type == "NEWS"){
       typeText = "新闻";
-      typeicon = news;
+      typeicon = NewsIcon;
       hideNewsField = scss.hideinfo;
     }
 
     return (
       <div className={style} data-additionflag={this.props.addition}>
-
         <div className={classNames(scss.typediv)}>
-          <img src={typeicon} className={classNames(scss.typeicon)}/><span className={classNames(scss.typetext)}>{typeText}</span>
+          { typeicon({ className: classNames(scss.labelIcon) }) }<span className={classNames(scss.typetext)}>{typeText}</span>
+        </div>
+        <div className={classNames(scss.logoIconWrapper)}>
+          <LogoIcon className={classNames(scss.logoIcon)}/>
         </div>
         <div className={classNames(scss.datediv)}>
           <span className={classNames(scss.datetext)}>{dateUtil.formatFromTo(item.startTime, item.endTime)}</span>
