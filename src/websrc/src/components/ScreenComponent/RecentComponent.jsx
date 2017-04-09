@@ -10,7 +10,11 @@ class RecentComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {items: [], current: 0};
-
+    
+    activityApiService.list("/v1/activities?size=6&page=0").then(function (data) {
+      that.notify(data[0]);
+      that.setState({items: data});
+    });
     this.current = 0;
     this.timer = [];
     this.fetchData(true);
