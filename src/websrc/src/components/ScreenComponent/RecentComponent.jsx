@@ -13,7 +13,7 @@ class RecentComponent extends Component {
     this.state = {items: [], current: 0};
     var that = this;
 
-    activityApiService.list().then(function (data) {
+    activityApiService.list("/v1/activities?size=6&page=0").then(function (data) {
       that.notify(data[0]);
       that.setState({items: data});
     });
