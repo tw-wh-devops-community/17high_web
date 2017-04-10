@@ -9,14 +9,6 @@ if ! type "git" > /dev/null; then
     git --version
 fi
 
-if ! type "docker" > /dev/null; then
-    sudo rpm -iUvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-    sudo yum update -y
-    sudo yum -y install docker-io
-    sudo service docker start
-    sudo chkconfig docker on
-fi
-
 if ! type "docker-compose" > /dev/null; then
     wget "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)"
     sudo mv ./"docker-compose-$(uname -s)-$(uname -m)" /usr/bin/docker-compose
