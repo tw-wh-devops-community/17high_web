@@ -23,12 +23,12 @@ class EditorBase extends React.Component {
         {this.onRenderContent()}
         <TemplateSelector onSelect={this.onTemplateSelect.bind(this)}/>
         <div className="newsSubmit">
-          <div className="publish" onClick={this.publishEvent.bind(this)}>发布
-          </div>
-          <div className="cancelPublish">取消</div>
+          <div className="publish" onClick={() => this.publishEvent()}>发布</div>
+          <div className="cancelPublish" onClick={() => this.cancelPublish()}>取消</div>
         </div>
         <Dialog
           ref='dialog'
+          id="publishActivity"
           title="发布公告"
           message="一经发布，将不可自行修改，确认要发布这篇公告吗"
           positiveText="确认"
@@ -37,8 +37,27 @@ class EditorBase extends React.Component {
             this.handleSubmit();
           }}
         />
+        <Dialog
+          ref='dialog'
+          id="cancelPublish"
+          title="放弃发布"
+          message="确认要放弃发布这篇公告吗?"
+          positiveText="确认"
+          negativeText="取消"
+          onPositiveClick={() => {
+            this.backToDashboard();
+          }}
+          />
       </form>
     );
+  }
+
+  cancelPublish() {
+    this.refs.dialog.showDialog("cancelPublish");
+  }
+
+  backToDashboard() {
+    window.location = '/#/home';
   }
 
   componentDidMount() {
@@ -59,7 +78,7 @@ class EditorBase extends React.Component {
       return;
     }
     console.log('try to submit');
-    this.refs.dialog.showDialog();
+    this.refs.dialog.showDialog("publishActivity");
   }
 
   handleSubmit() {
@@ -110,14 +129,12 @@ class EditorBase extends React.Component {
 
 
   validateAllElements() {
-    if (!this.validateElement("input[name='name']")) {
-      this.formValidator.focusInvalid();
-      return false;
-    } else if (!this.validateTime()) {
-      //not to focus,just change all time input border color.
-      return false;
-    } else if (!this.validateContent()) {
-      this.formValidator.focusInvalid();
+    this.validateElement("input[name='name']")
+    this.validateTime();
+    this.validateContent();
+    const invalidAria = $("[aria-invalid=true]").not("[class='form-control error']");
+    if(invalidAria.length > 0 ) {
+      invalidAria.filter(":first").focus();
       return false;
     }
     return true;
@@ -128,41 +145,31 @@ class EditorBase extends React.Component {
   }
 
   getDateInput() {
+    const now = Moment();
+
     return (
       <div className="timeBlock">
         <DatePicker inputProps={{name: 'startDay', readOnly: 'readonly'}} className='newsTimeDay'
-                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
+                    viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}
                     isValidDate={(currentDate, selectedDate) => {
-                      let now = Moment();
                       return currentDate.diff(now, 'days') >= 0;
-                    }}
-                    onBlur={() => {
-                      this.validateTime();
-                    }}
-        />
+                    }}/>
         <DatePicker inputProps={{name: 'startHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
-                    onBlur={() => {
-                      this.validateTime();
-                    }}
-        />
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm"/>
         <div className='timeDivider'>-</div>
         <DatePicker inputProps={{name: 'endDay', readOnly: 'readonly'}} className='newsTimeDay'
-                    viewMode="days" dateFormat="YYYY-MM-DD" defaultValue="yyyy-mm-dd" timeFormat={false}
+                    viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}
                     isValidDate={(currentDate, selectedDate) => {
-                      let now = Moment();
-                      return currentDate.diff(now, 'days') >= 0;
-                    }}
-                    onBlur={() => {
-                      this.validateTime();
-                    }}
-        />
+                      let startDay = Moment($("input[name='startDay']").val());
+                      return currentDate.diff(startDay, 'days') >= 0;
+                    }}/>
         <DatePicker inputProps={{name: 'endHour', readOnly: 'readonly'}} className='newsTimeHour'
-                    viewMode="time" dateFormat={false} timeFormat="HH:mm" defaultValue="HH:mm"
+                    viewMode="time" dateFormat={false} timeFormat="HH:mm"
                     onBlur={() => {
-                      this.validateTime();
-                    }}
-        />
+                      if(this.validateTime()){
+                        this.hideInvalidTimeError();
+                      }
+                    }}/>
       </div>
     );
   }
@@ -174,11 +181,14 @@ class EditorBase extends React.Component {
   }
 
   validateTime() {
-    let rt = this.validateElement("input[name='startDay']") |
-      this.validateElement("input[name='startHour']") |
-      this.validateElement("input[name='endDay']") |
-      this.validateElement("input[name='endHour']");
-    return rt == 1;
+    this.validateElement("input[name='startDay']");
+    this.validateElement("input[name='startHour']");
+    this.validateElement("input[name='endDay']");
+    if(!this.validateElement("input[name='endHour']")){
+      this.showInvalidTimeError();
+      return false;
+    }
+    return true;
   }
 
   onSubmit() {
@@ -187,6 +197,29 @@ class EditorBase extends React.Component {
   validateContent() {
   }
 
+  showInvalidTimeError() {
+    $('.invalidTimeError').show();
+  }
+
+  hideInvalidTimeError() {
+    $('.invalidTimeError').hide();
+  }
+
+  inputBytesLimiter(event, maxBytes) {
+    let bytesCounter = 0;
+    for(let i = 0; i < maxBytes && bytesCounter < maxBytes; i++ ) {
+      let c = event.target.value.charCodeAt(i);
+      if((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+        bytesCounter++;
+      }else {
+        bytesCounter+=2;
+      }
+    }
+    if(i == maxBytes/2) {
+      event.target.value = event.target.value.substring(0, i);
+    }
+    event.target.maxLength = i;
+  }
 }
 
-export default EditorBase
+export default EditorBase;

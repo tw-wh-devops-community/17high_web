@@ -46,10 +46,11 @@
   font-weight: 600;
   align-items: center;
   color: #ffffff;
+  cursor: pointer;
 }
 
 .rightContainer {
-  display: flex;
+  display: none;
   flex-grow: 1;
   margin-right: 5px;
   justify-content: flex-end;
