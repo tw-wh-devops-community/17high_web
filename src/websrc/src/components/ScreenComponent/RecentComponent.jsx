@@ -14,11 +14,10 @@ class RecentComponent extends Component {
     this.current = 0;
     this.timer = [];
     this.fetchData(true);
-    this.startLoop();
   }
 
   componentDidMount() {
-    this.timer.push(setInterval(this.fetchData, 1000));
+    this.initInterval();
   }
 
   notify(currentActivity, preActivity){
@@ -36,7 +35,7 @@ class RecentComponent extends Component {
     });
   }
 
-  startLoop = () => {
+  initInterval = () => {
     this.timer.push(setInterval(() => {
       let items = this.state.items;
       let index = this.current % items.length;
@@ -51,18 +50,15 @@ class RecentComponent extends Component {
 
       this.setState({items: items, current: this.current});
     }, 3000));
+
+    this.timer.push(setInterval(this.fetchData, 30000));
   }
 
   componentWillUnmount() {
-    this.clearTimer();
-  }
-
-  clearTimer() {
     this.timer && this.timer.length && this.timer.forEach(interval => clearInterval(interval));
   }
 
   render() {
-    console.log(this.timer);
     let size = this.state.items.length;
     let that = this;
     let items = this.state.items.map(function (activity, index) {
