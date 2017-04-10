@@ -48,7 +48,7 @@ task integration(type: Test, description: 'Runs the integration tests.', group: 
 
 task felint(type: Exec, description: 'Runs the front-end lint check.', group: 'Verification') {
     workingDir 'src/websrc'
-    commandLine 'npm', 'run', 'lint'
+    commandLine 'npm', 'run', 'ci:lint'
 }
 
 applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]

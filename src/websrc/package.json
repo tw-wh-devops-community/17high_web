@@ -70,7 +70,7 @@
     "ci-test": "jest --coverage && nyc report --temp-directory=coverage --reporter=text-lcov | coveralls",
     "eslint": "eslint src/**/*.jsx src/**/*.js",
     "csslint": "sass-lint",
-    "lint": "yarn eslint && yarn csslint",
+    "ci:lint": "yarn install && yarn eslint && yarn csslint",
     "bundle-watch": "webpack --watch"
   },
   "jest": {
