@@ -1,6 +1,8 @@
+@import "base";
+@import "react-datetime";
+
 .contentContainer {
   background-color: #fafafa;
-
 }
 
 .content {
@@ -182,6 +184,7 @@ input.error, textarea.error {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+  margin-right: 20px;
 }
 
 .cancelPublish {
@@ -214,6 +217,10 @@ input.error, textarea.error {
 }
 
 .templateItem, .templateItemFirst {
+  > div {
+    height:inherit;
+  }
+  display: block;
   width: 149px;
   height: 61px;
   border-radius: 4px;
@@ -241,7 +248,6 @@ input.error, textarea.error {
   position: relative;
   width: 26px;
   height: 26px;
-  left: 62px;;
   top: -48px;
 }
 
@@ -286,7 +292,7 @@ input.error, textarea.error {
   width: 130px;
 }
 
-.invalidTimeError {
+:global .invalidTimeError {
   display: none;
   margin-top: 10px;
   color: red;

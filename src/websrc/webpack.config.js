@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, '../main/resources/static');
-//const BUILD_DIR = path.resolve(__dirname, 'public');
 
 const APP_DIR = path.resolve(__dirname, 'src');
 
@@ -16,12 +15,20 @@ const config = {
     path: BUILD_DIR,
     filename: 'bundle.js',
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+  },
   module: {
     loaders: [
       {
-        test: /\.jsx?/,
+        test: /\.jsx?$/,
         include: APP_DIR,
-        loader: 'babel',
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'react', 'stage-0'],
+          plugins: ['transform-class-properties', 'transform-decorators-legacy', 'transform-object-rest-spread']
+        }
       },
       {
         test: /\.scss$/,
@@ -40,9 +47,6 @@ const config = {
         loader: extractCSS.extract("style-loader", "css-loader")
       }
     ]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
