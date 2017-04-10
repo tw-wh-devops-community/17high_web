@@ -21,6 +21,10 @@ public class Activity {
     private Date startTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date createTime;
+    private String owner;
+    private byte displayTime;
     private String description;
     @Enumerated(EnumType.STRING)
     private ActivityType type;
@@ -100,6 +104,10 @@ public class Activity {
         this.endTime = endTime;
     }
 
+    public Date getCreateTime() { return createTime; }
+
+    public void setCreateTime(Date createTime) { this.createTime = createTime; }
+
     public String getDescription() {
         return description;
     }
@@ -107,6 +115,14 @@ public class Activity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getOwner() { return owner; }
+
+    public void setOwner(String owner) { this.owner = owner; }
+
+    public byte getDisplayTime() { return displayTime; }
+
+    public void setDisplayTime(byte displayTime) { this.displayTime = displayTime; }
 
     public ActivityType getType() {
         return type;
@@ -130,6 +146,9 @@ public class Activity {
                 ", endTime=" + endTime +
                 ", description='" + description + '\'' +
                 ", type=" + type +
+                ", createTime=" + createTime +
+                ", owner='" + owner + '\'' +
+                ", displayTime=" + displayTime +
                 '}';
     }
 }

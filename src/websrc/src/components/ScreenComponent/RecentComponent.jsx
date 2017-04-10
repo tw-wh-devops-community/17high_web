@@ -26,7 +26,7 @@ class RecentComponent extends Component {
   notify = (currentActivity, preActivity) => this.props.change(currentActivity, preActivity);
 
   fetchData = (firstTime) => {
-    activityApiService.list().then(items => {
+    activityApiService.list('/v1/activities?size=6&page=0&validation=true').then(items => {
       if(JSON.stringify(this.state.items) !== JSON.stringify(items)) {
         if(firstTime) {
           this.notify(items[0]);

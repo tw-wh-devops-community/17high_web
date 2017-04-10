@@ -11,7 +11,7 @@ class EventList extends Component {
     super();
     this.state = {items: []};
 
-    activityApiService.list("/v1/activities?size=10&page=0").then((data) => {
+    activityApiService.list("/v1/activities?size=10&page=0&validation=true").then((data) => {
       this.setState({items: data});
     });
   }

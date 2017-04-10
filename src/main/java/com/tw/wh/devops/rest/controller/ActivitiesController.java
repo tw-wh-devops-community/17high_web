@@ -9,11 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Date;
-import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -58,6 +56,8 @@ public class ActivitiesController {
 
     @RequestMapping(method = POST)
     public Activity addActivity(@RequestBody Activity activity) {
+        Date today = Calendar.getInstance().getTime();
+        activity.setCreateTime(today);
         return activityRepository.saveAndFlush(activity);
     }
 
