@@ -5,6 +5,10 @@ services:
   - mysql
 dist: trusty
 sudo: required
+cache:
+  yarn: true
+  directories:
+    - src/websrc/node_modules
 env:
   - MYSQL_HOST=localhost MYSQL_PORT=3306 MYSQL_DATABASE=17high MYSQL_USER=17high MYSQL_PASSWORD=17high
 before_install:

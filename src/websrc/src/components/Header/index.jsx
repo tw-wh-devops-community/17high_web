@@ -1,9 +1,12 @@
 import React from 'react';
-import '../css/header.css';
+import classNames from 'classnames/bind';
+import styles from '../css/header.scss';
 
 const editImage = require('../../image/edit.png');
 const messageImage = require('../../image/message.png');
 const downArrowImage = require('../../image/down_arrow.png');
+
+const cx = classNames.bind(styles);
 
 class Header extends React.Component {
 
@@ -15,23 +18,23 @@ class Header extends React.Component {
 
   static getHeader() {
     return (
-      <div className="headerContainer">
-        <div className="header">
-          <div className="projectName">
+      <div className={cx('headerContainer')}>
+        <div className={cx('header')}>
+          <div className={cx('projectName')}>
             17 High
           </div>
-          <div className="launch">
-            <button className="launchText" onClick={Header.goToEditorPage()}>+ 发布公告</button>
+          <div className={cx('launch')}>
+            <button className={cx('launchText')} onClick={Header.goToEditorPage}>+ 发布公告</button>
           </div>
 
-          <div className="rightContainer">
-            <div className="innerContainer">
+          <div className={cx('rightContainer')}>
+            <div className={cx('innerContainer')}>
               <img alt="" src={ editImage } />
               <img alt="" src={ messageImage } />
-              <div className="divider">|</div>
-              <div className="userNameContainer">
-                <div className="nameText">NAME</div>
-                <img alt="" className="nameTextArrow" src={ downArrowImage } />
+              <div className={cx('divider')}>|</div>
+              <div className={cx('userNameContainer')}>
+                <div className={cx('nameText')}>NAME</div>
+                <img alt="" className={cx('nameTextArrow')} src={ downArrowImage } />
               </div>
             </div>
           </div>

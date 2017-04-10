@@ -3,7 +3,9 @@ import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
 import DateUtils from './DateUtils';
 
-const ItemComponent = (active, activity) => {
+const ItemComponent = (props) => {
+  const activity = props.activity;
+  const active = props.active;
   let recentStyle = classNames(scss.recentitemdiv);
   if (active) {
     recentStyle = classNames(scss.recentitemdiv, scss.recentitemactive);
@@ -23,12 +25,13 @@ ItemComponent.propTypes = {
     location: React.PropTypes.string,
     guest: React.PropTypes.string,
     description: React.PropTypes.string,
-    endTime: React.PropTypes.string,
+    startTime: React.PropTypes.date,
+    endTime: React.PropTypes.date,
     name: React.PropTypes.string,
     type: React.PropTypes.string,
     imageURL: React.PropTypes.string
   }).isRequired,
-  active: React.PropTypes.boolean.isRequired
+  active: React.PropTypes.bool.isRequired
 };
 
 export default ItemComponent;

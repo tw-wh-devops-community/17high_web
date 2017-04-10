@@ -5,7 +5,9 @@ import gift from './image/gift.png';
 import news from './image/news.png';
 import DateUtils from './DateUtils';
 
-const DetailComponent = (activity, addition) => {
+const DetailComponent = (props) => {
+  const activity = props.activity;
+  const addition = props.addition;
   const style = classNames(scss.detaildiv, scss[activity.imageURL]);
   let typeText = '活动';
   let typeicon = gift;
@@ -53,7 +55,7 @@ DetailComponent.propTypes = {
     location: React.PropTypes.string,
     guest: React.PropTypes.string,
     description: React.PropTypes.string,
-    endTime: React.PropTypes.string,
+    endTime: React.PropTypes.date,
     name: React.PropTypes.string,
     type: React.PropTypes.string,
     imageURL: React.PropTypes.string

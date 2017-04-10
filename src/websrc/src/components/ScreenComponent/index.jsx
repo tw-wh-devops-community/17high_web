@@ -29,12 +29,12 @@ class ScreenComponent extends Component {
     this.current = 0;
   }
 
-  onChange = (activiy, preActivity) => {
+  onChange = (activity, preActivity) => {
     let previous = preActivity;
     if (previous === undefined) {
       previous = this.defaultActivity;
     }
-    this.activity = activiy;
+    this.activity = activity;
     this.preActivity = previous;
     this.setState({ time: new Date() });
   };
@@ -43,7 +43,7 @@ class ScreenComponent extends Component {
     this.inturnShowDetail();
   }
 
-  inturnShowDetail(dealwithTopMethod) {
+  inturnShowDetail = (dealwithTopMethod) => {
     this.current -= 1;
     if (this.current < 0) {
       this.current = this.screens.length - 1;
@@ -71,7 +71,7 @@ class ScreenComponent extends Component {
     const $currentScreen = $(`[name='detailScreen'] [data-additionflag='${currentScreenName}']`);
     $currentScreen.css('top', 0);
     $currentScreen.css('bottom', 0);
-  }
+  };
 
   componentDidUpdate() {
     this.inturnShowDetail(($outerScreen) => {

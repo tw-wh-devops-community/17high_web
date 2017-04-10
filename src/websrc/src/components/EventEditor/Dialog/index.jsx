@@ -1,6 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
-import '../../css/dialog.css';
+import classNames from 'classnames/bind';
+import styles from '../../css/dialog.scss';
+
+const cx = classNames.bind(styles);
 
 /* eslint-disable */
 class Dialog extends React.Component {
@@ -8,18 +11,18 @@ class Dialog extends React.Component {
   render() {
     return (
       <div>
-        <div id={this.props.id} className="modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button className="close" onClick={this.onCancel()}>&times;</button>
+        <div id={this.props.id} className={cx('modal')}>
+          <div className={cx('modal-content')}>
+            <div className={cx('modal-header')}>
+              <button className={cx("close")} onClick={this.onCancel}>&times;</button>
               {this.props.title}
             </div>
-            <div className="modal-body">
+            <div className={cx('modal-body')}>
               {this.props.message}
             </div>
-            <div className="modal-footer">
-              <button className="publish" onClick={this.onPositiveClick()}>{this.props.positiveText}</button>
-              <button className="cancelPublish" onClick={this.onNegativeClick()}>{this.props.negativeText}</button>
+            <div className={cx('modal-footer')}>
+              <button className={cx('publish')} onClick={this.onPositiveClick}>{this.props.positiveText}</button>
+              <button className={cx('cancelPublish')} onClick={this.onNegativeClick}>{this.props.negativeText}</button>
             </div>
           </div>
         </div>
@@ -27,19 +30,19 @@ class Dialog extends React.Component {
     );
   }
 
-  dismiss() {
+  dismiss () {
     $(`#${this.props.id}`)[0].style.display = 'none';
-  }
+  };
 
   onCancel = () => {
     if (this.props.onNegativeClick) {
-      this.props.onPositiveClick();
+      this.props.onNegativeClick();
     }
     this.dismiss();
   };
 
   onPositiveClick = () => {
-    if (this.props.onPositiveClick()) {
+    if (this.props.onPositiveClick) {
       this.props.onPositiveClick();
     }
     this.dismiss();
@@ -47,15 +50,17 @@ class Dialog extends React.Component {
 
   onNegativeClick = () => {
     if (this.props.onNegativeClick) {
-      this.props.onPositiveClick();
+      this.props.onNegativeClick();
     }
     this.dismiss();
   };
 
-  showDialog() {
-    const modal = $(`#${this.props.id}`)[0];
-    modal.style.display = 'block';
-  }
+  showDialog(id) {
+    const modal = $(`#${id}`)[0];
+    if (modal !== null) {
+      modal.style.display = 'block';
+    }
+  };
 }
 
 export default Dialog;

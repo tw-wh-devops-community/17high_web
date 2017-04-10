@@ -1,4 +1,9 @@
 import React from 'react';
+import classNames from 'classnames/bind';
+import styles from '../../css/editor.scss';
+
+const cx = classNames.bind(styles);
+
 
 class Navigator extends React.Component {
   static propTypes = {
@@ -12,24 +17,24 @@ class Navigator extends React.Component {
   }
   render() {
     return (
-      <div className="navBlock">
-        <nav className="navigation">
-          <div className="activityNavBlock">
+      <div className={cx('navBlock')}>
+        <nav className={cx('navigation')}>
+          <div className={cx('activityNavBlock')}>
             <button
-              className={this.state.selectedIndex === 0 ? 'activityNavSelected' : 'activityNav'}
+              className={cx(this.state.selectedIndex === 0 ? 'activityNavSelected' : 'activityNav')}
               onClick={() => this.onSelectNav(0)}>
               发布活动
             </button>
           </div>
-          <div className="activityNavBlock">
+          <div className={cx('activityNavBlock')}>
             <button
-              className={this.state.selectedIndex === 1 ? 'newsNavSelected' : 'newsNav'}
+              className={cx(this.state.selectedIndex === 1 ? 'newsNavSelected' : 'newsNav')}
               onClick={() => this.onSelectNav(1)}>
               发布新闻
             </button>
           </div>
         </nav>
-        <div className="horizontalLine" />
+        <div className={cx('horizontalLine')} />
       </div>
     );
   }

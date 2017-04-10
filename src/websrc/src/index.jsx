@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
+import DashboardComponent from './components/DashboardComponent';
 import DemoComponent from './components/DemoComponent';
 import ScreenComponent from './components/ScreenComponent';
-import DashboardComponent from './components/DashboardComponent';
 import EventEditor from './components/EventEditor';
 
 const Demo = () => <DemoComponent />;

@@ -1,5 +1,8 @@
 import React from 'react';
+import classNames from 'classnames/bind';
+
 import TemplateItem from './TemplateItem';
+import styles from '../../css/editor.scss';
 
 const COLUMN_NUMBER = 3;
 const icon1 = require('../../../image/temp_icon1.png');
@@ -9,6 +12,8 @@ const icon4 = require('../../../image/temp_icon4.png');
 const icon5 = require('../../../image/temp_icon5.png');
 const icon6 = require('../../../image/temp_icon6.png');
 const previewImg = require('../../../image/preview.png');
+
+const cx = classNames.bind(styles);
 
 class TemplateSelector extends React.Component {
 
@@ -29,13 +34,13 @@ class TemplateSelector extends React.Component {
 
   render() {
     return (
-      <div className="templateSelectBlock">
+      <div className={cx('templateSelectBlock')}>
         {TemplateSelector.getInputName('选择模板', true)}
         {this.getTemplates(this.state.templates)}
-        <div className="previewBlock">
-          <div className="preview">
-            <img alt="" className="previewIcon" src={previewImg} />
-            <div className="previewText">预览看看</div>
+        <div className={cx('previewBlock')}>
+          <div className={cx('preview')}>
+            <img alt="" className={cx('previewIcon')} src={previewImg} />
+            <div className={cx('previewText')}>预览看看</div>
           </div>
         </div>
       </div>
@@ -44,7 +49,7 @@ class TemplateSelector extends React.Component {
 
   static getInputName(name, isRequired) {
     return (
-      <div className="inputNameContainer"><span className={isRequired ? 'starChar' : 'starCharHidden'}>*</span>{name}：
+      <div className={cx('inputNameContainer')}><span className={isRequired ? 'starChar' : 'starCharHidden'}>*</span>{name}：
       </div>
     );
   }
@@ -55,7 +60,7 @@ class TemplateSelector extends React.Component {
       items.push(this.getTemplateItem(templates[i], i));
     }
     return (
-      <div className="templates">
+      <div className={cx('templates')}>
         {items}
       </div>
     );
