@@ -6,7 +6,12 @@ import ActivityApiService from './ActivityApiService';
 
 
 class RecentComponent extends Component {
+  static propTypes = {
+    change: PropTypes.func.isRequired
+  }
+
   constructor() {
+    super();
     this.current = 0;
     this.timer = [];
     this.fetchData(true);
@@ -22,39 +27,7 @@ class RecentComponent extends Component {
   }
 
   componentWillUnmount() {
-    this.timer && this.timer.length && this.timer.forEach(interval => clearInterval(interval));
-  }
-
-  notify = (currentActivity, preActivity) => this.props.change(currentActivity, preActivity);
-
-  fetchData = (firstTime) => {
-    ActivityApiService.list('/v1/activities?size=6&page=0&sort=startTime&sort.dir=asc&validation=true').then(items => {
-      if(JSON.stringify(this.state.items) !== JSON.stringify(items)) {
-        if(firstTime) {
-          this.notify(items[0]);
-        }
-        this.setState({items});
-      }
-    });
-  }
-
-  initInterval = () => {
-    this.timer.push(setInterval(() => {
-      let items = this.state.items;
-      let index = this.current % items.length;
-      let pre = items[index];
-
-      this.current++;
-      if (items == undefined || items.length == 0) {
-        return;
-      }
-      index = this.current % items.length;
-      this.notify(items[index], pre);
-
-      this.setState({items: items, current: this.current});
-    }, 3000));
-
-    this.timer.push(setInterval(this.fetchData, 30000));
+    this.clearTimer();
   }
 
   render() {
@@ -75,6 +48,43 @@ class RecentComponent extends Component {
       </div>
     );
   }
+
+  fetchData = (firstTime) => {
+    ActivityApiService.list('/v1/activities?size=6&page=0&sort=startTime&sort.dir=asc&validation=true').then((items) => {
+      if (JSON.stringify(this.state.items) !== JSON.stringify(items)) {
+        if (firstTime) {
+          this.notify(items[0]);
+        }
+        this.setState({ items });
+      }
+    });
+  }
+
+  initInterval = () => {
+    this.timer.push(setInterval(() => {
+      const items = this.state.items;
+      let index = this.current % items.length;
+      const pre = items[index];
+
+      this.current += 1;
+      if (items === undefined || items.length === 0) {
+        return;
+      }
+      index = this.current % items.length;
+      this.notify(items[index], pre);
+
+      this.setState({ items: items, current: this.current });
+    }, 3000));
+
+    this.timer.push(setInterval(this.fetchData, 30000));
+  }
+
+  clearTimer() {
+    this.timer && this.timer.length && this.timer.forEach(interval => clearInterval(interval));
+  }
+
+  notify = (currentActivity, preActivity) => this.props.change(currentActivity, preActivity);
+
 }
 
 export default RecentComponent;

@@ -29,49 +29,9 @@ class ScreenComponent extends Component {
     this.current = 0;
   }
 
-  onChange = (activity, preActivity) => {
-    let previous = preActivity;
-    if (previous === undefined) {
-      previous = this.defaultActivity;
-    }
-    this.activity = activity;
-    this.preActivity = previous;
-    this.setState({ time: new Date() });
-  };
-
   componentDidMount() {
     this.inturnShowDetail();
   }
-
-  inturnShowDetail = (dealwithTopMethod) => {
-    this.current -= 1;
-    if (this.current < 0) {
-      this.current = this.screens.length - 1;
-    }
-
-    const el = findDOMNode(this);
-    const windowHeight = el.clientHeight;
-
-    const outScreenName = this.screens[(this.current + 2) % this.screens.length];
-    const $outerScreen = $(`[name='detailScreen'] [data-additionflag='${outScreenName}']`);
-    $outerScreen.css('top', windowHeight);
-    $outerScreen.css('bottom', -windowHeight);
-
-    if (dealwithTopMethod !== undefined) {
-      dealwithTopMethod.call(this, $outerScreen);
-    }
-
-
-    const preScreenName = this.screens[(this.current + 1) % this.screens.length];
-    const $preScreen = $(`[name='detailScreen'] [data-additionflag='${preScreenName}']`);
-    $preScreen.css('top', -windowHeight);
-    $preScreen.css('bottom', windowHeight);
-
-    const currentScreenName = this.screens[(this.current) % this.screens.length];
-    const $currentScreen = $(`[name='detailScreen'] [data-additionflag='${currentScreenName}']`);
-    $currentScreen.css('top', 0);
-    $currentScreen.css('bottom', 0);
-  };
 
   componentDidUpdate() {
     this.inturnShowDetail(($outerScreen) => {
@@ -112,6 +72,46 @@ class ScreenComponent extends Component {
       </div>
     );
   }
+
+  inturnShowDetail = (dealwithTopMethod) => {
+    this.current -= 1;
+    if (this.current < 0) {
+      this.current = this.screens.length - 1;
+    }
+
+    const el = findDOMNode(this);
+    const windowHeight = el.clientHeight;
+
+    const outScreenName = this.screens[(this.current + 2) % this.screens.length];
+    const $outerScreen = $(`[name='detailScreen'] [data-additionflag='${outScreenName}']`);
+    $outerScreen.css('top', windowHeight);
+    $outerScreen.css('bottom', -windowHeight);
+
+    if (dealwithTopMethod !== undefined) {
+      dealwithTopMethod.call(this, $outerScreen);
+    }
+
+
+    const preScreenName = this.screens[(this.current + 1) % this.screens.length];
+    const $preScreen = $(`[name='detailScreen'] [data-additionflag='${preScreenName}']`);
+    $preScreen.css('top', -windowHeight);
+    $preScreen.css('bottom', windowHeight);
+
+    const currentScreenName = this.screens[(this.current) % this.screens.length];
+    const $currentScreen = $(`[name='detailScreen'] [data-additionflag='${currentScreenName}']`);
+    $currentScreen.css('top', 0);
+    $currentScreen.css('bottom', 0);
+  };
+
+  onChange = (activity, preActivity) => {
+    let previous = preActivity;
+    if (previous === undefined) {
+      previous = this.defaultActivity;
+    }
+    this.activity = activity;
+    this.preActivity = previous;
+    this.setState({ time: new Date() });
+  };
 }
 
 export default ScreenComponent;

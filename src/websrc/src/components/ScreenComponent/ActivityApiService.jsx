@@ -3,9 +3,9 @@ import '../../axiosConfig';
 
 export default class ActivityApiService {
   static list(url) {
-    return new Promise(function (resolve, reject) {
-      axios.get(url).then(function (result) {
-        if (result.status != 200) {
+    return new Promise((resolve, reject) => {
+      axios.get(url).then((result) => {
+        if (result.status !== 200) {
           resolve([]);
           console.error('invalid error');
           console.error(result);
