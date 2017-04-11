@@ -1,8 +1,8 @@
-import React, {Component} from "react";
-import AccountApiService from "./AccountApiService";
-import classNames from "classnames";
-import scss from "./LoginComponent.scss";
-import {Link} from "react-router";
+import React, {Component} from 'react';
+import AccountApiService from './AccountApiService';
+import classNames from 'classnames';
+import scss from './LoginComponent.scss';
+import {Link} from 'react-router';
 
 var accountApiService = new AccountApiService();
 
