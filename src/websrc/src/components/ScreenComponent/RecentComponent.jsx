@@ -1,49 +1,42 @@
-import React, {Component} from "react";
-import classNames from "classnames";
-import scss from "./ScreenComponent.scss";
-import ItemComponent from "./ItemComponent";
-import ActivityApiService from "./ActivityApiService";
-
-var activityApiService = new ActivityApiService();
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import scss from './ScreenComponent.scss';
+import ItemComponent from './ItemComponent';
+import ActivityApiService from './ActivityApiService';
 
 class RecentComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {items: [], current: 0};
-    var that = this;
-
-    activityApiService.list().then(function (data) {
+    this.state = { items: [], current: 0 };
+    const that = this;
+    ActivityApiService.list().then((data) => {
       that.notify(data[0]);
-      that.setState({items: data});
+      that.setState({ items: data });
     });
     this.current = 0;
     this.startLoop();
   }
 
-  notify(currentActivity, preActivity){
+  notify(currentActivity, preActivity) {
     this.props.change(currentActivity, preActivity);
   }
 
-  startLoop() {
-    var that = this;
-    this.interval = setInterval(function () {
-      var items = that.state.items;
-      var index = that.current % items.length;
-      var pre = items[index];
-
-      that.current++;
-      if (items == undefined || items.length == 0) {
+  startLoop = () => {
+    this.interval = setInterval(() => {
+      const items = this.state.items;
+      let index = this.current % items.length;
+      const pre = items[index];
+      this.current += 1;
+      if (items === undefined || items.length === 0) {
         return;
       }
-      index = that.current % items.length;
-      that.notify(items[index], pre);
+      index = this.current % items.length;
+      this.notify(items[index], pre);
 
-      that.setState({items: items, current: that.current});
-    }, 3000)
-  }
-
-
+      this.setState({ items, current: this.current });
+    }, 3000);
+  };
 
   componentWillUnmount() {
     this.stopLoop();
@@ -54,17 +47,17 @@ class RecentComponent extends Component {
   }
 
   render() {
-
-    var size = this.state.items.length;
-    var that = this;
-    var items = this.state.items.map(function (activity, index) {
-      return (
-        <ItemComponent activity={activity} key={activity.id} active={index == (that.current % size)}/>
-      );
-    });
+    const size = this.state.items.length;
+    const that = this;
+    const items = this.state.items.map((activity, index) => (
+      <ItemComponent
+        activity={activity}
+        key={activity.id}
+        active={index === (that.current % size)} />
+    ));
     return (
       <div className={classNames(scss.recentdiv)}>
-        <div className={classNames(scss.recenttext)} onClick={this.stopLoop.bind(this)}>近期活动</div>
+        <button className={classNames(scss.recenttext)} onClick={ this.stopLoop }>近期活动</button>
         <div className={classNames(scss.recentlistdiv)}>
           {items}
         </div>
