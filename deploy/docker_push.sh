@@ -12,6 +12,7 @@ if [ -z "$TRAVIS_PULL_REQUEST" ] || [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
     # Build and push
     docker login registry.cn-hangzhou.aliyuncs.com -u $ALI_DOCKER_USER -p $ALI_DOCKER_PASSWORD
+    #docker login registry.cn-hangzhou.aliyuncs.com -u wjyaowh -p wh2017devops
     echo "building and pushing docker image"
     ./gradlew buildDocker
     docker logout
