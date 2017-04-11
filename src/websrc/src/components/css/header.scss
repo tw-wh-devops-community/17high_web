@@ -1,3 +1,5 @@
+@import "base";
+
 .headerContainer {
   width: 100%;
   height: 100%;
@@ -38,6 +40,8 @@
 }
 
 .launchText {
+  text-align: center;
+  display: block;
   width: 70%;
   margin: 7px auto 7px;
   height: 30px;

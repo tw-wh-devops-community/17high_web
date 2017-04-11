@@ -1,6 +1,19 @@
 import React from 'react';
+import classNames from 'classnames/bind';
+
+import TemplateItem from './TemplateItem';
+import styles from '../../css/editor.scss';
 
 const COLUMN_NUMBER = 3;
+const icon1 = require('../../../image/temp_icon1.png');
+const icon2 = require('../../../image/temp_icon2.png');
+const icon3 = require('../../../image/temp_icon3.png');
+const icon4 = require('../../../image/temp_icon4.png');
+const icon5 = require('../../../image/temp_icon5.png');
+const icon6 = require('../../../image/temp_icon6.png');
+const previewImg = require('../../../image/preview.png');
+
+const cx = classNames.bind(styles);
 
 class TemplateSelector extends React.Component {
 
@@ -8,54 +21,53 @@ class TemplateSelector extends React.Component {
     super(props);
     this.state = {
       templates: [
-        {id: 1, url: require('../../../image/temp_icon1.png')},
-        {id: 2, url: require('../../../image/temp_icon2.png')},
-        {id: 3, url: require('../../../image/temp_icon3.png')},
-        {id: 4, url: require('../../../image/temp_icon4.png')},
-        {id: 5, url: require('../../../image/temp_icon5.png')},
-        {id: 6, url: require('../../../image/temp_icon6.png')},
+        { id: 1, url: icon1 },
+        { id: 2, url: icon2 },
+        { id: 3, url: icon3 },
+        { id: 4, url: icon4 },
+        { id: 5, url: icon5 },
+        { id: 6, url: icon6 }
       ],
       selectedTemplate: 0
-    }
-    ;
+    };
   }
 
   render() {
     return (
-      <div className="templateSelectBlock">
-        {this.getInputName('选择模板', true)}
+      <div className={cx('templateSelectBlock')}>
+        {TemplateSelector.getInputName('选择模板', true)}
         {this.getTemplates(this.state.templates)}
-        <div className="previewBlock">
-          <div className="preview">
-            <img className="previewIcon" src={require("../../../image/preview.png")}/>
-            <div className="previewText">预览看看</div>
+        <div className={cx('previewBlock')}>
+          <div className={cx('preview')}>
+            <img alt="" className={cx('previewIcon')} src={previewImg} />
+            <div className={cx('previewText')}>预览看看</div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
-  getInputName(name, isRequired) {
+  static getInputName(name, isRequired) {
     return (
-      <div className="inputNameContainer"><span className={isRequired ? 'starChar' : 'starCharHidden'}>*</span>{name}：
+      <div className={cx('inputNameContainer')}><span className={isRequired ? 'starChar' : 'starCharHidden'}>*</span>{name}：
       </div>
-    )
+    );
   }
 
   getTemplates(templates) {
-    var items = [];
-    for (let i = 0; i < templates.length; i++) {
+    const items = [];
+    for (let i = 0; i < templates.length; i += 1) {
       items.push(this.getTemplateItem(templates[i], i));
     }
     return (
-      <div className="templates">
+      <div className={cx('templates')}>
         {items}
       </div>
-    )
+    );
   }
 
   getTemplateItem(template, index) {
-    let isFirst = index % COLUMN_NUMBER == 0;
+    const isFirst = index % COLUMN_NUMBER === 0;
 
     return (
       <TemplateItem
@@ -63,53 +75,19 @@ class TemplateSelector extends React.Component {
         index={index}
         isFirst={isFirst}
         url={template.url}
-        onClick={this.templateClick.bind(this)}
-        isSelected={this.state.selectedTemplate == index}
+        onClick={this.handleTemplateClick}
+        isSelected={this.state.selectedTemplate === index}
       />
-    )
-  }
-
-  templateClick(index) {
-    if (index == this.state.selectedTemplate) {
-      return;
-    }
-    this.setState({selectedTemplate: index});
-    this.props.onSelect(index);
-  }
-}
-
-class TemplateItem extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      iconStyle: this.props.isSelected ? 'selectedIcon' : 'selectedIconHidden'
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      iconStyle: nextProps.isSelected ? 'selectedIcon' : 'selectedIconHidden'
-    });
-  }
-
-  render() {
-    return (
-      <div
-        className={this.props.isFirst ? "templateItemFirst" : "templateItem"}
-        onClick={() => {
-          this.props.onClick(this.props.index);
-        }}
-      >
-        <div>
-          <img className='templatesImg' src={this.props.url}/>
-          <img className={this.state.iconStyle} src={require("../../../image/selected_icon.png")}/>
-        </div>
-      </div>
-
     );
   }
 
+  handleTemplateClick = (index) => {
+    if (index === this.state.selectedTemplate) {
+      return;
+    }
+    this.setState({ selectedTemplate: index });
+    this.props.onSelect(index);
+  };
 }
 
 export default TemplateSelector;

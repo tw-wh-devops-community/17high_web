@@ -1,10 +1,46 @@
 {
+  "parser": "babel-eslint",
   "extends": "airbnb",
   "plugins": [
-    "react",
-    "jsx-a11y",
-    "import"
+    "react"
   ],
+  "rules": {
+    "comma-dangle": ["error", "never"],
+    "semi": [2, "always"],
+    "react-in-jsx-scope": 0,
+
+    /* React */
+    "react/jsx-boolean-value": 1,
+    "react/jsx-closing-bracket-location": [1, "after-props"],
+    "react/jsx-curly-spacing": [0, "never"],
+    "react/jsx-handler-names": 1,
+    "react/jsx-key": 1,
+    "react/jsx-max-props-per-line": [1, {"maximum": 2}],
+    "react/jsx-no-duplicate-props": 1,
+    "react/jsx-no-undef": 1,
+    "react/jsx-pascal-case": 1,
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
+    "react/no-danger": 0,
+    "react/no-deprecated": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-is-mounted": 1,
+    "react/no-multi-comp": [2, {"ignoreStateless": true}],
+    "react/no-unknown-property": 1,
+    "react/prefer-es6-class": 1,
+    "react/prop-types": 1,
+    "react/react-in-jsx-scope": 1,
+    "react/require-extension": 1,
+    "react/self-closing-comp": 1,
+    "react/sort-comp": [1, {
+      "order": [
+        "lifecycle",
+        "render",
+        "everything-else"
+      ]
+    }],
+    "react/wrap-multilines": 1
+  },
   "env": {
     "browser": true,
     "node": true,
