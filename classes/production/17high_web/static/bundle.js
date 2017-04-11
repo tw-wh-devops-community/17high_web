@@ -29330,7 +29330,7 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-		"BASE_API_URL": "http://localhost:8080/"
+		"BASE_API_URL": "http://localhost:8081/"
 	};
 
 /***/ },
