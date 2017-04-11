@@ -19,6 +19,7 @@
         "GroupDescription" : "Enable HTTP access via port 8081 for 17high app",
         "SecurityGroupIngress" : [
           {"IpProtocol" : "tcp", "FromPort" : "8081", "ToPort" : "8081", "CidrIp" : "0.0.0.0/0"},
+          {"IpProtocol" : "tcp", "FromPort" : "8082", "ToPort" : "8082", "CidrIp" : "0.0.0.0/0"},
           {"IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : { "Ref" : "SSHLocation"}}
         ]
       }

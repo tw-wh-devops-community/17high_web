@@ -3,38 +3,42 @@ services:
   database:
     image: "daocloud.io/library/mysql:5.7"
     ports:
-     - "3306:3306"
+      - "3306:3306"
     environment:
-     - MYSQL_ROOT_PASSWORD=5ecret
-     - MYSQL_USER=17high
-     - MYSQL_PASSWORD=17high
-     - MYSQL_DATABASE=17high
+      - MYSQL_ROOT_PASSWORD=5ecret
+      - MYSQL_USER=17high
+      - MYSQL_PASSWORD=17high
+      - MYSQL_DATABASE=17high
+    volumes:
+      - ~/17high/mysql:/var/lib/mysql
     command:
-     - --character-set-server=utf8mb4
-     - --collation-server=utf8mb4_unicode_ci
-  17high:
-      image: "registry.cn-hangzhou.aliyuncs.com/wjyao/17high_web"
-      ports:
-       - "8081:8080"
-      environment:
-       - MYSQL_HOST=database
-       - MYSQL_DATABASE=17high
-       - MYSQL_USER=17high
-       - MYSQL_PASSWORD=17high
-      links:
-       - database
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
   backup:
     image: "daocloud.io/wjyao/mysql-backup-s3"
     environment:
-     - S3_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-     - S3_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-     - S3_BUCKET=17high
-     - MYSQLDUMP_DATABASE=17high
-     - MYSQL_HOST=database
-     - MYSQL_USER=17high
-     - MYSQL_PASSWORD=17high
-     - S3_REGION=cn-north-1
-     - MULTI_FILES=yes
-     - SCHEDULE=@daily
+      - S3_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - S3_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - S3_BUCKET=17high
+      - MYSQLDUMP_DATABASE=17high
+      - MYSQL_HOST=database
+      - MYSQL_USER=17high
+      - MYSQL_PASSWORD=17high
+      - S3_REGION=cn-north-1
+      - MULTI_FILES=yes
+      - SCHEDULE=@daily
+    links:
+      - database
+  17high:
+    image: "registry.cn-hangzhou.aliyuncs.com/wjyao/17high_web"
+    ports:
+      - "8081:8080"
+    environment:
+      - MYSQL_HOST=database
+      - MYSQL_DATABASE=17high
+      - MYSQL_USER=17high
+      - MYSQL_PASSWORD=17high
+    volumes:
+      - ~/17high/app:/tmp
     links:
       - database
