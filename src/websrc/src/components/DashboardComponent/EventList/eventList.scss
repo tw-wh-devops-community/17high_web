@@ -1,3 +1,36 @@
+$font-weight: 200;
+
 .title {
   font-size: 22px;
+  font-weight: 400;
+}
+
+.displayed {
+  color: cornflowerblue;
+}
+
+.event-list-container {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.activity-loc-time {
+  font-weight: $font-weight;
+  margin-top: 10px;
+}
+
+.activity-desc {
+  font-weight: $font-weight;
+  line-height: 25px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-owner {
+  line-height: 25px;
+  font-weight: 100;
+  font-size: 16px;
+  color: darkgrey;
 }

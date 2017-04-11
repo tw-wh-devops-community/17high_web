@@ -33,9 +33,8 @@ public class ActivitiesController {
                                   @RequestParam(defaultValue = "${17high.page.number}") int page,
                                   @RequestParam(required = false, defaultValue = "") String type,
                                   @RequestParam(required = false, defaultValue = "") String status,
-                                  @RequestParam(required = false, defaultValue = "") String sort,
-                                  @RequestParam(required = false, defaultValue = "") boolean validation) {
-        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.ASC, "startTime");
+                                  @RequestParam(required = false, defaultValue = "false") boolean validation, Sort sort) {
+        PageRequest pageRequest = new PageRequest(page, size, sort);
         Page<Activity> all;
         if (validation) {
             all = activityRepository.findAllWithStartTimeLaterThan(new Date(), pageRequest);
