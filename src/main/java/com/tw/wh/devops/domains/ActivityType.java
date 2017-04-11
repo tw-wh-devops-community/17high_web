@@ -5,6 +5,5 @@ package com.tw.wh.devops.domains;
  */
 public enum  ActivityType {
     SESSION,
-
     NEWS
 }

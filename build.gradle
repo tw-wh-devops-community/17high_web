@@ -1,20 +1,18 @@
-import groovy.sql.Sql
-
 buildscript {
-	ext {
-		springBootVersion = '1.5.1.RELEASE'
-	}
-	repositories {
-		jcenter()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath('se.transmode.gradle:gradle-docker:1.2')
-	}
+    ext {
+        springBootVersion = '1.5.1.RELEASE'
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+    }
 }
 
 plugins {
-	id "org.sonarqube" version "2.2"
+    id "org.sonarqube" version "2.2"
     id 'com.github.ksoichiro.console.reporter' version '0.5.0'
 }
 
@@ -24,14 +22,44 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 apply plugin: 'jacoco'
+apply plugin: 'application'
+
+sourceSets {
+    test {
+        java.srcDirs = ['src/test/unit/java']
+    }
+    integration {
+        java.srcDirs = ['src/test/integration/java']
+        resources.srcDir 'src/test/resources'
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+configurations {
+    integrationCompile.extendsFrom testCompile
+    integrationRuntime.extendsFrom testRuntime
+}
+
+task integration(type: Test, description: 'Runs the integration tests.', group: 'Verification') {
+    testClassesDir = sourceSets.integration.output.classesDir
+    classpath = sourceSets.integration.runtimeClasspath
+}
+
+task felint(type: Exec, description: 'Runs the front-end lint check.', group: 'Verification') {
+    workingDir 'src/websrc'
+    commandLine 'npm', 'run', 'ci:lint'
+}
+
+applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]
 
 jacoco {
-	toolVersion = "0.7.+"
+    toolVersion = "0.7.+"
 }
 
 jar {
-	baseName = '17high_web'
-	version = '0.0.1-SNAPSHOT'
+    baseName = '17high_web'
+    version = '0.0.1-SNAPSHOT'
 }
 
 sourceCompatibility = 1.8
@@ -39,19 +67,19 @@ targetCompatibility = 1.8
 
 
 repositories {
-	jcenter()
+    jcenter()
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '1.5.2.RELEASE'
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '1.5.2.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-tomcat")
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     compile("javax.servlet:jstl")
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.flywaydb:flyway-core:4.1.2')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.flywaydb:flyway-core:4.1.2')
 
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.2.RELEASE'
 
@@ -59,17 +87,18 @@ dependencies {
 
 	runtime('mysql:mysql-connector-java')
 
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile group: 'junit', name: 'junit', version: '4.+'
-	testCompile ('org.springframework:spring-test')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile('org.springframework:spring-test')
+    compile('com.h2database:h2:1.4+')
 }
 
 
 
-group = 'tw-wh-devops'
+group = 'twwhdevops'
 
-task buildDocker(type: Docker, dependsOn: build) {
-    push = false
+task buildDocker(type: Docker) {
+    push = true
     applicationName = jar.baseName
     dockerfile = file('src/main/docker/Dockerfile')
     doFirst {
@@ -81,69 +110,47 @@ task buildDocker(type: Docker, dependsOn: build) {
 }
 
 jacocoTestCoverageVerification {
-	violationRules {
-		failOnViolation = false
-		rule {
-			enabled = true
-			limit {
-				minimum = 0.85
-			}
-		}
-	}
+    violationRules {
+        failOnViolation = false
+        rule {
+            enabled = true
+            limit {
+                minimum = 0.85
+            }
+        }
+    }
 }
 
 jacocoTestReport {
-	reports {
-		html.enabled = true
-	}
-}.dependsOn jacocoTestCoverageVerification
-
-task startMysql(type: Exec) {
-	commandLine './startMysql.sh'
+    reports {
+        html.enabled = true
+    }
 }
 
 test.finalizedBy jacocoTestReport
-//test.finalizedBy "sonarqube"
-
-def getLocalMysqlHost() {
-	return [ 'sh', '-c', 'docker-machine ssh mysql \'ifconfig eth1 | grep "inet addr:" | cut -d: -f2 | cut -d" " -f1\'' ].execute().text.trim()
-}
-
-task cleanDB << {
-	println 'Clean Database......'
-	URLClassLoader loader = GroovyObject.class.classLoader
-
-	configurations.runtime.each { File file ->
-		loader.addURL(file.toURL())
-	}
-	def url = "jdbc:mysql://192.168.99.100/"
-	def username = "root"
-	def password = "5ecret"
-	def driver = "com.mysql.jdbc.Driver"
-
-	def sql = Sql.newInstance(url, username, password, driver)
-	sql.execute("DROP DATABASE IF EXISTS 17high")
-	sql.execute("CREATE DATABASE 17high CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'")
-	sql.close()
-}
-
 
 bootRun {
-	environment 'MYSQL_HOST', getLocalMysqlHost()
-	environment 'MYSQL_PORT', '3306'
-	environment 'MYSQL_USER', '17high'
-	environment 'MYSQL_PASSWORD', '17high'
-	environment 'MYSQL_DATABASE', '17high'
+    systemProperties['spring.profiles.active']='dev'
+    environment 'MYSQL_HOST', '127.0.0.1'
+    environment 'MYSQL_PORT', '3306'
+    environment 'MYSQL_USER', '17high'
+    environment 'MYSQL_PASSWORD', '17high'
+    environment 'MYSQL_DATABASE', '17high'
 }
+
+integration {
+    systemProperties['spring.profiles.active']='test'
+}
+
+check.dependsOn felint
+check.dependsOn integration
+integration.mustRunAfter test
+
 
 test {
-	environment 'MYSQL_HOST', getLocalMysqlHost()
-	environment 'MYSQL_PORT', '3306'
-	environment 'MYSQL_USER', '17high'
-	environment 'MYSQL_PASSWORD', '17high'
-	environment 'MYSQL_DATABASE', '17high'
+    environment 'MYSQL_HOST', '127.0.0.1'
+    environment 'MYSQL_PORT', '3306'
+    environment 'MYSQL_USER', '17high'
+    environment 'MYSQL_PASSWORD', '17high'
+    environment 'MYSQL_DATABASE', '17high'
 }
-cleanDB.mustRunAfter(startMysql)
-bootRun.dependsOn cleanDB, startMysql
-
-test.dependsOn startMysql

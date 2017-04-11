@@ -1,7 +1,24 @@
 language: java
 jdk:
   - oraclejdk8
-
+services:
+  - mysql
+dist: trusty
+sudo: required
+cache:
+  yarn: true
+  directories:
+    - src/websrc/node_modules
+env:
+  - MYSQL_HOST=localhost MYSQL_PORT=3306 MYSQL_DATABASE=17high MYSQL_USER=17high MYSQL_PASSWORD=17high
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS 17high;'
+  - mysql -e "CREATE USER '17high'@'localhost' IDENTIFIED BY '17high';"
+  - mysql -e "GRANT ALL ON 17high.* TO '17high'@'localhost';"
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+  - ./gradlew buildDocker
+  - docker logout
 branches:
   only:
   - /.*/
