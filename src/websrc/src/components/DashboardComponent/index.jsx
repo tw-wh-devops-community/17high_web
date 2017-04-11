@@ -15,7 +15,7 @@ class DashboardComponent extends Component {
       <div className="pageContainer dashboardPage">
         <Header/>
         <Notification/>
-        <div className='contentContainer'>
+        <div className="contentContainer">
           <div className="content">
             <FilterDropDown {...this.state} onSelect={ filter => this.setState({ filter }) }/>
             <EventList {...this.state}/>

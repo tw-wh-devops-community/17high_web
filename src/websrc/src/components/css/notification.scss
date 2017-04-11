@@ -1,3 +1,5 @@
+@import "base";
+
 .notificationContainer {
   display: none;
   height: 50px;
@@ -5,7 +7,7 @@
   opacity: 0.6;
 }
 
-.notificationText{
+:global .notificationText{
   font-size: 25px;
   line-height: 50px;
   font-weight: 100;
