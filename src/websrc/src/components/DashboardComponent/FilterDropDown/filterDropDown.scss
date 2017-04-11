@@ -8,6 +8,7 @@
   border: solid 1px;
   background: white;
   width: 170px;
+  font-weight: 200;
 
   &:focus {
     outline: none;
@@ -26,13 +27,16 @@
   display: block;
   cursor: pointer;
   padding-left: 12px;
+  font-weight: 200;
 
   &:first-child {
     border-bottom: solid 1px;
   }
 
   &:hover {
-    background: lightpink;
+    font-weight: 100;
+    background: #FA8072;
+    color: white;
   }
 }
 

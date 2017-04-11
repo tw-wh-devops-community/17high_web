@@ -60,27 +60,33 @@ class EventList extends Component {
       'displayed': this.state.displayedIds.indexOf(id) > -1
     });
 
+    const formatDate = date => date.split('-').join('/');
+
     return (
       <div className={cx('event-list-container')}>
         {
           this.state.items.map(activity => {
+            const startTime = formatDate(activity.startTime);
+            const endTime = formatDate(activity.endTime);
+            const createTime = formatDate(activity.createTime);
+
             if(activity.type === 'SESSION') {
               return (
-                <div key={activity.id}>
+                <div key={activity.id} className={cx('activity-event')}>
                   <div className={titleClassNames(activity.id)}>[活动] &nbsp;{activity.name}</div>
-                  <div className={cx('activity-loc-time')}>活动时间:{activity.startTime} - {activity.endTime} 活动地点:{activity.location} 主办方:{activity.sponsor}</div>
+                  <div className={cx('activity-loc-time')}>活动时间:{startTime} - {endTime} 活动地点:{activity.location} 主办方:{activity.sponsor}</div>
                   <div className={cx('activity-desc')}>{activity.description}</div>
-                  <div className={cx('activity-owner')}>{activity.createTime} {activity.owner} 发布</div>
+                  <div className={cx('activity-owner')}>{createTime} {activity.owner} 发布</div>
                   <br/>
                 </div>
               );
             } else if (activity.type === 'NEWS') {
               return (
-                <div key={activity.id}>
+                <div key={activity.id} className={cx('activity-event')}>
                   <div className={titleClassNames(activity.id)}>[新闻] &nbsp;{activity.name}</div>
-                  <div className={cx('activity-loc-time')}>展示时间:{activity.startTime} - {activity.endTime}</div>
+                  <div className={cx('activity-loc-time')}>展示时间:{startTime} - {endTime}</div>
                   <div className={cx('activity-desc')}>{activity.description}</div>
-                  <div className={cx('activity-owner')}>{activity.createTime} {activity.owner} 发布</div>
+                  <div className={cx('activity-owner')}>{createTime} {activity.owner} 发布</div>
                   <br/>
                 </div>
               );

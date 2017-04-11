@@ -1,4 +1,4 @@
-$font-weight: 200;
+$font-weight: 100;
 
 .title {
   font-size: 22px;
@@ -14,9 +14,20 @@ $font-weight: 200;
   margin-left: 5%;
 }
 
+.activity-event {
+  background-image: linear-gradient(to right, #D3D3D3 40%, rgba(211, 211, 211, 0) 20%);
+  background-position: bottom;
+  background-size: 5px 1px;
+  background-repeat: repeat-x;
+  padding-top: 20px;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
 .activity-loc-time {
   font-weight: $font-weight;
   margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 .activity-desc {
@@ -26,6 +37,7 @@ $font-weight: 200;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 5px;
 }
 
 .activity-owner {
