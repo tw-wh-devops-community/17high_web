@@ -51,6 +51,11 @@ task felint(type: Exec, description: 'Runs the front-end lint check.', group: 'V
     commandLine 'npm', 'run', 'ci:lint'
 }
 
+task febuild(type: Exec, description: 'Runs the front-end webpack build.', group: 'Verification') {
+    workingDir 'src/websrc'
+    commandLine 'npm', 'run', 'bundle:prod'
+}
+
 applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]
 
 jacoco {
@@ -95,6 +100,7 @@ group = 'twwhdevops'
 
 task buildDocker(type: Docker) {
     push = true
+    registry = 'registry.cn-hangzhou.aliyuncs.com/wjyao'
     applicationName = jar.baseName
     dockerfile = file('src/main/docker/Dockerfile')
     doFirst {
@@ -137,6 +143,8 @@ bootRun {
 integration {
     systemProperties['spring.profiles.active']='test'
 }
+
+build.dependsOn febuild
 
 check.dependsOn felint
 check.dependsOn integration

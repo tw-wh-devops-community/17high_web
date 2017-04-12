@@ -102,7 +102,7 @@ class ActivityEditor extends EditorBase {
     const status = this.getStatus();
 
     $.ajax({
-      url: 'http://localhost:8080/v1/activities',
+      url: '/v1/activities',
       type: 'post',
       xhrFields: { withCredentials: true },
       data: JSON.stringify({

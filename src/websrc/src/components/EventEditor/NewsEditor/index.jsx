@@ -64,7 +64,7 @@ class NewsEditor extends EditorBase {
     const type = this.getEditorType();
 
     $.ajax({
-      url: 'http://localhost:8080/v1/activities',
+      url: '/v1/activities',
       type: 'post',
       xhrFields: { withCredentials: true },
       data: JSON.stringify({
