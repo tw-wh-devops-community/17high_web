@@ -14,7 +14,7 @@ class FilterDropDown extends PureComponent {
     onSelect: PropTypes.func.isRequired,
     filter: PropTypes.string
   }
-  
+
   static defaultProps = {
     filter: 'createTime'
   }
@@ -25,21 +25,25 @@ class FilterDropDown extends PureComponent {
 
   render() {
     return (
-      <div className={cx('drop-down-container')}>
-        <button className={cx('drop-down-btn')} onClick={ () => this.setState({showList: !this.state.showList}) }>
+      <div className={ cx('drop-down-container') }>
+        <button className={ cx('drop-down-btn') } onClick={ () => this.setState({ showList: !this.state.showList }) }>
           {TEXT_MAPPER[this.props.filter]}
         </button>
         {
           this.state.showList && (
-            <div className={cx('options')}>
-              <a className={cx('option')} 
-                 key="createTime" 
-                 onClick={ this.onOptionSelected.bind(null, 'createTime') }>
+            <div className={ cx('options') }>
+              <a
+                className={ cx('option') }
+                tabIndex="0"
+                key="createTime"
+                onClick={ () => this.onOptionSelected('createTime') }>
                 { TEXT_MAPPER.createTime }
               </a>
-              <a className={cx('option')} 
-                 key="startTime" 
-                 onClick={ this.onOptionSelected.bind(null, 'startTime') }>
+              <a
+                className={ cx('option') }
+                tabIndex="-1"
+                key="startTime"
+                onClick={ () => this.onOptionSelected('startTime') }>
                 { TEXT_MAPPER.startTime }
               </a>
             </div>
@@ -50,7 +54,7 @@ class FilterDropDown extends PureComponent {
   }
 
   onOptionSelected = (filter) => {
-    this.setState({showList: false}, this.props.onSelect.bind(null, filter));
+    this.setState({ showList: false }, () => this.props.onSelect(filter));
   }
 
 }

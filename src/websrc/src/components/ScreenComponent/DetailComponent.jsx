@@ -21,8 +21,8 @@ const DetailComponent = (props) => {
     <div className={style} data-additionflag={addition}>
       <div className={classNames(scss.typediv)}>
         <img
-          alt="" 
-          src={typeicon} 
+          alt=""
+          src={typeicon}
           className={classNames(scss.typeicon)} />
         <span
           className={classNames(scss.typetext)}>{typeText}</span>

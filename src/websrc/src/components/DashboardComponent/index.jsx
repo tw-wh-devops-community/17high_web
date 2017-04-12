@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Header';
 import Notification from './NotificationComponent';
-import EventList from './EventList/index.jsx';
+import EventList from './EventList/';
 import FilterDropDown from './FilterDropDown';
 
 

@@ -18,7 +18,7 @@ const cx = classNames.bind(styles);
 class TemplateSelector extends Component {
 
   static propTypes = {
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func.isRequired
   }
 
   constructor(props) {

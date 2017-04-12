@@ -42,9 +42,7 @@ class EventList extends Component {
       displayed: this.state.displayedIds.indexOf(id) > -1
     });
 
-    const formatDate = date => {
-      return date.split('-').join('/');
-    };
+    const formatDate = date => date.split('-').join('/');
 
     return (
       <div className={cx('event-list-container')}>
@@ -76,7 +74,7 @@ class EventList extends Component {
               );
             }
 
-            return <div>未知的活动类型</div>;
+            return <div key="unknown-activity-type">未知的活动类型</div>;
           })
         }
       </div>
@@ -90,14 +88,13 @@ class EventList extends Component {
       });
     });
 
-    this.fetchData(this.buildUrl(6, 0, `startTime,${SORT_DIRECTION.startTime}`), data => {
-        const displayedIds = [];
-        data && data.forEach(item => displayedIds.push(item.id));
-        this.setState({
-          displayedIds
-        });
-      }
-    );
+    this.fetchData(this.buildUrl(6, 0, `startTime,${SORT_DIRECTION.startTime}`), (data) => {
+      const displayedIds = [];
+      data && data.forEach(item => displayedIds.push(item.id));
+      this.setState({
+        displayedIds
+      });
+    });
   }
 
   fetchData = (url, callback) => {
@@ -106,9 +103,7 @@ class EventList extends Component {
     );
   }
 
-  buildUrl = (size, page, sort, validation = true) => {
-    return `/v1/activities?size=${size}&page=${page}&sort=${sort}&validation=${validation}`;
-  }
+  buildUrl = (size, page, sort, validation = true) => (`/v1/activities?size=${size}&page=${page}&sort=${sort}&validation=${validation}`)
 }
 
 export default EventList;

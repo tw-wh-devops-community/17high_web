@@ -30,5 +30,5 @@ nbdist/
 /src/websrc/node_modules/
 /src/websrc/public/
 out/
-
 /src/websrc/coverage/
+/node_modules

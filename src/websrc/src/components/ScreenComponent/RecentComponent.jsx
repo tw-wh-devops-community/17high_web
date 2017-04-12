@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
 import ItemComponent from './ItemComponent';
@@ -73,7 +73,10 @@ class RecentComponent extends Component {
       index = this.current % items.length;
       this.notify(items[index], pre);
 
-      this.setState({ items: items, current: this.current });
+      this.setState({
+        items,
+        current: this.current
+      });
     }, 3000));
 
     this.timer.push(setInterval(this.fetchData, 30000));
