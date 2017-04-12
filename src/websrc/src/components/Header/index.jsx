@@ -24,7 +24,7 @@ class Header extends React.Component {
             17 High
           </div>
           <div className={cx('launch')}>
-            <button className={cx('launchText')} onClick={Header.goToEditorPage}>+ 发布公告</button>
+            <button className={cx('launchText')} onClick={ Header.goToEditorPage }>+ 发布公告</button>
           </div>
 
           <div className={cx('rightContainer')}>
@@ -34,7 +34,10 @@ class Header extends React.Component {
               <div className={cx('divider')}>|</div>
               <div className={cx('userNameContainer')}>
                 <div className={cx('nameText')}>NAME</div>
-                <img alt="" className={cx('nameTextArrow')} src={ downArrowImage } />
+                <img
+                  alt=""
+                  className={cx('nameTextArrow')}
+                  src={ downArrowImage } />
               </div>
             </div>
           </div>

@@ -6,8 +6,11 @@ import com.tw.wh.devops.rest.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -30,9 +33,14 @@ public class ActivitiesController {
                                   @RequestParam(defaultValue = "${17high.page.number}") int page,
                                   @RequestParam(required = false, defaultValue = "") String type,
                                   @RequestParam(required = false, defaultValue = "") String status,
-                                  @RequestParam(required = false, defaultValue = "") String sort) {
-        PageRequest pageRequest = new PageRequest(page, size);
-        Page<Activity> all = activityRepository.findAll(pageRequest);
+                                  @RequestParam(required = false, defaultValue = "false") boolean validation, Sort sort) {
+        PageRequest pageRequest = new PageRequest(page, size, sort);
+        Page<Activity> all;
+        if (validation) {
+            all = activityRepository.findAllWithStartTimeLaterThan(new Date(), pageRequest);
+        } else {
+            all = activityRepository.findAll(pageRequest);
+        }
         return all.getContent().iterator();
     }
 
@@ -45,13 +53,10 @@ public class ActivitiesController {
         return activity;
     }
 
-//    @SuppressWarnings("unused")
-//    public void setActivityRepository(ActivityRepository activityRepository) {
-//        this.activityRepository = activityRepository;
-//    }
-
     @RequestMapping(method = POST)
     public Activity addActivity(@RequestBody Activity activity) {
+        Date today = Calendar.getInstance().getTime();
+        activity.setCreateTime(today);
         return activityRepository.saveAndFlush(activity);
     }
 

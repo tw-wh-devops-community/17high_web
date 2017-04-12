@@ -1,49 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
 import ItemComponent from './ItemComponent';
 import ActivityApiService from './ActivityApiService';
 
+
 class RecentComponent extends Component {
+  static propTypes = {
+    change: PropTypes.func.isRequired
+  }
 
-  constructor(props) {
-    super(props);
-    this.state = { items: [], current: 0 };
-    const that = this;
-    ActivityApiService.list().then((data) => {
-      that.notify(data[0]);
-      that.setState({ items: data });
-    });
+  constructor() {
+    super();
     this.current = 0;
-    this.startLoop();
+    this.timer = [];
+    this.fetchData(true);
+
+    this.state = {
+      items: [],
+      current: 0
+    };
   }
 
-  notify(currentActivity, preActivity) {
-    this.props.change(currentActivity, preActivity);
+  componentDidMount() {
+    this.initInterval();
   }
-
-  startLoop = () => {
-    this.interval = setInterval(() => {
-      const items = this.state.items;
-      let index = this.current % items.length;
-      const pre = items[index];
-      this.current += 1;
-      if (items === undefined || items.length === 0) {
-        return;
-      }
-      index = this.current % items.length;
-      this.notify(items[index], pre);
-
-      this.setState({ items, current: this.current });
-    }, 3000);
-  };
 
   componentWillUnmount() {
-    this.stopLoop();
-  }
-
-  stopLoop() {
-    clearInterval(this.interval);
+    this.clearTimer();
   }
 
   render() {
@@ -64,6 +48,46 @@ class RecentComponent extends Component {
       </div>
     );
   }
+
+  fetchData = (firstTime) => {
+    ActivityApiService.list('/v1/activities?size=6&page=0&sort=startTime&sort.dir=asc&validation=true').then((items) => {
+      if (JSON.stringify(this.state.items) !== JSON.stringify(items)) {
+        if (firstTime) {
+          this.notify(items[0]);
+        }
+        this.setState({ items });
+      }
+    });
+  }
+
+  initInterval = () => {
+    this.timer.push(setInterval(() => {
+      const items = this.state.items;
+      let index = this.current % items.length;
+      const pre = items[index];
+
+      this.current += 1;
+      if (items === undefined || items.length === 0) {
+        return;
+      }
+      index = this.current % items.length;
+      this.notify(items[index], pre);
+
+      this.setState({
+        items,
+        current: this.current
+      });
+    }, 3000));
+
+    this.timer.push(setInterval(this.fetchData, 30000));
+  }
+
+  clearTimer() {
+    this.timer && this.timer.length && this.timer.forEach(interval => clearInterval(interval));
+  }
+
+  notify = (currentActivity, preActivity) => this.props.change(currentActivity, preActivity);
+
 }
 
 export default RecentComponent;

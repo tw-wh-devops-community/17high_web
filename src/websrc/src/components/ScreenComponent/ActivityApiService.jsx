@@ -2,9 +2,9 @@ import axios from 'axios';
 import '../../axiosConfig';
 
 export default class ActivityApiService {
-  static list() {
+  static list(url) {
     return new Promise((resolve, reject) => {
-      axios.get('/v1/activities?size=6&page=0').then((result) => {
+      axios.get(url).then((result) => {
         if (result.status !== 200) {
           resolve([]);
           console.error('invalid error');

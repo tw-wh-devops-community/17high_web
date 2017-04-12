@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 
 import TemplateItem from './TemplateItem';
@@ -15,7 +15,11 @@ const previewImg = require('../../../image/preview.png');
 
 const cx = classNames.bind(styles);
 
-class TemplateSelector extends React.Component {
+class TemplateSelector extends Component {
+
+  static propTypes = {
+    onSelect: PropTypes.func.isRequired
+  }
 
   constructor(props) {
     super(props);
@@ -39,7 +43,10 @@ class TemplateSelector extends React.Component {
         {this.getTemplates(this.state.templates)}
         <div className={cx('previewBlock')}>
           <div className={cx('preview')}>
-            <img alt="" className={cx('previewIcon')} src={previewImg} />
+            <img
+              alt=""
+              className={cx('previewIcon')}
+              src={previewImg} />
             <div className={cx('previewText')}>预览看看</div>
           </div>
         </div>
@@ -76,8 +83,7 @@ class TemplateSelector extends React.Component {
         isFirst={isFirst}
         url={template.url}
         onClick={this.handleTemplateClick}
-        isSelected={this.state.selectedTemplate === index}
-      />
+        isSelected={this.state.selectedTemplate === index} />
     );
   }
 

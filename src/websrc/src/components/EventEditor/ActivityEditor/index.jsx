@@ -115,7 +115,8 @@ class ActivityEditor extends EditorBase {
         location,
         imageURL,
         type,
-        status
+        status,
+        displayTime: 10
       }),
       dataType: 'json',
       headers: {

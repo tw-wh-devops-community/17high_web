@@ -16,9 +16,9 @@ class DateUtils {
     }
     const begin = new Date(from);
     const end = new Date(to);
-    const fromMouth = begin.getMonth();
+    const fromMouth = begin.getMonth() + 1;
     const fromDay = begin.getDate();
-    const toMouth = end.getMonth();
+    const toMouth = end.getMonth() + 1;
     const toDay = end.getDate();
     const formatBuilder = `${single2double(fromMouth)}月${single2double(fromDay)}日${single2double(begin.getHours())}:${single2double(begin.getMinutes())} - `;
     const toHourMinuteFormat = `${single2double(end.getHours())}:${single2double(end.getMinutes())}`;

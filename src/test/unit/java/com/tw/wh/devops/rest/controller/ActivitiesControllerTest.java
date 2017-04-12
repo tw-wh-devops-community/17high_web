@@ -13,7 +13,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -65,13 +67,29 @@ public class ActivitiesControllerTest {
     public void testGetActivitiesShouldReturnActivitiesInRepository() throws Exception {
         Iterator iterator = Mockito.spy(Iterator.class);
         Page activityPage = Mockito.mock(Page.class, RETURNS_DEEP_STUBS);
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
+
         when(activityPage.getContent().iterator()).thenReturn(iterator);
 
         when(mockActivityRepository.findAll(any(Pageable.class))).thenReturn(activityPage);
 
-        Iterator expectedIterator = ac.getActivities(1, 1, "", "", "");
+        Iterator expectedIterator = ac.getActivities(1, 1, "", "", false, sort);
 
         verify(mockActivityRepository).findAll(any(Pageable.class));
+        assertThat(expectedIterator, equalTo(iterator));
+    }
+
+    @Test
+    public void testGetActivitiesShouldFilterStartTime() throws Exception {
+        Iterator iterator = Mockito.spy(Iterator.class);
+        Page activityPage = Mockito.mock(Page.class, RETURNS_DEEP_STUBS);
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
+
+        when(activityPage.getContent().iterator()).thenReturn(iterator);
+        when(mockActivityRepository.findAllWithStartTimeLaterThan(any(Date.class), any(Pageable.class))).thenReturn(activityPage);
+        Iterator expectedIterator = ac.getActivities(1, 1, "", "", true, sort);
+
+        verify(mockActivityRepository).findAllWithStartTimeLaterThan(any(Date.class), any(Pageable.class));
         assertThat(expectedIterator, equalTo(iterator));
     }
 
