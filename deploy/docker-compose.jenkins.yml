@@ -5,4 +5,4 @@ services:
     ports:
       - "18080:8080"
     volumes:
-      - ~/17high/jenkins_home:/var/jenkins/jenkins_home
+      - ~/17high/jenkins/jenkins_home:/var/jenkins/jenkins_home
