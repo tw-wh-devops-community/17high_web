@@ -3,6 +3,6 @@ services:
   17high-Jenkins:
     image: "registry.cn-hangzhou.aliyuncs.com/lanechen0201/jenkins"
     ports:
-      - "8080:8080"
+      - "18080:8080"
     volumes:
       - ~/17high/jenkins_home:/var/jenkins/jenkins_home
