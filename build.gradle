@@ -95,6 +95,7 @@ group = 'twwhdevops'
 
 task buildDocker(type: Docker) {
     push = true
+    registry = 'registry.cn-hangzhou.aliyuncs.com/wjyao'
     applicationName = jar.baseName
     dockerfile = file('src/main/docker/Dockerfile')
     doFirst {

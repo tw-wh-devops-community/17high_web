@@ -15,10 +15,9 @@ before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS 17high;'
   - mysql -e "CREATE USER '17high'@'localhost' IDENTIFIED BY '17high';"
   - mysql -e "GRANT ALL ON 17high.* TO '17high'@'localhost';"
+  - chmod +x deploy/*.sh
 after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - ./gradlew buildDocker
-  - docker logout
+  - deploy/docker_push.sh
 branches:
   only:
   - /.*/
