@@ -17,4 +17,21 @@ export default class ActivityApiService {
       );
     });
   }
+
+  static submitData(requestData, onSuccess) {
+    return new Promise((resolve, reject) => {
+      axios(requestData).then((result) => {
+        if (result.status !== 200) {
+          resolve([]);
+          console.error('invalid error');
+          console.error(result);
+          return;
+        }
+        resolve(result.data);
+        onSuccess(data);
+      }).catch(e =>
+        reject(e)
+      );
+    });
+  }
 }

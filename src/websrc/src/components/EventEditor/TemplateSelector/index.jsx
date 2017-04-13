@@ -87,7 +87,8 @@ class TemplateSelector extends Component {
     );
   }
 
-  handleTemplateClick = (index) => {
+  handleTemplateClick = (index, evt) => {
+    evt.preventDefault();
     if (index === this.state.selectedTemplate) {
       return;
     }

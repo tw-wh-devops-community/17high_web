@@ -6,6 +6,8 @@ import classNames from 'classnames/bind';
 import EditorBase from '../EditorBase/EditorBase';
 import styles from '../../css/editor.scss';
 
+import ActivityApiService from '../../service/ActivityApiService';
+
 const cx = classNames.bind(styles);
 
 const imageURLMap = {
@@ -101,7 +103,7 @@ class ActivityEditor extends EditorBase {
     const type = this.getEditorType();
     const status = this.getStatus();
 
-    $.ajax({
+    ActivityApiService.submitData({
       url: '/v1/activities',
       type: 'post',
       xhrFields: { withCredentials: true },
@@ -121,16 +123,12 @@ class ActivityEditor extends EditorBase {
       dataType: 'json',
       headers: {
         'Content-Type': 'application/json'
-      },
-      success: (data) => {
+      }
+    }, (data) => {
         console.log(data);
         console.log('活动发布成功');
         window.location = '/#/home?publishSuccessful';
-      },
-      error: (xhr, status, err) => {
-        console.error('error', status, err.toString());
-      }
-    });
+      });
   }
 
   getEditorType() {

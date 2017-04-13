@@ -6,6 +6,8 @@ import classNames from 'classnames/bind';
 import EditorBase from '../EditorBase/EditorBase';
 import styles from '../../css/editor.scss';
 
+import ActivityApiService from '../../service/ActivityApiService';
+
 const cx = classNames.bind(styles);
 
 /* eslint-disable */
@@ -63,7 +65,7 @@ class NewsEditor extends EditorBase {
     const selectedTemplateId = this.state.selectedTemplateId;
     const type = this.getEditorType();
 
-    $.ajax({
+    ActivityApiService.submitData({
       url: '/v1/activities',
       type: 'post',
       xhrFields: { withCredentials: true },

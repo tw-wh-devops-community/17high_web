@@ -35,8 +35,8 @@ export default class TemplateItem extends Component {
     return (
       <button
         className={cx(this.props.isFirst ? 'templateItemFirst' : 'templateItem')}
-        onClick={() => {
-          this.props.onClick(this.props.index);
+        onClick={(evt) => {
+          this.props.onClick(this.props.index, evt);
         }}>
         <div>
           <img
