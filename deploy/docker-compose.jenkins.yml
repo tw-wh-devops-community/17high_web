@@ -1,7 +1,7 @@
 version: '2'
 services:
   17high-Jenkins:
-    image: "registry.cn-hangzhou.aliyuncs.com/lanechen0201/jenkins"
+    image: "registry.cn-hangzhou.aliyuncs.com/lane0201/jenkins"
     ports:
       - "18080:8080"
     volumes:

@@ -17,7 +17,6 @@ before_install:
   - mysql -e "GRANT ALL ON 17high.* TO '17high'@'localhost';"
   - chmod +x deploy/*.sh
 after_success:
-  - deploy/docker_push.sh
 branches:
   only:
   - /.*/
