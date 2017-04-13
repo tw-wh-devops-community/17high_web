@@ -1,9 +1,8 @@
-import React, { Component, Proptypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import ActivityApiService from '../../ScreenComponent/ActivityApiService';
 import scss from './eventList.scss';
 
-const activityApiService = new ActivityApiService();
 const cx = classNames.bind(scss);
 
 const SORT_DIRECTION = {
@@ -13,7 +12,7 @@ const SORT_DIRECTION = {
 
 class EventList extends Component {
   static propTypes = {
-    filter: Proptypes.string
+    filter: PropTypes.string
   }
 
   static defaultProps = {
@@ -98,7 +97,7 @@ class EventList extends Component {
   }
 
   fetchData = (url, callback) => {
-    activityApiService.list(url).then(
+    ActivityApiService.list(url).then(
       data => callback(data)
     );
   }

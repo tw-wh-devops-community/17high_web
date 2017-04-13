@@ -1,11 +1,11 @@
 @import "base";
 @import "react-datetime";
 
-.contentContainer {
+:global .contentContainer {
   background-color: #fafafa;
 }
 
-.content {
+:global .content {
   width: 1000px;
   min-height: 1000px;
   padding-top: 35px;
