@@ -144,9 +144,8 @@ integration {
     systemProperties['spring.profiles.active']='test'
 }
 
-build.dependsOn febuild
+compileJava.dependsOn febuild
 
-check.dependsOn felint
 check.dependsOn integration
 integration.mustRunAfter test
 

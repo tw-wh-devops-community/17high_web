@@ -33,7 +33,7 @@
     "AppInstance" : {
       "Type": "AWS::EC2::Instance",
       "Properties" : {
-        "ImageId" : "ami-7439ee19",
+        "ImageId" : "ami-56fd2b3b",
         "InstanceType" : "r4.large",
         "SecurityGroups" : [
           {
