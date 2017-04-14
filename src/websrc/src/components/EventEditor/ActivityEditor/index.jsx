@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import EditorBase from '../EditorBase/EditorBase';
 import styles from '../../css/editor.scss';
 
-import ActivityApiService from '../../service/ActivityApiService';
+import ActivityApiService from '../../services/ActivityApiService';
 
 const cx = classNames.bind(styles);
 
@@ -103,11 +103,7 @@ class ActivityEditor extends EditorBase {
     const type = this.getEditorType();
     const status = this.getStatus();
 
-    ActivityApiService.submitData({
-      url: '/v1/activities',
-      type: 'post',
-      xhrFields: { withCredentials: true },
-      data: JSON.stringify({
+    ActivityApiService.submitData('/v1/activities', JSON.stringify({
         name: eventName,
         sponsor: organizer,
         startTime,
@@ -119,12 +115,7 @@ class ActivityEditor extends EditorBase {
         type,
         status,
         displayTime: 10
-      }),
-      dataType: 'json',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, (data) => {
+      }), (data) => {
         console.log(data);
         console.log('活动发布成功');
         window.location = '/#/home?publishSuccessful';

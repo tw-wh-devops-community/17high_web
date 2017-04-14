@@ -1,51 +1,52 @@
 import React from 'react';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
-import gift from './image/gift.png';
-import news from './image/news.png';
-import DateUtils from './DateUtils';
+import NewsIcon from './svg/NewsIcon';
+import ActivityIcon from './svg/ActivityIcon';
+import LogoIcon from './svg/LogoIcon';
+import DateUtil from './DateUtils';
 
 const DetailComponent = (props) => {
-  const activity = props.activity;
-  const addition = props.addition;
-  const style = classNames(scss.detaildiv, scss[activity.imageURL]);
+  const item = props.activity;
+  const style = classNames(scss.detaildiv, scss[item.imageURL]);
   let typeText = '活动';
-  let typeicon = gift;
   let hideNewsField = '';
-  if (activity.type === 'NEWS') {
+  let typeicon = ActivityIcon;
+  if (item.type === 'NEWS') {
     typeText = '新闻';
-    typeicon = news;
+    typeicon = NewsIcon;
     hideNewsField = scss.hideinfo;
   }
+
   return (
-    <div className={style} data-additionflag={addition}>
+    <div className={style} data-additionflag={props.addition}>
       <div className={classNames(scss.typediv)}>
-        <img
-          alt=""
-          src={typeicon}
-          className={classNames(scss.typeicon)} />
-        <span
-          className={classNames(scss.typetext)}>{typeText}</span>
+        { typeicon({ className: classNames(scss.labelIcon) }) }
+        <span className={classNames(scss.typetext)}>{typeText}</span>
+      </div>
+      <div className={classNames(scss.logoIconWrapper)}>
+        <LogoIcon className={classNames(scss.logoIcon)} />
       </div>
       <div className={classNames(scss.datediv)}>
         <span className={classNames(scss.datetext)}>
-          {DateUtils.formatFromTo(activity.startTime, activity.endTime)}</span>
+          {DateUtil.formatFromTo(item.startTime, item.endTime)}
+        </span>
       </div>
       <div className={classNames(scss.titlediv)}>
-        <span className={classNames(scss.titletext)}>{activity.name}</span>
+        <span className={classNames(scss.titletext)}>{item.name}</span>
       </div>
       <div className={classNames(scss.locationdiv, hideNewsField)}>
-        <span className={classNames(scss.locationdivtext)}>{activity.location}</span>
+        <span className={classNames(scss.locationdivtext)}>{item.location}</span>
       </div>
       <div className={classNames(scss.ownerdiv, hideNewsField)}>
         <span>主办方:</span>
-        <span>{activity.sponsor}</span>
+        <span>{item.sponsor}</span>
         /
         <span>活动嘉宾:</span>
-        <span>{activity.guest}</span>
+        <span>{item.guest}</span>
       </div>
       <div className={classNames(scss.describediv)}>
-        {activity.description}
+        {item.description}
       </div>
     </div>
   );
@@ -64,5 +65,6 @@ DetailComponent.propTypes = {
   }).isRequired,
   addition: React.PropTypes.string.isRequired
 };
+
 
 export default DetailComponent;

@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
 import ItemComponent from './ItemComponent';
-import ActivityApiService from './../service/ActivityApiService';
+import ActivityApiService from './../services/ActivityApiService';
 
 
 class RecentComponent extends Component {

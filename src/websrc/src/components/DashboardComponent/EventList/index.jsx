@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import ActivityApiService from '../../service/ActivityApiService';
+import ActivityApiService from '../../services/ActivityApiService';
 import scss from './eventList.scss';
 
 const cx = classNames.bind(scss);

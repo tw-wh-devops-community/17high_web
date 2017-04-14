@@ -18,9 +18,17 @@ export default class ActivityApiService {
     });
   }
 
-  static submitData(requestData, onSuccess) {
+  static submitData(url, requestData, onSuccess) {
     return new Promise((resolve, reject) => {
-      axios(requestData).then((result) => {
+      console.log('submit data', requestData);
+      const config = {
+        xhrFields: {withCredentials: true},
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      axios.post(url, requestData, config).then((result) => {
         if (result.status !== 200) {
           resolve([]);
           console.error('invalid error');
@@ -28,7 +36,7 @@ export default class ActivityApiService {
           return;
         }
         resolve(result.data);
-        onSuccess(data);
+        onSuccess(result.data);
       }).catch(e =>
         reject(e)
       );
