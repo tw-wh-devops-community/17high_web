@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import ActivityApiService from '../../ScreenComponent/ActivityApiService';
+import ActivityApiService from '../../services/ActivityApiService';
 import scss from './eventList.scss';
+import Dialog from '../../BaseComponent/PopupComponent';
 
 const cx = classNames.bind(scss);
 
@@ -21,7 +23,9 @@ class EventList extends Component {
 
   state = {
     items: [],
-    displayedIds: []
+    displayedIds: [],
+    showStayTimeOptions: false,
+    selectedId: ''
   }
 
   componentDidMount() {
@@ -41,7 +45,14 @@ class EventList extends Component {
       displayed: this.state.displayedIds.indexOf(id) > -1
     });
 
-    const formatDate = date => date.split('-').join('/');
+    const formatDate = date => (date || '').split('-').join('/');
+
+    const displayTimeOptions = (
+      <div className={ cx('options') }>
+        <a>播放10S</a>
+        <a>播放20S</a>
+      </div>
+    );
 
     return (
       <div className={cx('event-list-container')}>
@@ -50,22 +61,31 @@ class EventList extends Component {
             const startTime = formatDate(activity.startTime);
             const endTime = formatDate(activity.endTime);
             const createTime = formatDate(activity.createTime);
+            const sessionTimeTemp = (loc, sponsor) => `活动时间:${startTime} - ${endTime} 活动地点:${loc} 主办方:${sponsor}`;
+            const newsTimeTemp = () => `展示时间:${startTime} - {endTime}`;
 
-            if (activity.type === 'SESSION') {
+            if (activity.type) {
               return (
                 <div key={activity.id} className={ cx('activity-event') }>
                   <div className={ titleClassNames(activity.id) }>[活动] &nbsp;{ activity.name }</div>
-                  <div className={ cx('activity-loc-time') }>活动时间:{ startTime } - { endTime } 活动地点:{ activity.location } 主办方:{ activity.sponsor }</div>
-                  <div className={ cx('activity-desc') }>{ activity.description }</div>
-                  <div className={ cx('activity-owner') }>{ createTime } { activity.owner } 发布</div>
-                  <br />
-                </div>
-              );
-            } else if (activity.type === 'NEWS') {
-              return (
-                <div key={ activity.id } className={ cx('activity-event') }>
-                  <div className={ titleClassNames(activity.id) }>[新闻] &nbsp;{ activity.name }</div>
-                  <div className={ cx('activity-loc-time') }>展示时间:{ startTime } - { endTime }</div>
+                  <div className={ cx('activity-operations') }>
+                    <button className={ cx('option') }>预览</button>
+                    <button className={ cx('option') }>编辑</button>
+                    <button
+                      className={ cx('option') }
+                      id={ activity.id }
+                      onClick={ this.handleDeleteClick }>
+                      删除
+                    </button>
+                    <div className={ cx('display-time') }>
+                      <button onClick={ this.handleClickDisplayTime }>播放10S</button>
+                      {
+                        this.state.showStayTimeOptions && displayTimeOptions
+                      }
+                    </div>
+                  </div>
+                  <div
+                    className={ cx('activity-loc-time') }>{ activity.type === 'SESSION' ? sessionTimeTemp(activity.location, activity.sponsor) : newsTimeTemp(startTime, endTime) }</div>
                   <div className={ cx('activity-desc') }>{ activity.description }</div>
                   <div className={ cx('activity-owner') }>{ createTime } { activity.owner } 发布</div>
                   <br />
@@ -76,11 +96,22 @@ class EventList extends Component {
             return <div key="unknown-activity-type">未知的活动类型</div>;
           })
         }
+        <Dialog
+          ref={ dialog => this.dialog = dialog }
+          id="event-list-dialog"
+          title="删除"
+          message="确认要删除这篇公告么?"
+          positiveText="确认"
+          negativeText="取消"
+          onPositiveClick={
+            () => ActivityApiService.deleteActivity(this.state.selectedId,
+              () => this.updateData(this.props.filter))
+          } />
       </div>
     );
   }
 
-  updateData(filter) {
+  updateData = (filter) => {
     this.fetchData(this.buildUrl(16, 0, `${filter},${SORT_DIRECTION[filter]}`), (data) => {
       this.setState({
         items: data
@@ -103,6 +134,17 @@ class EventList extends Component {
   }
 
   buildUrl = (size, page, sort, validation = true) => (`/v1/activities?size=${size}&page=${page}&sort=${sort}&validation=${validation}`)
+
+  handleClickDisplayTime = () => this.setState({
+    showStayTimeOptions: !this.state.showStayTimeOptions
+  })
+
+  handleDeleteClick = (evt) => {
+    const id = evt.target.id;
+    this.setState({ selectedId: id }, this.dialog.showDialog('event-list-dialog'));
+  }
+
 }
+
 
 export default EventList;

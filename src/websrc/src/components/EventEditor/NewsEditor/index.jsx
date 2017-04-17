@@ -1,10 +1,11 @@
 import React from 'react';
 import 'jquery-validation';
-import $ from 'jquery';
 import classNames from 'classnames/bind';
 
 import EditorBase from '../EditorBase/EditorBase';
 import styles from '../../css/editor.scss';
+
+import ActivityApiService from '../../services/ActivityApiService';
 
 const cx = classNames.bind(styles);
 
@@ -63,11 +64,7 @@ class NewsEditor extends EditorBase {
     const selectedTemplateId = this.state.selectedTemplateId;
     const type = this.getEditorType();
 
-    $.ajax({
-      url: '/v1/activities',
-      type: 'post',
-      xhrFields: { withCredentials: true },
-      data: JSON.stringify({
+    ActivityApiService.submitData('/v1/activities', JSON.stringify({
         name: eventName,
         startTime,
         endTime,
@@ -75,18 +72,11 @@ class NewsEditor extends EditorBase {
         imageURL: selectedTemplateId,
         type,
         displayTime: 10
-      }),
-      dataType: 'json',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      success: (data) => {
+      }),(data) => {
         console.log(data);
-      },
-      error: (xhr, status, err) => {
-        console.error('error', status, err.toString());
+        window.location = '/#/home?publishSuccessful';
       }
-    });
+    );
   }
 
   getEditorType() {

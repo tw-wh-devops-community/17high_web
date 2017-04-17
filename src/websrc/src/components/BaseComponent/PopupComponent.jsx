@@ -1,12 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 import classNames from 'classnames/bind';
-import styles from '../../css/dialog.scss';
+import styles from '../css/dialog.scss';
 
 const cx = classNames.bind(styles);
 
 /* eslint-disable */
 class Dialog extends React.Component {
+
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    message: PropTypes.string,
+    onNegativeClick: PropTypes.func,
+    onPositiveClick: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    title: '',
+    message: ''
+  }
 
   render() {
     return (
@@ -35,16 +49,12 @@ class Dialog extends React.Component {
   };
 
   onCancel = () => {
-    if (this.props.onNegativeClick) {
-      this.props.onNegativeClick();
-    }
+    this.props.onNegativeClick && this.props.onNegativeClick();
     this.dismiss();
   };
 
   onPositiveClick = () => {
-    if (this.props.onPositiveClick) {
-      this.props.onPositiveClick();
-    }
+    this.props.onPositiveClick && this.props.onPositiveClick();
     this.dismiss();
   };
 

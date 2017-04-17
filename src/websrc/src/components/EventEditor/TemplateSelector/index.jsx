@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
 import TemplateItem from './TemplateItem';
@@ -87,7 +88,8 @@ class TemplateSelector extends Component {
     );
   }
 
-  handleTemplateClick = (index) => {
+  handleTemplateClick = (index, evt) => {
+    evt.preventDefault();
     if (index === this.state.selectedTemplate) {
       return;
     }

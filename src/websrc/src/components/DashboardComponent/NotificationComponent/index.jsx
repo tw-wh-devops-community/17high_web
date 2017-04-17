@@ -19,7 +19,7 @@ class NotificationComponent extends Component {
 
   render() {
     return (
-      <div className={'notificationContainer'}>
+      <div className={cx('notificationContainer')}>
         <div className={cx('notificationText')}>活动发布成功!</div>
       </div>
     );

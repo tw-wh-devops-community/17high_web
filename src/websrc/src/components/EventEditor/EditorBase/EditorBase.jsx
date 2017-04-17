@@ -5,7 +5,7 @@ import Moment from 'moment';
 import DatePicker from 'react-datetime';
 import classNames from 'classnames/bind';
 
-import Dialog from '../Dialog';
+import Dialog from '../../BaseComponent/PopupComponent';
 import TemplateSelector from '../TemplateSelector';
 import styles from '../../css/editor.scss';
 
@@ -38,9 +38,7 @@ class EditorBase extends React.Component {
           message="一经发布，将不可自行修改，确认要发布这篇公告吗"
           positiveText="确认"
           negativeText="取消"
-          onPositiveClick={() => {
-            this.handleSubmit();
-          }}
+          onPositiveClick={ this.handleSubmit }
         />
         <Dialog
           ref='dialog'
@@ -86,7 +84,7 @@ class EditorBase extends React.Component {
     this.refs.dialog.showDialog('publishActivity');
   };
 
-  handleSubmit() {
+  handleSubmit = (evt) => {
     console.log('try to submit');
     this.onSubmit();
   };

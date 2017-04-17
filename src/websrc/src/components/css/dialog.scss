@@ -87,9 +87,24 @@
 }
 
 .publish {
-  margin-right: 15px;
+  padding: 5px 35px 5px 35px;
+  background: coral;
+  font-weight: 100;
+  color: white;
+  border-radius: 5px;
+  margin-right: 10px;
+  &:focus {
+    outline: none;
+  }
 }
 
 .cancelPublish {
-  margin-right: 25px;
+  padding: 5px 35px 5px 35px;
+  border-radius: 5px;
+  font-weight: 100;
+  background: lightgray;
+  margin-right: 15px;
+  &:focus {
+    outline: none;
+  }
 }

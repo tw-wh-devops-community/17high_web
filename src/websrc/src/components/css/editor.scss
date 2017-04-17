@@ -33,6 +33,10 @@
   color: #4a4a4a;
   cursor: pointer;
   text-align: center;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .newsNav, .newsNavSelected {
@@ -44,6 +48,9 @@
   margin-left: 67px;
   cursor: pointer;
   text-align: center;
+  &:focus {
+    outline: none;
+  }
 }
 
 .activityNavSelected, .newsNavSelected {
@@ -226,10 +233,16 @@ input.error, textarea.error {
   border-radius: 4px;
   margin-top: 10px;
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 }
 
 .templateItem {
   margin-left: 15px;
+  &:focus {
+    outline: none;
+  }
 }
 
 .templatesImg {
