@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -60,4 +61,9 @@ public class ActivitiesController {
         return activityRepository.saveAndFlush(activity);
     }
 
+    @RequestMapping(method = DELETE)
+    public long removeActivity(@RequestParam("id") long activityId) {
+        activityRepository.delete(activityId);
+        return activityId;
+    }
 }

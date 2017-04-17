@@ -65,11 +65,7 @@ class NewsEditor extends EditorBase {
     const selectedTemplateId = this.state.selectedTemplateId;
     const type = this.getEditorType();
 
-    ActivityApiService.submitData({
-      url: '/v1/activities',
-      type: 'post',
-      xhrFields: { withCredentials: true },
-      data: JSON.stringify({
+    ActivityApiService.submitData('/v1/activities', JSON.stringify({
         name: eventName,
         startTime,
         endTime,
@@ -77,18 +73,11 @@ class NewsEditor extends EditorBase {
         imageURL: selectedTemplateId,
         type,
         displayTime: 10
-      }),
-      dataType: 'json',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      success: (data) => {
+      }),(data) => {
         console.log(data);
-      },
-      error: (xhr, status, err) => {
-        console.error('error', status, err.toString());
+        window.location = '/#/home?publishSuccessful';
       }
-    });
+    );
   }
 
   getEditorType() {
