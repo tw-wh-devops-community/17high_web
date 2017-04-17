@@ -2,12 +2,18 @@
 
 [![Build Status](https://travis-ci.org/tw-wh-devops-community/17high_web.svg?branch=development)](https://travis-ci.org/tw-wh-devops-community/17high_web)
 
+## CI & Test environment
+[CI](http://54.223.217.159:18080/) is host on aws china with Jenkins
+[Test Environment](http://54.223.217.159:18080/)
+
+
 ## Requirement:
 
 [Docker](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac) is installed;
+Java8 is installed
 ## install front develop dependency
 ```
-Enter src/websrc, read README.md and prepare develop environment
+Enter src/websrc, read README.md and prepare front-end develop environment
 And then You need to do nothing but read  'Run Spring boot on local' section.
 ```
 ## Run Spring boot on local
@@ -16,9 +22,9 @@ And then You need to do nothing but read  'Run Spring boot on local' section.
 ./localrun.sh
 This script contains 'yarn bundle-watch' and './gradlew bootRun',so springboot will start, and react will automatic compile.
 ~~~
-You don't need start mysql on local manually. bootRun will start a local mysql Docker automatically.
+You don't need start mysql on local manually. bootRun will start a local h2 database for development.
 
-## Run backend test
+## Run dode check
 ~~~
 ./gradlew check
 ~~~
@@ -39,7 +45,6 @@ you can run
 ```
 ./startMysql.sh
 ```
-to start a local Docker with Mysql 5.7 ( This step is already integrated to gradle bootRun)
 
 ## Run Sonarqube on local
 
