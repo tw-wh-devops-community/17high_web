@@ -226,10 +226,16 @@ input.error, textarea.error {
   border-radius: 4px;
   margin-top: 10px;
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 }
 
 .templateItem {
   margin-left: 15px;
+  &:focus {
+    outline: none;
+  }
 }
 
 .templatesImg {
