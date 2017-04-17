@@ -33,6 +33,10 @@
   color: #4a4a4a;
   cursor: pointer;
   text-align: center;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .newsNav, .newsNavSelected {
@@ -44,6 +48,9 @@
   margin-left: 67px;
   cursor: pointer;
   text-align: center;
+  &:focus {
+    outline: none;
+  }
 }
 
 .activityNavSelected, .newsNavSelected {
