@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import classNames from '../../../node_modules/classnames/bind';
+import classNames from 'classnames/bind';
 import styles from '../css/dialog.scss';
 
 const cx = classNames.bind(styles);
