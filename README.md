@@ -74,3 +74,11 @@ docker-machine ssh default 'ifconfig eth1 | grep "inet addr:" | cut -d: -f2 | cu
 gradle sonarqube
 ```
 then open http://VM-IP:9000 to view sonarqube
+
+### Page URLs
+
+~~~~
+default page: /#/screen
+screen page: /#/screen
+list page: /#/home
+add event page: /#/editor
