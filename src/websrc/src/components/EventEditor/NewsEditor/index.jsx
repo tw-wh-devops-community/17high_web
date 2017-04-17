@@ -1,6 +1,5 @@
 import React from 'react';
 import 'jquery-validation';
-import $ from 'jquery';
 import classNames from 'classnames/bind';
 
 import EditorBase from '../EditorBase/EditorBase';

@@ -45,10 +45,10 @@ class EventList extends Component {
       displayed: this.state.displayedIds.indexOf(id) > -1
     });
 
-    const formatDate = date => date && date.split('-').join('/') || '';
+    const formatDate = date => (date || '').split('-').join('/');
 
     const displayTimeOptions = (
-      <div className={ cx("options") }>
+      <div className={ cx('options') }>
         <a>播放10S</a>
         <a>播放20S</a>
       </div>
@@ -61,8 +61,8 @@ class EventList extends Component {
             const startTime = formatDate(activity.startTime);
             const endTime = formatDate(activity.endTime);
             const createTime = formatDate(activity.createTime);
-            const sessionTimeTemp = (startTime, endTime, loc, sponsor) => `活动时间:${startTime} - ${endTime} 活动地点:${loc} 主办方:${sponsor}`;
-            const newsTimeTemp = (startTime, endTime) => `展示时间:${startTime} - {endTime}`;
+            const sessionTimeTemp = (loc, sponsor) => `活动时间:${startTime} - ${endTime} 活动地点:${loc} 主办方:${sponsor}`;
+            const newsTimeTemp = () => `展示时间:${startTime} - {endTime}`;
 
             if (activity.type) {
               return (
@@ -71,8 +71,13 @@ class EventList extends Component {
                   <div className={ cx('activity-operations') }>
                     <button className={ cx('option') }>预览</button>
                     <button className={ cx('option') }>编辑</button>
-                    <button className={ cx('option') } id={ activity.id } onClick={ this.handleDeleteClick }>删除</button>
-                    <div className={ cx("display-time") }>
+                    <button
+                      className={ cx('option') }
+                      id={ activity.id }
+                      onClick={ this.handleDeleteClick }>
+                      删除
+                    </button>
+                    <div className={ cx('display-time') }>
                       <button onClick={ this.handleClickDisplayTime }>播放10S</button>
                       {
                         this.state.showStayTimeOptions && displayTimeOptions
@@ -80,7 +85,7 @@ class EventList extends Component {
                     </div>
                   </div>
                   <div
-                    className={ cx('activity-loc-time') }>{ activity.type === 'SESSION' ? sessionTimeTemp(startTime, endTime, activity.location, activity.sponsor) : newsTimeTemp(startTime, endTime) }</div>
+                    className={ cx('activity-loc-time') }>{ activity.type === 'SESSION' ? sessionTimeTemp(activity.location, activity.sponsor) : newsTimeTemp(startTime, endTime) }</div>
                   <div className={ cx('activity-desc') }>{ activity.description }</div>
                   <div className={ cx('activity-owner') }>{ createTime } { activity.owner } 发布</div>
                   <br />
@@ -92,14 +97,16 @@ class EventList extends Component {
           })
         }
         <Dialog
-          ref={ dialog => this._dialog = dialog }
+          ref={ dialog => this.dialog = dialog }
           id="event-list-dialog"
           title="删除"
           message="确认要删除这篇公告么?"
           positiveText="确认"
           negativeText="取消"
-          onPositiveClick={ () => ActivityApiService.deleteActivity(this.state.selectedId, () => this.updateData(this.props.filter)) }
-        />
+          onPositiveClick={
+            () => ActivityApiService.deleteActivity(this.state.selectedId,
+              () => this.updateData(this.props.filter))
+          } />
       </div>
     );
   }
@@ -128,14 +135,16 @@ class EventList extends Component {
 
   buildUrl = (size, page, sort, validation = true) => (`/v1/activities?size=${size}&page=${page}&sort=${sort}&validation=${validation}`)
 
-  handleClickDisplayTime = () => this.setState({showStayTimeOptions: !this.state.showStayTimeOptions})
+  handleClickDisplayTime = () => this.setState({
+    showStayTimeOptions: !this.state.showStayTimeOptions
+  })
 
   handleDeleteClick = (evt) => {
-    let id = evt.target.id;
-    this.setState({ selectedId: id }, this._dialog.showDialog('event-list-dialog'));
+    const id = evt.target.id;
+    this.setState({ selectedId: id }, this.dialog.showDialog('event-list-dialog'));
   }
 
-};
+}
 
 
 export default EventList;

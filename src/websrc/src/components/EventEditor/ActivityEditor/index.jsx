@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import 'jquery-validation';
 import classNames from 'classnames/bind';
 

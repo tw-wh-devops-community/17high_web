@@ -22,7 +22,7 @@ export default class ActivityApiService {
     return new Promise((resolve, reject) => {
       console.log('submit data', requestData);
       const config = {
-        xhrFields: {withCredentials: true},
+        xhrFields: { withCredentials: true },
         dataType: 'json',
         headers: {
           'Content-Type': 'application/json'
@@ -45,16 +45,16 @@ export default class ActivityApiService {
 
   static deleteActivity(id, onSuccess) {
     return new Promise((resolve, reject) => {
-      axios.delete(`/v1/activities?id=${id}`).then(result => {
+      axios.delete(`/v1/activities?id=${id}`).then((result) => {
         if (result.status !== 200) {
           resolve([]);
-          console.error('invalid error');
-          console.error(result);
           return;
         }
         console.log(result.data);
         onSuccess(result.data);
-      })
+      }).catch(e =>
+        reject(e)
+      );
     });
   }
 }
