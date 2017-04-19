@@ -73,7 +73,6 @@ class NewsEditor extends EditorBase {
         type,
         displayTime: 10
       }),(data) => {
-        console.log(data);
         window.location = '/#/home?publishSuccessful';
       }
     );

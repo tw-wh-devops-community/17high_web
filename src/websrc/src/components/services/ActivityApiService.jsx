@@ -6,11 +6,11 @@ export default class ActivityApiService {
     return new Promise((resolve, reject) => {
       axios.get(url).then((result) => {
         if (result.status !== 200) {
-          resolve([]);
           console.error('invalid error');
           console.error(result);
           return;
         }
+        window.allEvents = result.data;
         resolve(result.data);
       }).catch(e =>
         reject(e)
@@ -30,12 +30,10 @@ export default class ActivityApiService {
       };
       axios.post(url, requestData, config).then((result) => {
         if (result.status !== 200) {
-          resolve([]);
           console.error('invalid error');
           console.error(result);
           return;
         }
-        resolve(result.data);
         onSuccess(result.data);
       }).catch(e =>
         reject(e)
@@ -50,8 +48,7 @@ export default class ActivityApiService {
           resolve([]);
           return;
         }
-        console.log(result.data);
-        onSuccess();
+        onSuccess && onSuccess();
       }).catch(e =>
         reject(e)
       );
@@ -62,12 +59,35 @@ export default class ActivityApiService {
     return new Promise((resolve, reject) => {
       axios.get(`/v1/activities/${id}`).then((result) => {
         if (result.status !== 200) {
-          return resolve([]);
+          return onSuccess({});
         }
-        console.log(result.data);
         onSuccess(result.data);
       }).catch(e => reject(e)
       );
     });
   }
+
+  static updateActivity(url, requestData, onSuccess) {
+    return new Promise((resolve, reject) => {
+      console.log('update activity', requestData);
+      const config = {
+        xhrFields: { withCredentials: true },
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      axios.put(url, requestData, config).then((result) => {
+        if (result.status !== 200) {
+          console.error('invalid error');
+          console.error(result);
+          return;
+        }
+        onSuccess(result.data);
+      }).catch(e =>
+        reject(e)
+      );
+    });
+  }
+
 }

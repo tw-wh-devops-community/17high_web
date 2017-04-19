@@ -5,7 +5,6 @@ import ActivityEditor from "./ActivityEditor";
 import NewsEditor from "./NewsEditor";
 import Header from "../Header/index";
 import styles from "../css/editor.scss";
-import ApiService from "../services/ActivityApiService";
 
 const cx = classNames.bind(styles);
 const editorsIndex = {SESSION: 0, NEWS: 1};
@@ -15,7 +14,7 @@ export default class PublishActivity extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 0,
+      selectedTab: 0
     };
   }
 
@@ -30,9 +29,8 @@ export default class PublishActivity extends React.Component {
         <Header />
         <div className={cx('contentContainer')}>
           <div className={cx('content')}>
-            <Nav
-              onSelect={index => this.handleSelect(index)}/>
-              { this.getSelectedEditor(this.state.selectedTab) }
+            <Nav onSelect={index => this.handleSelect(index)}/>
+            { this.getSelectedEditor(this.state.selectedTab) }
           </div>
         </div>
       </div>
@@ -40,8 +38,12 @@ export default class PublishActivity extends React.Component {
   }
 
   getSelectedEditor(selectedTab) {
-    if (0 === selectedTab) return <ActivityEditor />;
-    else return <NewsEditor />;
+    let currentEvent = this.state.currentEvent;
+    if (0 === selectedTab) {
+      return <ActivityEditor currentEvent={ currentEvent } />;
+    } else {
+      return <NewsEditor currentEvent={ currentEvent } />;
+    }
   }
 
   handleSelect(selectedKey) {
@@ -54,13 +56,9 @@ export default class PublishActivity extends React.Component {
 
   initEvent(eventId) {
     if (eventId) {
-      ApiService.selectActivity(eventId, () => this.updateCurrentEvent(event))
+      let selectedEvent = window.allEvents.filter((event) => {return event.id == eventId})[0];
+      this.setState({selectedTab: editorsIndex[selectedEvent.type], currentEvent: selectedEvent});
     }
   }
-
-  updateCurrentEvent(event) {
-    this.setState( { eventLoaded: true, currentEvent: event, selectedTab: editorsIndex[event.type]} );
-  }
-
 
 }

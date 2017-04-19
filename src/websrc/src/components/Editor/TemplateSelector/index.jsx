@@ -33,8 +33,9 @@ class TemplateSelector extends Component {
         { id: 5, url: icon5 },
         { id: 6, url: icon6 }
       ],
-      selectedTemplate: 0
+      selectedTemplate: props.selectedTemplate
     };
+    console.log('props.selectedTemplate', props.selectedTemplate);
   }
 
   render() {

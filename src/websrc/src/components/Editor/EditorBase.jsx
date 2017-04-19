@@ -11,6 +11,15 @@ import styles from '../css/editor.scss';
 
 const cx = classNames.bind(styles);
 
+const imageURLMap = {
+  style1 : 0,
+  style2 : 1,
+  style3 : 2,
+  style4 : 3,
+  style5 : 4,
+  style6 : 5
+};
+
 /* eslint-disable */
 class EditorBase extends React.Component {
 
@@ -18,24 +27,27 @@ class EditorBase extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      selectedTemplateId: 0
+      currentEvent: props.currentEvent,
+      selectedTemplateId: this.getSelectedTemplateId()
     };
+    console.log(props.currentEvent);
+    console.log('props.selectedTemplate  EditorBase', this.state.selectedTemplateId);
   }
 
   render() {
     return (
       <form noValidate="noValidate" id="editorForm" className={cx('formContainer')}>
-        {this.onRenderContent()}
-        <TemplateSelector onSelect={ this.onTemplateSelect } />
+        {this.onRenderContent(this.getEventAttribute)}
+        <TemplateSelector onSelect={ this.onTemplateSelect } selectedTemplate={this.getSelectedTemplateId()}/>
         <div className={cx('newsSubmit')}>
-          <button type="button" className={cx('publish')} onClick={this.publishEvent}>发布</button>
+          <button type="button" className={cx('publish')} onClick={this.publishEvent}>{ this.getPublishTitle() }</button>
           <button type="button" className={cx('cancelPublish')} onClick={this.cancelPublish}>取消</button>
         </div>
         <Dialog
           ref='dialog'
           id="publishActivity"
           title="发布公告"
-          message="一经发布，将不可自行修改，确认要发布这篇公告吗"
+          message="确认要发布这篇公告吗？"
           positiveText="确认"
           negativeText="取消"
           onPositiveClick={ this.handleSubmit }
@@ -44,19 +56,44 @@ class EditorBase extends React.Component {
           ref='dialog'
           id="cancelPublish"
           title="放弃发布"
-          message="确认要放弃发布这篇公告吗?"
+          message="确认要取消发布这篇公告吗?"
           positiveText="确认"
           negativeText="取消"
-          onPositiveClick={() => {
-            this.backToDashboard();
-          }}
+          onPositiveClick={ this.backToDashboard }
           />
+        <Dialog
+          ref='dialog'
+          id="updateActivity"
+          title="更新公告"
+          message="确认要更新这篇公告吗？"
+          positiveText="确认"
+          negativeText="取消"
+          onPositiveClick={ this.handleUpdate }
+        />
+        <Dialog
+          ref='dialog'
+          id="cancelUpdate"
+          title="放弃更新"
+          message="确认要取消更新这篇公告吗？"
+          positiveText="确认"
+          negativeText="取消"
+          onPositiveClick={ this.backToDashboard }
+        />
       </form>
     );
   }
 
-  cancelPublish = () => {
-    this.refs.dialog.showDialog('cancelPublish');
+  getSelectedTemplateId() {
+    return this.props.currentEvent ? imageURLMap[this.props.currentEvent.imageURL] :0;
+  }
+
+  getPublishTitle() {
+    return this.state.currentEvent ? '更新' : '发布';
+  }
+
+  cancelPublish = (event) => {
+    event.preventDefault();
+    this.refs.dialog.showDialog( this.props.currentEvent ? 'cancelUpdate' : 'cancelPublish');
   };
 
   backToDashboard() {
@@ -75,18 +112,25 @@ class EditorBase extends React.Component {
     );
   }
 
+  getEventAttribute = (attrName) => {
+    return this.props.currentEvent && this.props.currentEvent[attrName];
+  }
 
   publishEvent = () => {
     if (!this.validateAllElements()) {
       return;
     }
-    console.log('try to submit');
-    this.refs.dialog.showDialog('publishActivity');
+    this.refs.dialog.showDialog(this.props.currentEvent ? 'updateActivity' : 'publishActivity');
   };
 
-  handleSubmit = (evt) => {
-    console.log('try to submit');
+  handleSubmit = () => {
+    console.log('try to add');
     this.onSubmit();
+  };
+
+  handleUpdate = () => {
+    console.log('try to update');
+    this.onUpdate(this.state.currentEvent.id);
   };
 
   onTemplateSelect = (templateId) => {
@@ -119,8 +163,7 @@ class EditorBase extends React.Component {
         location: { required: true },
         organizer: { required: true },
         description: { required: true }
-      },
-      errorPlacement: () => false
+      }
     });
   }
 
@@ -149,14 +192,17 @@ class EditorBase extends React.Component {
         <DatePicker
           inputProps={{ name: 'startDay', readOnly: 'readonly' } } className={cx('newsTimeDay')}
           viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={ false }
+          defaultValue={this.getDateString("startTime")}
           isValidDate={ currentDate => currentDate.diff(now, 'days') >= 0} />
         <DatePicker
           inputProps={{ name: 'startHour', readOnly: 'readonly' }} className={cx('newsTimeHour')}
+          defaultValue={this.getTimeString("startTime")}
           viewMode="time" dateFormat={false} timeFormat="HH:mm" />
         <div className={cx('timeDivider')}>-</div>
         <DatePicker
           inputProps={{ name: 'endDay', readOnly: 'readonly' }} className={cx('newsTimeDay')}
           viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}
+          defaultValue={this.getDateString("endTime")}
           isValidDate={(currentDate) => {
             const startDay = Moment($("input[name='startDay']").val());
             return currentDate.diff(startDay, 'days') >= 0;
@@ -164,6 +210,7 @@ class EditorBase extends React.Component {
         <DatePicker
           inputProps={{ name: 'endHour', readOnly: 'readonly' }} className={cx('newsTimeHour')}
           viewMode="time" dateFormat={false} timeFormat="HH:mm"
+          defaultValue={this.getTimeString("endTime")}
           onBlur={() => {
             if (this.validateTime()) {
               this.hideInvalidTimeError();
@@ -193,6 +240,9 @@ class EditorBase extends React.Component {
   onSubmit() {
   }
 
+  onUpdate(id) {
+  }
+
   validateContent() {
   }
 
@@ -202,6 +252,16 @@ class EditorBase extends React.Component {
 
   hideInvalidTimeError() {
     $('.invalidTimeError').hide();
+  }
+
+  getDateString(attrName) {
+    let currentEvent = this.props.currentEvent;
+    return currentEvent && currentEvent[attrName] && currentEvent[attrName].substr(0,10);
+  }
+
+  getTimeString(attrName) {
+    let currentEvent = this.props.currentEvent;
+    return currentEvent && currentEvent[attrName] && currentEvent[attrName].substr(11);
   }
 
   inputBytesLimiter(event, maxBytes) {
