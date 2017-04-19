@@ -57,7 +57,7 @@ class TemplateSelector extends Component {
 
   static getInputName(name, isRequired) {
     return (
-      <div className={cx('inputNameContainer')}><span className={isRequired ? 'starChar' : 'starCharHidden'}>*</span>{name}：
+      <div className={cx('inputNameContainer')}><span className={cx(isRequired ? 'starChar' : 'starCharHidden')}>*</span>{name}：
       </div>
     );
   }
