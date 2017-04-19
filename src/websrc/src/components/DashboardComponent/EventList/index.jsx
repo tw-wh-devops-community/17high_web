@@ -25,7 +25,6 @@ class EventList extends Component {
   state = {
     items: [],
     displayedIds: [],
-    showStayTimeOptions: false,
     selectedId: ''
   }
 
@@ -47,13 +46,6 @@ class EventList extends Component {
     });
 
     const formatDate = date => (date || '').split('-').join('/');
-
-    const displayTimeOptions = (
-      <div className={ cx('options') }>
-        <a>播放10S</a>
-        <a>播放20S</a>
-      </div>
-    );
 
     return (
       <div className={cx('event-list-container')}>
@@ -79,10 +71,11 @@ class EventList extends Component {
                       删除
                     </button>
                     <div className={ cx('display-time') }>
-                      <button onClick={ this.handleClickDisplayTime }>播放10S</button>
-                      {
-                        this.state.showStayTimeOptions && displayTimeOptions
-                      }
+                      <button>播放10S</button>
+                      <div className={ cx('options') }>
+                        <a>播放10S</a>
+                        <a>播放20S</a>
+                      </div>
                     </div>
                   </div>
                   <div
@@ -135,10 +128,7 @@ class EventList extends Component {
   }
 
   buildUrl = (size, page, sort, validation = false) => (`/v1/activities?size=${size}&page=${page}&sort=${sort}&validation=${validation}`)
-
-  handleClickDisplayTime = () => this.setState({
-    showStayTimeOptions: !this.state.showStayTimeOptions
-  })
+  
 
   handleDeleteClick = (evt) => {
     const id = evt.target.id;
