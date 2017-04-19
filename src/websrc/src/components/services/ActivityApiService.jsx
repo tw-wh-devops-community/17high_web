@@ -51,9 +51,22 @@ export default class ActivityApiService {
           return;
         }
         console.log(result.data);
-        onSuccess(result.data);
+        onSuccess();
       }).catch(e =>
         reject(e)
+      );
+    });
+  }
+
+  static selectActivity(id, onSuccess) {
+    return new Promise((resolve, reject) => {
+      axios.get(`/v1/activities/${id}`).then((result) => {
+        if (result.status !== 200) {
+          return resolve([]);
+        }
+        console.log(result.data);
+        onSuccess(result.data);
+      }).catch(e => reject(e)
       );
     });
   }

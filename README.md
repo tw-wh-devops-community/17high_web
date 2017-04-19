@@ -4,13 +4,15 @@
 
 ## CI & Test environment
 [CI](http://54.223.217.159:18080/) is host on aws china with Jenkins
-[Test Environment](http://54.223.217.159:18080/)
 
+[Test Environment](http://54.223.217.159:8081/)
 
 ## Requirement:
 
 [Docker](https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac) is installed;
+
 Java8 is installed
+
 ## install front develop dependency
 ```
 Enter src/websrc, read README.md and prepare front-end develop environment

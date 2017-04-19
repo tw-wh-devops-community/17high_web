@@ -5,9 +5,9 @@ import Moment from 'moment';
 import DatePicker from 'react-datetime';
 import classNames from 'classnames/bind';
 
-import Dialog from '../../BaseComponent/PopupComponent';
-import TemplateSelector from '../TemplateSelector';
-import styles from '../../css/editor.scss';
+import Dialog from '../BaseComponent/PopupComponent';
+import TemplateSelector from './TemplateSelector';
+import styles from '../css/editor.scss';
 
 const cx = classNames.bind(styles);
 

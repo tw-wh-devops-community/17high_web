@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
-import ActivityApiService from '../../services/ActivityApiService';
-import scss from './eventList.scss';
-import Dialog from '../../BaseComponent/PopupComponent';
+import React, {Component} from "react";
+import {Link} from "react-router";
+import PropTypes from "prop-types";
+import classNames from "classnames/bind";
+import ActivityApiService from "../../services/ActivityApiService";
+import scss from "./eventList.scss";
+import Dialog from "../../BaseComponent/PopupComponent";
 
 const cx = classNames.bind(scss);
 
@@ -70,7 +71,7 @@ class EventList extends Component {
                   <div className={ titleClassNames(activity.id) }>[活动] &nbsp;{ activity.name }</div>
                   <div className={ cx('activity-operations') }>
                     <button className={ cx('option') }>预览</button>
-                    <button className={ cx('option') }>编辑</button>
+                    <button className={ cx('option') }><Link to={ 'editor/' + activity.id }>编辑</Link></button>
                     <button
                       className={ cx('option') }
                       id={ activity.id }
@@ -133,7 +134,7 @@ class EventList extends Component {
     );
   }
 
-  buildUrl = (size, page, sort, validation = true) => (`/v1/activities?size=${size}&page=${page}&sort=${sort}&validation=${validation}`)
+  buildUrl = (size, page, sort, validation = false) => (`/v1/activities?size=${size}&page=${page}&sort=${sort}&validation=${validation}`)
 
   handleClickDisplayTime = () => this.setState({
     showStayTimeOptions: !this.state.showStayTimeOptions

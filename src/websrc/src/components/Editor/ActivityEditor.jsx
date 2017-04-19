@@ -2,10 +2,10 @@ import React from 'react';
 import 'jquery-validation';
 import classNames from 'classnames/bind';
 
-import EditorBase from '../EditorBase/EditorBase';
-import styles from '../../css/editor.scss';
+import EditorBase from './EditorBase';
+import styles from '../css/editor.scss';
 
-import ActivityApiService from '../../services/ActivityApiService';
+import ActivityApiService from '../services/ActivityApiService';
 
 const cx = classNames.bind(styles);
 

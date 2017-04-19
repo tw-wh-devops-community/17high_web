@@ -13,9 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Created by xjzhou on 2/15/17.
@@ -56,6 +54,13 @@ public class ActivitiesController {
 
     @RequestMapping(method = POST)
     public Activity addActivity(@RequestBody Activity activity) {
+        Date today = Calendar.getInstance().getTime();
+        activity.setCreateTime(today);
+        return activityRepository.saveAndFlush(activity);
+    }
+
+    @RequestMapping(path = "/{id}", method = PUT)
+    public Activity updateActivity(@RequestBody Activity activity) {
         Date today = Calendar.getInstance().getTime();
         activity.setCreateTime(today);
         return activityRepository.saveAndFlush(activity);
