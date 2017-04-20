@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {Link} from "react-router";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
+import $ from 'jquery';
+
 import ActivityApiService from "../../services/ActivityApiService";
 import scss from "./eventList.scss";
 import Dialog from "../../BaseComponent/PopupComponent";
@@ -55,7 +57,7 @@ class EventList extends Component {
             const endTime = formatDate(activity.endTime);
             const createTime = formatDate(activity.createTime);
             const sessionTimeTemp = (loc, sponsor) => `活动时间:${startTime} - ${endTime} 活动地点:${loc} 主办方:${sponsor}`;
-            const newsTimeTemp = () => `展示时间:${startTime} - {endTime}`;
+            const newsTimeTemp = () => `展示时间:${startTime} - ${endTime}`;
 
             if (activity.type) {
               return (
@@ -72,9 +74,9 @@ class EventList extends Component {
                     </button>
                     <div className={ cx('display-time') }>
                       <button>播放10S</button>
-                      <div className={ cx('options') }>
-                        <a>播放10S</a>
-                        <a>播放20S</a>
+                      <div id="options" className={ cx('options') }>
+                        <a data-id={ activity.id } onClick={ (evt) => this.updateDisplayTime(10, evt) }>播放10S</a>
+                        <a data-id={ activity.id } onClick={ (evt) => this.updateDisplayTime(20, evt) }>播放20S</a>
                       </div>
                     </div>
                   </div>
@@ -121,6 +123,15 @@ class EventList extends Component {
     });
   }
 
+  updateDisplayTime = (time, evt) => {
+    let id = evt.target.getAttribute('data-id');
+
+    let items = this.state.items;
+    let item = this.state.items.filter(item => item.id.toString() === id);
+    ActivityApiService.updateActivity(`/v1/activities/${id}`,
+      JSON.stringify({...item[0], displayTime: time}), () => $('#options')[0].style.display = 'none');
+  }
+
   fetchData = (url, callback) => {
     ActivityApiService.list(url).then(
       data => callback(data)
@@ -128,7 +139,7 @@ class EventList extends Component {
   }
 
   buildUrl = (size, page, sort, validation = false) => (`/v1/activities?size=${size}&page=${page}&sort=${sort}&validation=${validation}`)
-  
+
 
   handleDeleteClick = (evt) => {
     const id = evt.target.id;
