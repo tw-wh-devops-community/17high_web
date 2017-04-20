@@ -29,7 +29,7 @@ export default class PublishActivity extends React.Component {
         <Header />
         <div className={cx('contentContainer')}>
           <div className={cx('content')}>
-            <Nav onSelect={index => this.handleSelect(index)}/>
+            <Nav onSelect={index => this.handleSelect(index)} isUpdate={this.isUpdate()} selectedIndex={this.getSelectedTabIndex()}/>
             { this.getSelectedEditor(this.state.selectedTab) }
           </div>
         </div>
@@ -52,6 +52,15 @@ export default class PublishActivity extends React.Component {
         selectedTab: selectedKey,
       });
     }
+  }
+
+  getSelectedTabIndex() {
+    let selectedEvent = this.state.currentEvent;
+    return selectedEvent ? editorsIndex[selectedEvent.type] : 0;
+  }
+
+  isUpdate() {
+    return this.props.params.id !== undefined;
   }
 
   initEvent(eventId) {

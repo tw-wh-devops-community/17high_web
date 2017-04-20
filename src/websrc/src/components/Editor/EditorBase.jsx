@@ -20,6 +20,15 @@ const imageURLMap = {
   style6 : 5
 };
 
+const indexToStyle = {
+  0: 'style1',
+  1: 'style2',
+  2: 'style3',
+  3: 'style4',
+  4: 'style5',
+  5: 'style6'
+};
+
 /* eslint-disable */
 class EditorBase extends React.Component {
 
@@ -30,18 +39,16 @@ class EditorBase extends React.Component {
       currentEvent: props.currentEvent,
       selectedTemplateId: this.getSelectedTemplateId()
     };
-    console.log(props.currentEvent);
-    console.log('props.selectedTemplate  EditorBase', this.state.selectedTemplateId);
   }
 
   render() {
     return (
-      <form noValidate="noValidate" id="editorForm" className={cx('formContainer')}>
+      <form noValidate="noValidate" id="editorForm" className={cx('formContainer')} onSubmit={(event) => event.preventDefault()}>
         {this.onRenderContent(this.getEventAttribute)}
         <TemplateSelector onSelect={ this.onTemplateSelect } selectedTemplate={this.getSelectedTemplateId()}/>
         <div className={cx('newsSubmit')}>
           <button type="button" className={cx('publish')} onClick={this.publishEvent}>{ this.getPublishTitle() }</button>
-          <button type="button" className={cx('cancelPublish')} onClick={this.cancelPublish}>取消</button>
+          <button type="button" className={cx('cancelPublish')} onClick={ this.cancelPublish}>取消</button>
         </div>
         <Dialog
           ref='dialog'
@@ -50,7 +57,7 @@ class EditorBase extends React.Component {
           message="确认要发布这篇公告吗？"
           positiveText="确认"
           negativeText="取消"
-          onPositiveClick={ this.handleSubmit }
+          onPositiveClick={ this.handleSubmit}
         />
         <Dialog
           ref='dialog'
@@ -91,8 +98,7 @@ class EditorBase extends React.Component {
     return this.state.currentEvent ? '更新' : '发布';
   }
 
-  cancelPublish = (event) => {
-    event.preventDefault();
+  cancelPublish = () => {
     this.refs.dialog.showDialog( this.props.currentEvent ? 'cancelUpdate' : 'cancelPublish');
   };
 
@@ -252,6 +258,10 @@ class EditorBase extends React.Component {
 
   hideInvalidTimeError() {
     $('.invalidTimeError').hide();
+  }
+
+  getImageURL(index) {
+    return indexToStyle[index];
   }
 
   getDateString(attrName) {

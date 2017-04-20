@@ -9,15 +9,6 @@ import ActivityApiService from '../services/ActivityApiService';
 
 const cx = classNames.bind(styles);
 
-const imageURLMap = {
-  0: 'style1',
-  1: 'style2',
-  2: 'style3',
-  3: 'style4',
-  4: 'style5',
-  5: 'style6'
-};
-
 /* eslint-disable */
 class ActivityEditor extends EditorBase {
 
@@ -92,7 +83,6 @@ class ActivityEditor extends EditorBase {
   }
 
   getActivity(id) {
-    console.log("state in activity editor " + this.state.selectedTemplateId);
     const eventName = document.getElementsByName('name')[0].value;
     const startDay = document.getElementsByName('startDay')[0].value;
     const startHour = document.getElementsByName('startHour')[0].value;
@@ -147,9 +137,6 @@ class ActivityEditor extends EditorBase {
     return 'PUBLISHED';
   }
 
-  getImageURL(index) {
-    return imageURLMap[index];
-  }
 }
 
 export default ActivityEditor;
