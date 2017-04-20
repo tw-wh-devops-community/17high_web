@@ -20,6 +20,15 @@ const imageURLMap = {
   style6 : 5
 };
 
+const indexToStyle = {
+  0: 'style1',
+  1: 'style2',
+  2: 'style3',
+  3: 'style4',
+  4: 'style5',
+  5: 'style6'
+};
+
 /* eslint-disable */
 class EditorBase extends React.Component {
 
@@ -252,6 +261,10 @@ class EditorBase extends React.Component {
 
   hideInvalidTimeError() {
     $('.invalidTimeError').hide();
+  }
+
+  getImageURL(index) {
+    return indexToStyle[index];
   }
 
   getDateString(attrName) {

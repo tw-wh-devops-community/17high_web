@@ -16,13 +16,11 @@
 .navBlock {
   height: 50px;
   width: 724px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .navigation {
   display: flex;
-  margin-left: 120px;
+  margin-left: 156px;
 }
 
 .activityNav, .activityNavSelected {
@@ -30,6 +28,7 @@
   height: 100%;
   font-family: PingFangSC;
   font-size: 20px;
+  margin-right: 64px;
   color: #4a4a4a;
   cursor: pointer;
   text-align: center;
@@ -45,7 +44,6 @@
   font-family: PingFangSC;
   font-size: 20px;
   color: #4a4a4a;
-  margin-left: 67px;
   cursor: pointer;
   text-align: center;
   &:focus {
