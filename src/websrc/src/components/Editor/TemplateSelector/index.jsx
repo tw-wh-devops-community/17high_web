@@ -35,7 +35,6 @@ class TemplateSelector extends Component {
       ],
       selectedTemplate: props.selectedTemplate
     };
-    console.log('props.selectedTemplate', props.selectedTemplate);
   }
 
   render() {
