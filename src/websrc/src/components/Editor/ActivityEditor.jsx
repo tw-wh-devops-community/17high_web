@@ -83,7 +83,6 @@ class ActivityEditor extends EditorBase {
   }
 
   getActivity(id) {
-    console.log("state in activity editor " + this.state.selectedTemplateId);
     const eventName = document.getElementsByName('name')[0].value;
     const startDay = document.getElementsByName('startDay')[0].value;
     const startHour = document.getElementsByName('startHour')[0].value;
