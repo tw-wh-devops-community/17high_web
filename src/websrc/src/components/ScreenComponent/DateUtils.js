@@ -28,7 +28,7 @@ class DateUtils {
       }
       return `${formatBuilder + single2double(toDay)}日${toHourMinuteFormat}`;
     }
-    return `${formatBuilder + single2double(fromMouth)}月${single2double(fromDay)}日${toHourMinuteFormat}`;
+    return `${formatBuilder} ${toHourMinuteFormat}`;
   }
 }
 

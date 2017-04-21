@@ -10,8 +10,9 @@ render((
     <Route path="/" component={ ScreenComponent }/>
     <Route path="/screen" component={ ScreenComponent }/>
     <Route path="/home" component={DashboardComponent}/>
-    <Route path="/editor" component={EventNewEditor}/>
-    <Route path="/editor/:id" component={ EventNewEditor }/>
+    <Route path="/editor" component={EventNewEditor}>
+      <Route path=":id" component={ EventNewEditor }/>
+    </Route>
   </Router>
 ), document.getElementById('app'));
 

@@ -67,6 +67,8 @@ export default class PublishActivity extends React.Component {
     if (eventId) {
       let selectedEvent = window.allEvents.filter((event) => {return event.id == eventId})[0];
       this.setState({selectedTab: editorsIndex[selectedEvent.type], currentEvent: selectedEvent});
+    } else {
+      this.setState({currentEvent: undefined});
     }
   }
 

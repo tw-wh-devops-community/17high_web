@@ -42,6 +42,7 @@ class EditorBase extends React.Component {
   }
 
   render() {
+    window.scrollTo(0, 0);
     return (
       <form noValidate="noValidate" id="editorForm" className={cx('formContainer')} onSubmit={(event) => event.preventDefault()}>
         {this.onRenderContent(this.getEventAttribute)}
