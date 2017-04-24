@@ -21,8 +21,8 @@ class ActivityEditor extends EditorBase {
             <input
               name="name" className={cx('newsNameInput')} type="text"
               placeholder="请输入活动名称, 最多40个字符" maxLength="40"
-              defaultValue={getEventAttribute('name')}
-              onInput={event => this.inputBytesLimiter(event, 40)}/>
+              value={getEventAttribute('name')}
+              onInput={event => this.handleInputChange(event)} />
           </div>
         </div>
         <div className={cx('inputBlock')}>
@@ -38,18 +38,18 @@ class ActivityEditor extends EditorBase {
             <input
               name="location" className={cx('newsNameInput')} type="text"
               placeholder="请输入活动地点, 最多40个字符" maxLength="40"
-              defaultValue={getEventAttribute('location')}
-              onInput={event => this.inputBytesLimiter(event, 40)} />
+              value={getEventAttribute('location')}
+              onInput={event => this.handleInputChange(event)} />
           </div>
         </div>
         <div className={cx('inputBlock')}>
           {this.getInputName('主办方', true)}
           <div>
             <input
-              name="organizer" className={cx('newsNameInput')} type="text"
+              name="sponsor" className={cx('newsNameInput')} type="text"
               placeholder="请输入主办方, 最多20个字符" maxLength="20"
-              defaultValue={getEventAttribute('sponsor')}
-              onInput={event => this.inputBytesLimiter(event, 20)} />
+              value={getEventAttribute('sponsor')}
+              onInput={event => this.handleInputChange(event)} />
           </div>
         </div>
         <div className={cx('inputBlock')}>
@@ -58,8 +58,8 @@ class ActivityEditor extends EditorBase {
             <input
               name="guest" className={cx('newsNameInput')} type="text"
               placeholder="请输入活动嘉宾, 最多20个字符" maxLength="20"
-              defaultValue={getEventAttribute('guest')}
-              onInput={event => this.inputBytesLimiter(event, 40)} />
+              value={getEventAttribute('guest')}
+              onInput={event => this.handleInputChange(event)} />
           </div>
         </div>
         <div className={cx('inputBlock')}>
@@ -68,8 +68,8 @@ class ActivityEditor extends EditorBase {
             <textarea
               name="description" className={cx('newsDescriptionInput')} type="text"
               placeholder="请输入一句简短的宣传语, 最多100个字符" maxLength="100"
-              defaultValue={getEventAttribute('description')}
-              onInput={event => this.inputBytesLimiter(event, 100)} />
+              value={getEventAttribute('description')}
+              onInput={event => this.handleInputChange(event)} />
           </div>
         </div>
       </div>
@@ -78,41 +78,13 @@ class ActivityEditor extends EditorBase {
 
   validateContent() {
     this.validateElement("input[name='location']");
-    this.validateElement("input[name='organizer']");
+    this.validateElement("input[name='sponsor']");
     this.validateElement("textarea[name='description']");
   }
 
-  getActivity(id) {
-    const eventName = document.getElementsByName('name')[0].value;
-    const startDay = document.getElementsByName('startDay')[0].value;
-    const startHour = document.getElementsByName('startHour')[0].value;
-    const startTime = `${startDay} ${startHour}`;
-    const endDay = document.getElementsByName('endDay')[0].value;
-    const endHour = document.getElementsByName('endHour')[0].value;
-    const endTime = `${endDay} ${endHour}`;
-    const location = document.getElementsByName('location')[0].value;
-    const organizer = document.getElementsByName('organizer')[0].value;
-    const guest = document.getElementsByName('guest')[0].value;
-    const description = document.getElementsByName('description')[0].value;
-    const imageURL = this.getImageURL(this.state.selectedTemplateId);
-    const type = this.getEditorType();
-    const status = this.getStatus();
-
-    return JSON.stringify({
-      id: id,
-      name: eventName,
-      sponsor: organizer,
-      startTime,
-      endTime,
-      guest,
-      description,
-      location,
-      imageURL,
-      type,
-      status,
-      displayTime: 10
-    });
-
+  getActivity() {
+    console.log('this.state.currentEvent', this.state.currentEvent);
+    return JSON.stringify(this.state.currentEvent);
   }
 
   onSubmit() {
@@ -123,7 +95,7 @@ class ActivityEditor extends EditorBase {
   }
 
   onUpdate(id) {
-    ActivityApiService.updateActivity('/v1/activities/' + id, this.getActivity(id), (data) => {
+    ActivityApiService.updateActivity('/v1/activities/' + id, this.getActivity(), (data) => {
       console.log('活动发布成功');
       window.location = '/#/home?publishSuccessful';
     });
@@ -131,10 +103,6 @@ class ActivityEditor extends EditorBase {
 
   getEditorType() {
     return 'SESSION';
-  }
-
-  getStatus() {
-    return 'PUBLISHED';
   }
 
 }

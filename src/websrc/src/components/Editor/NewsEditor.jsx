@@ -25,8 +25,8 @@ class NewsEditor extends EditorBase {
             <input
               name="name" className={cx('newsNameInput')} type="text"
               placeholder="请输入活动名称, 最多40个字符" maxLength="40"
-              defaultValue={getEventAttribute('name')}
-              onInput={event => this.inputBytesLimiter(event, 40)} />
+              value={getEventAttribute('name')}
+              onInput={event => this.handleInputChange(event)} />
           </div>
         </div>
         <div className={cx('inputBlock')}>
@@ -42,8 +42,8 @@ class NewsEditor extends EditorBase {
             <textarea
               name="description" className={cx('newsDescriptionInput')} type="text"
               placeholder="请输入内容详情, 最多200个字符" maxLength="200"
-              defaultValue={getEventAttribute('description')}
-              onInput={event => this.inputBytesLimiter(event, 200)} />
+              value={getEventAttribute('description')}
+              onInput={event => this.handleInputChange(event)} />
           </div>
         </div>
       </div>
@@ -54,28 +54,8 @@ class NewsEditor extends EditorBase {
     return this.validateElement("textarea[name='description']");
   }
 
-  getActivity(id) {
-    const eventName = document.getElementsByName('name')[0].value;
-    const startDay = document.getElementsByName('startDay')[0].value;
-    const startHour = document.getElementsByName('startHour')[0].value;
-    const startTime = `${startDay} ${startHour}`;
-    const endDay = document.getElementsByName('endDay')[0].value;
-    const endHour = document.getElementsByName('endHour')[0].value;
-    const endTime = `${endDay} ${endHour}`;
-    const description = document.getElementsByName('description')[0].value;
-    const imageURL = this.getImageURL(this.state.selectedTemplateId);
-    const type = this.getEditorType();
-
-    return JSON.stringify({
-      id: id,
-      name: eventName,
-      startTime,
-      endTime,
-      description,
-      imageURL,
-      type,
-      displayTime: 10
-    });
+  getActivity() {
+    return JSON.stringify(this.state.currentEvent);
 
   }
 
@@ -88,7 +68,7 @@ class NewsEditor extends EditorBase {
   }
 
   onUpdate(id) {
-    ActivityApiService.updateActivity('/v1/activities/' + id, this.getActivity(id), (data) => {
+    ActivityApiService.updateActivity('/v1/activities/' + id, this.getActivity(), (data) => {
       console.log('新闻更新成功', data);
       window.location = '/#/home?publishSuccessful';
     });

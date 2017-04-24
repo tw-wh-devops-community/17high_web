@@ -29,6 +29,10 @@ const indexToStyle = {
   5: 'style6'
 };
 
+const DEFAULT_OWNER = 'admin';
+const DEFAULT_STATUS = 'PUBLISHED';
+const DEFAULT_DISPLAY_TIME = '10';
+
 /* eslint-disable */
 class EditorBase extends React.Component {
 
@@ -36,13 +40,17 @@ class EditorBase extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      currentEvent: props.currentEvent,
+      currentEvent: props.currentEvent ? props.currentEvent : {type: this.getEditorType(), owner: DEFAULT_OWNER, status: DEFAULT_STATUS, display_time: DEFAULT_DISPLAY_TIME},
       selectedTemplateId: this.getSelectedTemplateId()
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({currentEvent: nextProps.currentEvent, selectedTemplateId: this.getSelectedTemplateId(nextProps)});
+  }
+
   render() {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     return (
       <form noValidate="noValidate" id="editorForm" className={cx('formContainer')} onSubmit={(event) => event.preventDefault()}>
         {this.onRenderContent(this.getEventAttribute)}
@@ -92,11 +100,11 @@ class EditorBase extends React.Component {
   }
 
   getSelectedTemplateId() {
-    return this.props.currentEvent ? imageURLMap[this.props.currentEvent.imageURL] :0;
+    return this.props.currentEvent ? imageURLMap[this.props.currentEvent.imageURL] : 0;
   }
 
   getPublishTitle() {
-    return this.state.currentEvent ? '更新' : '发布';
+    return this.props.currentEvent ? '更新' : '发布';
   }
 
   cancelPublish = () => {
@@ -120,14 +128,14 @@ class EditorBase extends React.Component {
   }
 
   getEventAttribute = (attrName) => {
-    return this.props.currentEvent && this.props.currentEvent[attrName];
+    return this.state.currentEvent && this.state.currentEvent[attrName];
   }
 
   publishEvent = () => {
     if (!this.validateAllElements()) {
       return;
     }
-    this.refs.dialog.showDialog(this.props.currentEvent ? 'updateActivity' : 'publishActivity');
+    this.refs.dialog.showDialog(this.state.currentEvent ? 'updateActivity' : 'publishActivity');
   };
 
   handleSubmit = () => {
@@ -141,7 +149,9 @@ class EditorBase extends React.Component {
   };
 
   onTemplateSelect = (templateId) => {
-    this.setState({ selectedTemplateId: templateId });
+    let currentEvent = this.state.currentEvent;
+    currentEvent.imageURL = indexToStyle[templateId];
+    this.setState({ selectedTemplateId: templateId, currentEvent: currentEvent});
   };
 
   initValidator() {
@@ -199,17 +209,20 @@ class EditorBase extends React.Component {
         <DatePicker
           inputProps={{ name: 'startDay', readOnly: 'readonly' } } className={cx('newsTimeDay')}
           viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={ false }
-          defaultValue={this.getDateString("startTime")}
+          value={this.getDateString("startTime")}
+          onChange={(selectedTime) => this.handleDateChange(selectedTime, 'startTime')}
           isValidDate={ currentDate => currentDate.diff(now, 'days') >= 0} />
         <DatePicker
           inputProps={{ name: 'startHour', readOnly: 'readonly' }} className={cx('newsTimeHour')}
-          defaultValue={this.getTimeString("startTime")}
+          value={this.getTimeString("startTime")}
+          onChange={(selectedTime) => this.handleTimeChange(selectedTime, 'startTime')}
           viewMode="time" dateFormat={false} timeFormat="HH:mm" />
         <div className={cx('timeDivider')}>-</div>
         <DatePicker
           inputProps={{ name: 'endDay', readOnly: 'readonly' }} className={cx('newsTimeDay')}
           viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}
-          defaultValue={this.getDateString("endTime")}
+          value={this.getDateString("endTime")}
+          onChange={(selectedTime) => this.handleDateChange(selectedTime, 'endTime')}
           isValidDate={(currentDate) => {
             const startDay = Moment($("input[name='startDay']").val());
             return currentDate.diff(startDay, 'days') >= 0;
@@ -217,7 +230,8 @@ class EditorBase extends React.Component {
         <DatePicker
           inputProps={{ name: 'endHour', readOnly: 'readonly' }} className={cx('newsTimeHour')}
           viewMode="time" dateFormat={false} timeFormat="HH:mm"
-          defaultValue={this.getTimeString("endTime")}
+          value={this.getTimeString("endTime")}
+          onChange={(selectedTime) => this.handleTimeChange(selectedTime, 'endTime')}
           onBlur={() => {
             if (this.validateTime()) {
               this.hideInvalidTimeError();
@@ -261,37 +275,49 @@ class EditorBase extends React.Component {
     $('.invalidTimeError').hide();
   }
 
-  getImageURL(index) {
-    return indexToStyle[index];
-  }
-
   getDateString(attrName) {
-    let currentEvent = this.props.currentEvent;
+    let currentEvent = this.state.currentEvent;
     return currentEvent && currentEvent[attrName] && currentEvent[attrName].substr(0,10);
   }
 
   getTimeString(attrName) {
-    let currentEvent = this.props.currentEvent;
+    let currentEvent = this.state.currentEvent;
     return currentEvent && currentEvent[attrName] && currentEvent[attrName].substr(11);
   }
 
-  inputBytesLimiter(event, maxBytes) {
-    const targetedEvent = event;
-    let bytesCounter = 0;
-    let i = 0;
-    for (; i < maxBytes && bytesCounter < maxBytes; i += 1) {
-      const c = event.target.value.charCodeAt(i);
-      if ((c >= 0x0001 && c <= 0x007e) || (c >= 0xff60 && c <= 0xff9f)) {
-        bytesCounter += 1;
-      } else {
-        bytesCounter += 2;
-      }
-    }
-    if (i === maxBytes / 2) {
-      targetedEvent.target.value = event.target.value.substring(0, i);
-    }
-    targetedEvent.target.maxLength = i;
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      currentEvent: Object.assign(this.state.currentEvent, {[name]: value})
+    });
   }
+
+  handleDateChange(time, attrName) {
+    let selectedDate = time.format('YYYY-MM-DD');
+    let dateTime = this.state.currentEvent[attrName];
+    let existingTime = '';
+    if (dateTime) {
+      existingTime = ' ' + dateTime.substr(11);
+    }
+    this.setState({
+      currentEvent: Object.assign(this.state.currentEvent, {[attrName]: selectedDate + existingTime})
+    });
+  }
+
+  handleTimeChange(time, attrName) {
+    let dateTime = this.state.currentEvent[attrName];
+    let selectedTime = time.format('HH:mm');
+    let existingDate = '';
+    if (dateTime) {
+      existingDate = dateTime.substr(0, 10)  + ' ' ;
+    }
+    this.setState({
+      currentEvent: Object.assign(this.state.currentEvent, {[attrName]: existingDate + selectedTime})
+    });
+  }
+
 }
 
 export default EditorBase;

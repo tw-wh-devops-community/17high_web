@@ -10,7 +10,6 @@ export default class ActivityApiService {
           console.error(result);
           return;
         }
-        window.allEvents = result.data;
         resolve(result.data);
       }).catch(e =>
         reject(e)
@@ -69,7 +68,6 @@ export default class ActivityApiService {
 
   static updateActivity(url, requestData, onSuccess) {
     return new Promise((resolve, reject) => {
-      console.log('update activity', requestData);
       const config = {
         xhrFields: { withCredentials: true },
         dataType: 'json',

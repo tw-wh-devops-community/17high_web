@@ -76,7 +76,6 @@ class TemplateSelector extends Component {
 
   getTemplateItem(template, index) {
     const isFirst = index % COLUMN_NUMBER === 0;
-
     return (
       <TemplateItem
         key={index}

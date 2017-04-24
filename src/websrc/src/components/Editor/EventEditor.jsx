@@ -5,6 +5,7 @@ import ActivityEditor from "./ActivityEditor";
 import NewsEditor from "./NewsEditor";
 import Header from "../Header/index";
 import styles from "../css/editor.scss";
+import activityService from "../services/ActivityApiService";
 
 const cx = classNames.bind(styles);
 const editorsIndex = {SESSION: 0, NEWS: 1};
@@ -18,10 +19,9 @@ export default class PublishActivity extends React.Component {
     };
   }
 
-  componentWillMount () {
+  componentWillReceiveProps() {
     this.initEvent(this.props.params.id);
   }
-
 
   render() {
     return (
@@ -38,11 +38,10 @@ export default class PublishActivity extends React.Component {
   }
 
   getSelectedEditor(selectedTab) {
-    let currentEvent = this.state.currentEvent;
     if (0 === selectedTab) {
-      return <ActivityEditor currentEvent={ currentEvent } />;
+      return <ActivityEditor currentEvent={ this.state.currentEvent } />;
     } else {
-      return <NewsEditor currentEvent={ currentEvent } />;
+      return <NewsEditor currentEvent={ this.state.currentEvent } />;
     }
   }
 
@@ -65,9 +64,11 @@ export default class PublishActivity extends React.Component {
 
   initEvent(eventId) {
     if (eventId) {
-      let selectedEvent = window.allEvents.filter((event) => {return event.id == eventId})[0];
-      this.setState({selectedTab: editorsIndex[selectedEvent.type], currentEvent: selectedEvent});
+      activityService.selectActivity(eventId, (data) => {
+        this.setState({selectedTab: editorsIndex[data.type], currentEvent: data});
+      });
     } else {
+      console.log("set currentEvent to undefined");
       this.setState({currentEvent: undefined});
     }
   }
