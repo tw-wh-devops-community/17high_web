@@ -32,10 +32,11 @@ class TemplateSelector extends Component {
         { id: 4, url: icon4 },
         { id: 5, url: icon5 },
         { id: 6, url: icon6 }
-      ],
-      selectedTemplate: props.selectedTemplate
+      ]
     };
   }
+
+
 
   render() {
     return (
@@ -83,16 +84,15 @@ class TemplateSelector extends Component {
         isFirst={isFirst}
         url={template.url}
         onClick={this.handleTemplateClick}
-        isSelected={this.state.selectedTemplate === index} />
+        isSelected={this.props.selectedTemplate === index} />
     );
   }
 
   handleTemplateClick = (index, evt) => {
     evt.preventDefault();
-    if (index === this.state.selectedTemplate) {
+    if (index === this.props.selectedTemplate) {
       return;
     }
-    this.setState({ selectedTemplate: index });
     this.props.onSelect(index);
   };
 }
