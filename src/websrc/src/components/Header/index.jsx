@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router";
 import classNames from 'classnames/bind';
 import styles from '../css/header.scss';
 
@@ -24,7 +25,7 @@ class Header extends React.Component {
             17 High
           </div>
           <div className={cx('launch')}>
-            <button className={cx('launchText')} onClick={ Header.goToEditorPage }>+ 发布公告</button>
+            <button className={cx('launchText')}><Link to={ 'editor'}>发布公告</Link></button>
           </div>
 
           <div className={cx('rightContainer')}>
@@ -44,10 +45,6 @@ class Header extends React.Component {
         </div>
       </div>
     );
-  }
-
-  static goToEditorPage() {
-    window.location = '/#/editor';
   }
 }
 

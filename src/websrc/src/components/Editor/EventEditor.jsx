@@ -19,8 +19,8 @@ export default class PublishActivity extends React.Component {
     };
   }
 
-  componentWillReceiveProps() {
-    this.initEvent(this.props.params.id);
+  componentWillReceiveProps(nextProps) {
+    this.initEvent(nextProps.params.id);
   }
 
   render() {
@@ -68,8 +68,7 @@ export default class PublishActivity extends React.Component {
         this.setState({selectedTab: editorsIndex[data.type], currentEvent: data});
       });
     } else {
-      console.log("set currentEvent to undefined");
-      this.setState({currentEvent: undefined});
+      this.setState({currentEvent: {}, selectedTab: 0});
     }
   }
 

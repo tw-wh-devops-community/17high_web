@@ -82,22 +82,17 @@ class ActivityEditor extends EditorBase {
     this.validateElement("textarea[name='description']");
   }
 
-  getActivity() {
-    console.log('this.state.currentEvent', this.state.currentEvent);
-    return JSON.stringify(this.state.currentEvent);
-  }
-
   onSubmit() {
-    ActivityApiService.submitData('/v1/activities', this.getActivity(), (data) => {
-        console.log('活动发布成功');
-        window.location = '/#/home?publishSuccessful';
+    ActivityApiService.submitData('/v1/activities', this.getActivity('PUBLISHED'), (data) => {
+        console.log('活动发布成功', data);
+        window.location = '/#/home?activityPublished';
       });
   }
 
   onUpdate(id) {
-    ActivityApiService.updateActivity('/v1/activities/' + id, this.getActivity(), (data) => {
-      console.log('活动发布成功');
-      window.location = '/#/home?publishSuccessful';
+    ActivityApiService.updateActivity('/v1/activities/' + id, this.getActivity('UPDATED'), (data) => {
+      console.log('活动更新成功', data);
+      window.location = '/#/home?activityUpdated';
     });
   }
 

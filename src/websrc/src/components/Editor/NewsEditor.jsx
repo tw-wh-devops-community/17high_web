@@ -54,23 +54,18 @@ class NewsEditor extends EditorBase {
     return this.validateElement("textarea[name='description']");
   }
 
-  getActivity() {
-    return JSON.stringify(this.state.currentEvent);
-
-  }
-
   onSubmit() {
-    ActivityApiService.submitData('/v1/activities', this.getActivity(),(data) => {
+    ActivityApiService.submitData('/v1/activities', this.getActivity('PUBLISHED'),(data) => {
         console.log('新闻发布成功', data);
-        window.location = '/#/home?publishSuccessful';
+        window.location = '/#/home?newsPublished';
       }
     );
   }
 
   onUpdate(id) {
-    ActivityApiService.updateActivity('/v1/activities/' + id, this.getActivity(), (data) => {
+    ActivityApiService.updateActivity('/v1/activities/' + id, this.getActivity('UPDATED'), (data) => {
       console.log('新闻更新成功', data);
-      window.location = '/#/home?publishSuccessful';
+      window.location = '/#/home?newsUpdated';
     });
   }
 

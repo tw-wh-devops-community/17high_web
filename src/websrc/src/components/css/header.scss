@@ -49,8 +49,11 @@
   font-size: 22px;
   font-weight: 600;
   align-items: center;
-  color: #ffffff;
-  cursor: pointer;
+  a {
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+  }
 }
 
 .rightContainer {

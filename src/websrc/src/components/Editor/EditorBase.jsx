@@ -30,7 +30,6 @@ const indexToStyle = {
 };
 
 const DEFAULT_OWNER = 'admin';
-const DEFAULT_STATUS = 'PUBLISHED';
 const DEFAULT_DISPLAY_TIME = '10';
 
 /* eslint-disable */
@@ -40,21 +39,20 @@ class EditorBase extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      currentEvent: props.currentEvent ? props.currentEvent : {type: this.getEditorType(), owner: DEFAULT_OWNER, status: DEFAULT_STATUS, display_time: DEFAULT_DISPLAY_TIME},
+      currentEvent: props.currentEvent ? props.currentEvent : {type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME},
       selectedTemplateId: this.getSelectedTemplateId()
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({currentEvent: nextProps.currentEvent, selectedTemplateId: this.getSelectedTemplateId(nextProps)});
+    this.setState({currentEvent: nextProps.currentEvent, selectedTemplateId: this.getSelectedTemplateId(nextProps.currentEvent)});
   }
 
   render() {
-    // window.scrollTo(0, 0);
     return (
       <form noValidate="noValidate" id="editorForm" className={cx('formContainer')} onSubmit={(event) => event.preventDefault()}>
         {this.onRenderContent(this.getEventAttribute)}
-        <TemplateSelector onSelect={ this.onTemplateSelect } selectedTemplate={this.getSelectedTemplateId()}/>
+        <TemplateSelector onSelect={ this.onTemplateSelect } selectedTemplate={this.getSelectedTemplateId(this.state.currentEvent)}/>
         <div className={cx('newsSubmit')}>
           <button type="button" className={cx('publish')} onClick={this.publishEvent}>{ this.getPublishTitle() }</button>
           <button type="button" className={cx('cancelPublish')} onClick={ this.cancelPublish}>取消</button>
@@ -99,12 +97,12 @@ class EditorBase extends React.Component {
     );
   }
 
-  getSelectedTemplateId() {
-    return this.props.currentEvent ? imageURLMap[this.props.currentEvent.imageURL] : 0;
+  getSelectedTemplateId(currentEvent) {
+    return currentEvent && currentEvent.imageURL ? imageURLMap[currentEvent.imageURL] : 0;
   }
 
   getPublishTitle() {
-    return this.props.currentEvent ? '更新' : '发布';
+    return this.state.currentEvent ? '更新' : '发布';
   }
 
   cancelPublish = () => {
@@ -128,7 +126,7 @@ class EditorBase extends React.Component {
   }
 
   getEventAttribute = (attrName) => {
-    return this.state.currentEvent && this.state.currentEvent[attrName];
+    return (this.state.currentEvent && this.state.currentEvent[attrName]) || '';
   }
 
   publishEvent = () => {
@@ -265,6 +263,11 @@ class EditorBase extends React.Component {
   }
 
   validateContent() {
+  }
+
+  getActivity(status) {
+    return JSON.stringify(Object.assign(this.state.currentEvent, {status: status}));
+
   }
 
   showInvalidTimeError() {
