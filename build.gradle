@@ -51,11 +51,6 @@ task felint(type: Exec, description: 'Runs the front-end lint check.', group: 'V
     commandLine 'yarn', 'ci:lint'
 }
 
-task feinstall(type: Exec, description: 'Runs the front-end yarn install.', group: 'Verification') {
-    workingDir 'src/websrc'
-    commandLine 'yarn', 'install'
-}
-
 task febuild (type: Exec, description: 'Runs the front-end webpack build.', group: 'Verification') {
     workingDir 'src/websrc'
     commandLine 'yarn', 'bundle:prod'
@@ -149,7 +144,6 @@ integration {
     systemProperties['spring.profiles.active']='test'
 }
 
-febuild.dependsOn feinstall
 compileJava.dependsOn febuild
 
 check.dependsOn integration
