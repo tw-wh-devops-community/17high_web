@@ -53,6 +53,7 @@ task felint(type: Exec, description: 'Runs the front-end lint check.', group: 'V
 
 task febuild(type: Exec, description: 'Runs the front-end webpack build.', group: 'Verification') {
     workingDir 'src/websrc'
+    commandLine 'yarn', 'run', 'install'
     commandLine 'npm', 'run', 'bundle:prod'
 }
 

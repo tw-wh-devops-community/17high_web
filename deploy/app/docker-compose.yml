@@ -19,7 +19,7 @@ services:
     environment:
       - S3_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - S3_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - S3_BUCKET=17high
+      - S3_BUCKET=17high-new
       - MYSQLDUMP_DATABASE=17high
       - MYSQL_HOST=database
       - MYSQL_USER=17high
@@ -39,6 +39,6 @@ services:
       - MYSQL_USER=17high
       - MYSQL_PASSWORD=17high
     volumes:
-      - ~/17high/app:/tmp
+      - ~/17high/app/tmp:/tmp
     links:
       - database
