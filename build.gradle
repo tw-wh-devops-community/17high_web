@@ -48,13 +48,13 @@ task integration(type: Test, description: 'Runs the integration tests.', group: 
 
 task felint(type: Exec, description: 'Runs the front-end lint check.', group: 'Verification') {
     workingDir 'src/websrc'
-    commandLine 'npm', 'run', 'ci:lint'
+    commandLine 'yarn', 'ci:lint'
 }
 
 task febuild(type: Exec, description: 'Runs the front-end webpack build.', group: 'Verification') {
     workingDir 'src/websrc'
-    commandLine 'yarn', 'run', 'install'
-    commandLine 'npm', 'run', 'bundle:prod'
+    commandLine 'yarn', 'install'
+    commandLine 'yarn', 'bundle:prod'
 }
 
 applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]
