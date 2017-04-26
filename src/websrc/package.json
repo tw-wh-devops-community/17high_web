@@ -65,7 +65,7 @@
   "scripts": {
     "start": "yarn clean-dist && webpack && webpack-dev-server --inline --hot",
     "bundle": "webpack",
-    "bundle:prod": "NODE_ENV=production yarn webpack",
+    "bundle:prod": "NODE_ENV=production webpack",
     "clean-dist": "rm -rf public",
     "server": "webpack-dev-server --port 8000",
     "test": "jest --coverage",
