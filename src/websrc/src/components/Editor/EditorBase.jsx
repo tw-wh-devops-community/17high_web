@@ -39,14 +39,18 @@ class EditorBase extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      currentEvent: props.currentEvent ? props.currentEvent : {type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME},
+      currentEvent: props.currentEvent ? props.currentEvent : {},
       selectedTemplateId: this.getSelectedTemplateId()
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({currentEvent: nextProps.currentEvent, selectedTemplateId: this.getSelectedTemplateId(nextProps.currentEvent)});
+    this.setState({currentEvent: this.getInitialEvent(nextProps), selectedTemplateId: this.getSelectedTemplateId(nextProps.currentEvent)});
   }
+
+  getInitialEvent(nextProps) {
+    return nextProps.currentEvent.id ? nextProps.currentEvent : {type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME};
+  };
 
   render() {
     return (
@@ -102,7 +106,7 @@ class EditorBase extends React.Component {
   }
 
   getPublishTitle() {
-    return this.state.currentEvent ? '更新' : '发布';
+    return this.props.currentEvent.id ? '更新' : '发布';
   }
 
   cancelPublish = () => {
@@ -133,7 +137,7 @@ class EditorBase extends React.Component {
     if (!this.validateAllElements()) {
       return;
     }
-    this.refs.dialog.showDialog(this.state.currentEvent ? 'updateActivity' : 'publishActivity');
+    this.refs.dialog.showDialog(this.state.currentEvent.id ? 'updateActivity' : 'publishActivity');
   };
 
   handleSubmit = () => {

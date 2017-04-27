@@ -15,7 +15,8 @@ export default class PublishActivity extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 0
+      selectedTab: 0,
+      currentEvent: {}
     };
   }
 
