@@ -78,7 +78,7 @@ class RecentComponent extends Component {
         items,
         current: this.current
       });
-    }, 3000));
+    }, 10000));
 
     this.timer.push(setInterval(this.fetchData, 30000));
   }
