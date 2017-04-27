@@ -9,12 +9,18 @@ class Navigator extends React.Component {
     onSelect: React.PropTypes.func.isRequired,
     isUpdate: React.PropTypes.bool
   };
+
   constructor(props) {
     super(props);
     this.state = {
       selectedIndex: props.selectedIndex
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({isUpdate: nextProps.isUpdate, selectedIndex: nextProps.selectedIndex});
+  }
+
   render() {
     return (
       <div className={cx('navBlock')}>

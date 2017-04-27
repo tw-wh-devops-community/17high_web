@@ -56,7 +56,7 @@ export default class PublishActivity extends React.Component {
 
   getSelectedTabIndex() {
     let selectedEvent = this.state.currentEvent;
-    return selectedEvent ? editorsIndex[selectedEvent.type] : 0;
+    return selectedEvent.type ? editorsIndex[selectedEvent.type] : 0;
   }
 
   isUpdate() {

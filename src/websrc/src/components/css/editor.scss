@@ -16,11 +16,12 @@
 .navBlock {
   height: 50px;
   width: 724px;
+  margin-left:150px;
 }
 
 .navigation {
   display: flex;
-  margin-left: 156px;
+  margin-left: 100px;
 }
 
 .activityNav, .activityNavSelected {
@@ -68,7 +69,7 @@
 }
 
 .horizontalLine {
-  width: 724px;
+  width: 700px;
   height: 1px;
   border: none;
   border-bottom: 1px solid #979797;

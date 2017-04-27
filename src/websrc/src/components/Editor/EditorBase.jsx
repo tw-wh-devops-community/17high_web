@@ -31,6 +31,7 @@ const indexToStyle = {
 
 const DEFAULT_OWNER = 'admin';
 const DEFAULT_DISPLAY_TIME = '10';
+const DEFAULT_IMAGE_URL = 'style1';
 
 /* eslint-disable */
 class EditorBase extends React.Component {
@@ -49,7 +50,7 @@ class EditorBase extends React.Component {
   }
 
   getInitialEvent(nextProps) {
-    return nextProps.currentEvent.id ? nextProps.currentEvent : {type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME};
+    return nextProps.currentEvent.id ? nextProps.currentEvent : {type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME, imageURL: DEFAULT_IMAGE_URL};
   };
 
   render() {
@@ -134,7 +135,6 @@ class EditorBase extends React.Component {
   }
 
   publishEvent = () => {
-    console.log('validateAllElements', this.validateAllElements());
     if (!this.validateAllElements()) {
       return;
     }
