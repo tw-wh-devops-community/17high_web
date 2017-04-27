@@ -134,6 +134,7 @@ class EditorBase extends React.Component {
   }
 
   publishEvent = () => {
+    console.log('validateAllElements', this.validateAllElements());
     if (!this.validateAllElements()) {
       return;
     }
@@ -188,15 +189,17 @@ class EditorBase extends React.Component {
 
 
   validateAllElements() {
-    this.validateElement("input[name='name']")
-    this.validateTime();
-    this.validateContent();
+    let isFormValid = this.validateElement("input[name='name']") && this.validateTime() && this.validateContent();
+    this.focusToFirstInvalidField();
+    return isFormValid;
+  }
+
+  focusToFirstInvalidField() {
     const invalidAria = $('[aria-invalid=true]').not("[class='form-control error']");
     if (invalidAria.length > 0) {
       invalidAria.filter(':first').focus();
       return false;
     }
-    return true;
   }
 
   validateElement(name) {
@@ -250,14 +253,14 @@ class EditorBase extends React.Component {
   }
 
   validateTime() {
-    this.validateElement("input[name='startDay']");
-    this.validateElement("input[name='startHour']");
-    this.validateElement("input[name='endDay']");
+    let isTimeValid = this.validateElement("input[name='startDay']")
+      && this.validateElement("input[name='startHour']")
+      && this.validateElement("input[name='endDay']")
+      && this.validateElement("input[name='endHour']");
     if (!this.validateElement("input[name='endHour']")) {
       this.showInvalidTimeError();
-      return false;
     }
-    return true;
+    return isTimeValid;
   }
 
   onSubmit() {

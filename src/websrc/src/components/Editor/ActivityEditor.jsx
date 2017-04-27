@@ -77,9 +77,7 @@ class ActivityEditor extends EditorBase {
   }
 
   validateContent() {
-    this.validateElement("input[name='location']");
-    this.validateElement("input[name='sponsor']");
-    this.validateElement("textarea[name='description']");
+    return this.validateElement("input[name='location']") && this.validateElement("input[name='sponsor']") && this.validateElement("textarea[name='description']");
   }
 
   onSubmit() {
