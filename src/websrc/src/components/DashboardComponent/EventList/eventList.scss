@@ -1,0 +1,108 @@
+$font-weight: 100;
+
+.title {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.displayed {
+  color: cornflowerblue;
+}
+
+.event-list-container {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.activity-operations {
+  display: none;
+  float: right;
+  button {
+    margin-left: 35px;
+    cursor: pointer;
+    color: #EB8068;
+    &:focus {
+      outline: none;
+    }
+  }
+  .option > a {
+    color: #EB8068;
+    text-decoration: none;
+  }
+}
+
+.display-time {
+  button {
+    border: 1px solid lightgray;
+    padding: 0 15px 0px 15px;
+    border-radius: 2px;
+  }
+  display: inline-block;
+  vertical-align: top;
+  .options {
+    display: none;
+    width: 90px;
+    margin-left: 35px;
+    border: 1px solid lightgray;
+    box-shadow: 0px 2px 2px lightgrey;
+    position: absolute;
+  }
+
+  a {
+    padding-left: 15px;
+    display: block;
+    font-weight: 100;
+
+    &:hover {
+      background: #EB8068;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  &:hover .options{
+    display: block;
+  }
+}
+
+
+
+.activity-event {
+  background-image: linear-gradient(to right, #D3D3D3 40%, rgba(211, 211, 211, 0) 20%);
+  background-position: bottom;
+  background-size: 5px 1px;
+  background-repeat: repeat-x;
+  padding-top: 20px;
+  padding-left: 2%;
+  padding-right: 2%;
+
+  &:hover {
+    .activity-operations {
+      display: inline-block;
+    }
+  }
+}
+
+.activity-loc-time {
+  font-weight: $font-weight;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.activity-desc {
+  font-weight: $font-weight;
+  line-height: 25px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+
+.activity-owner {
+  line-height: 25px;
+  font-weight: 100;
+  font-size: 16px;
+  color: darkgrey;
+}

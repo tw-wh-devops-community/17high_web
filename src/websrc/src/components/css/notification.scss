@@ -1,0 +1,16 @@
+@import "base";
+
+:global .notificationContainer {
+  display: none;
+  height: 50px;
+  background-color: #f6a623;
+  opacity: 0.6;
+}
+
+:global .notificationText{
+  font-size: 25px;
+  line-height: 50px;
+  font-weight: 100;
+  color: white;
+  text-align: center;
+}

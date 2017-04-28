@@ -1,0 +1,38 @@
+.drop-down-container {
+  padding-left: 78%;
+}
+
+.drop-down-btn {
+  font-size: 16px;
+  border-radius: 6px;
+  border: solid 1px;
+  background: white;
+  width: 170px;
+  font-weight: 200;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.options {
+  position: absolute;
+  margin-top: 2px;
+  border: solid 1px;
+  border-radius: 3px;
+  width: 170px;
+}
+
+.option {
+  display: block;
+  cursor: pointer;
+  padding-left: 12px;
+  font-weight: 200;
+
+  &:hover {
+    font-weight: 100;
+    background: #EB8068;
+    color: white;
+  }
+}
+

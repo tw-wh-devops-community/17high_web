@@ -1,5 +1,6 @@
 .gradle
 /build/
+classes/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -9,6 +10,7 @@
 .project
 .settings
 .springBeans
+.DS_Store
 
 ### IntelliJ IDEA ###
 .idea
@@ -23,3 +25,10 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/.shelf/
+/src/main/resources/static/
+/src/websrc/node_modules/
+/src/websrc/public/
+out/
+/src/websrc/coverage/
+/node_modules

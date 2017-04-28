@@ -1,48 +1,35 @@
 package com.tw.wh.devops.domains;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-/**
- * Created by xjzhou on 2/13/17.
- */
 @Entity
-public class Activity implements Serializable {
+public class Activity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name="SPONSOR_ID")
-    private User sponsor;
+    private String sponsor;
+    private String guest;
     private String imageURL;
     private String status;
     private String location;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
-    private String shortDescription;
-    private String longDescription;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date createTime;
+    private String owner;
+    private byte displayTime;
+    private String description;
+    @Enumerated(EnumType.STRING)
+    private ActivityType type;
 
-    @JsonIgnore
-    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY)
-    private List<User> participants = new ArrayList<>();
-
-
-    public List<User> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
+    public Activity() {
     }
 
     public Long getId() {
@@ -61,12 +48,20 @@ public class Activity implements Serializable {
         this.name = name;
     }
 
-    public User getSponsor() {
+    public String getSponsor() {
         return sponsor;
     }
 
-    public void setSponsor(User sponsor) {
+    public void setSponsor(String sponsor) {
         this.sponsor = sponsor;
+    }
+
+    public String getGuest() {
+        return guest;
+    }
+
+    public void setGuest(String guest) {
+        this.guest = guest;
     }
 
     public String getImageURL() {
@@ -109,19 +104,51 @@ public class Activity implements Serializable {
         this.endTime = endTime;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public Date getCreateTime() { return createTime; }
+
+    public void setCreateTime(Date createTime) { this.createTime = createTime; }
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getLongDescription() {
-        return longDescription;
+    public String getOwner() { return owner; }
+
+    public void setOwner(String owner) { this.owner = owner; }
+
+    public byte getDisplayTime() { return displayTime; }
+
+    public void setDisplayTime(byte displayTime) { this.displayTime = displayTime; }
+
+    public ActivityType getType() {
+        return type;
     }
 
-    public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
+    public void setType(ActivityType type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sponsor='" + sponsor + '\'' +
+                ", guest='" + guest + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", status='" + status + '\'' +
+                ", location='" + location + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                ", createTime=" + createTime +
+                ", owner='" + owner + '\'' +
+                ", displayTime=" + displayTime +
+                '}';
     }
 }
