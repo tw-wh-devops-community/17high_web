@@ -5,6 +5,7 @@
 html body {
   margin: 0px;
   height: 100%;
+  font-family: helvetica;
 }
 
 .screen {
@@ -77,7 +78,6 @@ html body {
 }
 
 .typetext {
-  font-family: lantingheiTC;
   font-size: 4vh;
   font-weight: 400;
   color: #ffffff;
@@ -90,7 +90,6 @@ html body {
 .datediv {
   width: 62.2%;
   height: 6.5%;
-  font-family: lantingheiTC;
   margin-top: 4.46%;
   margin-left: 5.6%;
 }
@@ -114,7 +113,6 @@ html body {
 }
 
 .titletext {
-  font-family: lantingheiTC;
   font-size: 8vh;
   font-weight: 500;
   color: #ffffff;
@@ -123,7 +121,6 @@ html body {
 .locationdiv {
   width: 62.2%;
   height: 5.3%;
-  font-family: lantingheiTC;
   font-size: 5vh;
   color: #ffffff;
   margin-top: 0.677%;
@@ -131,14 +128,12 @@ html body {
 }
 
 .locationdivtext {
-  font-family: lantingheiTC;
   font-weight: 600;
 }
 
 .ownerdiv {
   height: 5.3%;
   width: 62.2%;
-  font-family: lantingheiTC;
   font-size: 4.5vh;
   color: #ffffff;
   margin-top: 0.31%;
@@ -146,14 +141,12 @@ html body {
 }
 
 .ownertext {
-  font-family: lantingheiTC;
   font-weight: 600;
 }
 
 .describediv {
   width: 62.2%;
   height: 102px;
-  font-family: lantingheiTC;
   font-size: 4vh;
   font-weight: 100;
   color: #ffffff;
@@ -172,7 +165,6 @@ html body {
 
 .recenttext {
   height: 70px;
-  font-family: lantingheiTC;
   font-size: 6vh;
   font-weight: 300;
   color: #ffffff;
@@ -196,7 +188,6 @@ html body {
 }
 .recentitemdate{
   height: 35%;
-  font-family: lantingheiTC;
   font-size: 2.8vh;
   font-weight: normal;
   font-style: normal;
@@ -208,7 +199,6 @@ html body {
 }
 .recentitemtitle{
   height: 37px;
-  font-family: lantingheiTC;
   font-size: 3vh;
   position: relative;
   top: 25%;
