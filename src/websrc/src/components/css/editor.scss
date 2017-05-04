@@ -3,6 +3,7 @@
 
 :global .contentContainer {
   background-color: #fafafa;
+  font-family: Helvetica;
 }
 
 :global .content {
@@ -27,7 +28,6 @@
 .activityNav, .activityNavSelected {
   width: 110px;
   height: 100%;
-  font-family: PingFangSC;
   font-size: 20px;
   margin-right: 64px;
   color: #4a4a4a;
@@ -42,7 +42,6 @@
 .newsNav, .newsNavSelected {
   width: 110px;
   height: 100%;
-  font-family: PingFangSC;
   font-size: 20px;
   color: #4a4a4a;
   cursor: pointer;
@@ -107,7 +106,6 @@
   height: 40px;
   border-radius: 4px;
   padding: 8px 13px;
-  font-family: PingFangSC;
   font-size: 16px;
   color: #4a4a4a;
   border: solid 1px #9b9b9b;
@@ -136,7 +134,6 @@
 
 .newsTimeDay > input, .newsTimeHour > input {
   outline: none;
-  font-family: PingFangSC;
   font-size: 16px;
   height: 40px;
   border-radius: 4px;
@@ -186,7 +183,6 @@ input.error, textarea.error {
   border: none;
   background-color: #eb826c;
   color: #ffffff;
-  font-family: PingFangSC;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -202,7 +198,6 @@ input.error, textarea.error {
   border: none;
   background-color: rgba(155, 154, 155, 0.33);
   color: #ffffff;
-  font-family: PingFangSC;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -211,7 +206,6 @@ input.error, textarea.error {
 .timeDivider {
   width: 38px;
   font-size: 16px;
-  font-family: PingFangSC;
   text-align: center;
   box-sizing: border-box;
 }
@@ -270,7 +264,6 @@ input.error, textarea.error {
 .previewText {
   width: 80px;
   height: 22px;
-  font-family: PingFangSC;
   font-size: 16px;
   color: #d0492c;
   margin-left: 5px;
