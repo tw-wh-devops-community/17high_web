@@ -8,8 +8,10 @@ import classNames from 'classnames/bind';
 import Dialog from '../BaseComponent/PopupComponent';
 import TemplateSelector from './TemplateSelector';
 import styles from '../css/editor.scss';
+import Preview from '../DashboardComponent/PreviewComponent'
 
 const cx = classNames.bind(styles);
+const previewImg = require('../../image/preview.png');
 
 const imageURLMap = {
   style1 : 0,
@@ -57,11 +59,23 @@ class EditorBase extends React.Component {
     return (
       <form noValidate="noValidate" id="editorForm" className={cx('formContainer')} onSubmit={(event) => event.preventDefault()}>
         {this.onRenderContent(this.getEventAttribute)}
-        <TemplateSelector onSelect={ this.onTemplateSelect } selectedTemplate={this.getSelectedTemplateId(this.state.currentEvent)}/>
+        <TemplateSelector onSelect={ this.onTemplateSelect } selectedTemplate={this.getSelectedTemplateId(this.state.currentEvent)} />
+        <div className={cx('previewBlock')}>
+          <div className={cx('preview')} onClick={ this.handlePreviewDetailClick }>
+            <img
+              alt=""
+              className={cx('previewIcon')}
+              src={previewImg} />
+            <div className={cx('previewText')}>预览看看</div>
+          </div>
+        </div>
         <div className={cx('newsSubmit')}>
           <button type="button" className={cx('publish')} onClick={this.publishEvent}>{ this.getPublishTitle() }</button>
           <button type="button" className={cx('cancelPublish')} onClick={ this.cancelPublish}>取消</button>
         </div>
+        <Preview
+          ref={ preview => this.preview = preview }>
+        </Preview>
         <Dialog
           ref='dialog'
           id="publishActivity"
@@ -328,6 +342,9 @@ class EditorBase extends React.Component {
     });
   }
 
+  handlePreviewDetailClick = (evt) => {
+    this.preview.openPopupbox(null, this.getActivity('PUBLISHED'));
+  }
 }
 
 export default EditorBase;

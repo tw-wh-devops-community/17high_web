@@ -3,6 +3,7 @@ import {Link} from "react-router";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import $ from 'jquery';
+import Preview from '../PreviewComponent/'
 
 import ActivityApiService from "../../services/ActivityApiService";
 import scss from "./eventList.scss";
@@ -64,7 +65,12 @@ class EventList extends Component {
                 <div key={activity.id} className={ cx('activity-event') }>
                   <div className={ titleClassNames(activity.id) }>[活动] &nbsp;{ activity.name }</div>
                   <div className={ cx('activity-operations') }>
-                    <button className={ cx('option') }>预览</button>
+                    <button
+                      className={ cx('option') }
+                      id={ activity.id }
+                      onClick={ this.handlePreviewClick }>
+                      预览
+                    </button>
                     <button className={ cx('option') }><Link to={ 'editor/' + activity.id }>编辑</Link></button>
                     <button
                       className={ cx('option') }
@@ -103,6 +109,9 @@ class EventList extends Component {
             () => ActivityApiService.deleteActivity(this.state.selectedId,
               () => this.updateData(this.props.filter))
           } />
+        <Preview
+          ref={ preview => this.preview = preview }>
+        </Preview>
       </div>
     );
   }
@@ -146,6 +155,10 @@ class EventList extends Component {
     this.setState({ selectedId: id }, this.dialog.showDialog('event-list-dialog'));
   }
 
+  handlePreviewClick = (evt) => {
+    const id = evt.target.id;
+    this.setState({ selectedId: id }, this.preview.openPopupbox(id));
+  }
 }
 
 
