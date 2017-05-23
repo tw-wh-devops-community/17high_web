@@ -43,15 +43,6 @@ class TemplateSelector extends Component {
       <div className={cx('templateSelectBlock')}>
         {TemplateSelector.getInputName('选择模板', true)}
         {this.getTemplates(this.state.templates)}
-        <div className={cx('previewBlock')}>
-          <div className={cx('preview')}>
-            <img
-              alt=""
-              className={cx('previewIcon')}
-              src={previewImg} />
-            <div className={cx('previewText')}>预览看看</div>
-          </div>
-        </div>
       </div>
     );
   }

@@ -40,6 +40,7 @@
     "postcss-loader": "^1.2.2",
     "precss": "^1.4.0",
     "react-addons-test-utils": "^15.4.2",
+    "react-popupbox": "^2.0.0",
     "sass-lint": "^1.10.2",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
