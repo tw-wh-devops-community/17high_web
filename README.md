@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/tw-wh-devops-community/17high_web.svg?branch=development)](https://travis-ci.org/tw-wh-devops-community/17high_web)
 
 ## CI & Test environment
-[CI](http://54.223.217.159:18080/) is host on aws china with Jenkins
+[CI](http://52.80.48.188:18080/job/17high/view/delivery-pipeline/) is host on aws china with Jenkins
 
-[Test Environment](http://54.223.217.159:8081/)
+[Test Environment](http://52.80.48.188:8081)
 
 ## Requirement:
 
@@ -48,39 +48,18 @@ you can run
 ./startMysql.sh
 ```
 
-## Run Sonarqube on local
-
-### Requirement:
-A Docker Deamon is running, you can use docker-machine create a local VM to host Docker server like:
-```
-docker-machine create --driver virtualbox default.
-```
-```
-eval $(docker-machine env default)
-```
-
-### Start Sonarqube on local
-```
-cd Sonarqube
-docker-compose up
-```
-### Check the VM IP
-```
-docker-machine env default
-#或
-docker-machine ssh default 'ifconfig eth1 | grep "inet addr:" | cut -d: -f2 | cut -d" " -f1'
-```
-
-### Run Sonar by gradle
-```
-gradle sonarqube
-```
-then open http://VM-IP:9000 to view sonarqube
-
-### Page URLs
+## Page URLs
 
 ~~~~
 default page: /#/screen
 screen page: /#/screen
 list page: /#/home
 add event page: /#/editor
+~~~~
+
+## EC2 On and Off Travis Jobs
+[Travis jobs](https://www.travis-ci.org/) build on two branches, one is for start and the other one is for stop.
+ps: please make sure you have access of [on-and-off repo](https://github.com/tw-wh-devops-community/17high_web_on_off.git)
+
+## AWS login url
+[Wuhan Devops AWS Login Console](https://735490473697.signin.amazonaws.cn/console)

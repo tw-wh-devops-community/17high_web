@@ -135,7 +135,6 @@ class EventList extends Component {
   updateDisplayTime = (time, evt) => {
     let id = evt.target.getAttribute('data-id');
 
-    let items = this.state.items;
     let item = this.state.items.filter(item => item.id.toString() === id);
     ActivityApiService.updateActivity(`/v1/activities/${id}`,
       JSON.stringify({...item[0], displayTime: time}), () => $('#options')[0].style.display = 'none');
