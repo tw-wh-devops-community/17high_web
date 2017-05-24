@@ -117,7 +117,7 @@ class EventList extends Component {
   }
 
   updateData = (filter) => {
-    this.fetchData(this.buildUrl(16, 0, `${filter},${SORT_DIRECTION[filter]}`), (data) => {
+    this.fetchData(this.buildUrl(50, 0, `${filter},${SORT_DIRECTION[filter]}`), (data) => {
       this.setState({
         items: data
       });
