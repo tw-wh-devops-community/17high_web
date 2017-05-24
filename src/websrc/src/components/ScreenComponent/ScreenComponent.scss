@@ -169,14 +169,14 @@ html body {
   font-weight: 300;
   color: #ffffff;
   margin-top:14.8%;
-  margin-left: 12.2%
+  margin-left: 10%
 }
 .recentlistdiv{
   margin-top: 3.6%;
   height: 100%;
 }
 .recentitemdiv{
-  padding-left: 12.2%;
+  padding-left: 10%;
   height: 13%;
   color: #838283;
 }
@@ -194,14 +194,11 @@ html body {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  position: relative;
-  top: 19.3%;
+  padding-top: 1%;
 }
 .recentitemtitle{
-  height: 38px;
-  font-size: 3.6vh;
-  position: relative;
-  top: 10%;
+  font-size: 3vh;
+  padding-top: 5%;
 }
 
 .hideinfo{
