@@ -49,8 +49,7 @@ const DetailComponent = (props) => {
             )
         }
       </div>
-      <div className={classNames(scss.describediv)}>
-        {item.description}
+      <div className={classNames(scss.describediv)} dangerouslySetInnerHTML={{__html:item.description}}>
       </div>
     </div>
   );
