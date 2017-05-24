@@ -36,14 +36,18 @@ const DetailComponent = (props) => {
         <span className={classNames(scss.titletext)}>{item.name}</span>
       </div>
       <div className={classNames(scss.locationdiv, hideNewsField)}>
+        <span>地点: </span>
         <span className={classNames(scss.locationdivtext)}>{item.location}</span>
       </div>
       <div className={classNames(scss.ownerdiv, hideNewsField)}>
-        <span>主办方:</span>
-        <span>{item.sponsor}</span>
-        /
-        <span>活动嘉宾:</span>
-        <span>{item.guest}</span>
+        { item.sponsor && (
+              <span>主办方: {item.sponsor}</span>
+          )
+        }
+        { item.guest && (
+              <span> / 活动嘉宾: {item.guest}</span>
+            )
+        }
       </div>
       <div className={classNames(scss.describediv)}>
         {item.description}
