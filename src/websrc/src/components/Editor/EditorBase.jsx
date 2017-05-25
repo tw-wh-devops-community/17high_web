@@ -232,7 +232,7 @@ class EditorBase extends React.Component {
           onChange={(selectedTime) => this.handleDateChange(selectedTime, 'startTime')}
           isValidDate={ currentDate => currentDate.diff(now, 'days') >= 0} />
         <DatePicker
-          inputProps={{ name: 'startHour', readOnly: 'readonly' }} className={cx('newsTimeHour')}
+          inputProps={{ name: 'startHour' }} className={cx('newsTimeHour')}
           value={this.getTimeString("startTime")}
           onChange={(selectedTime) => this.handleTimeChange(selectedTime, 'startTime')}
           viewMode="time" dateFormat={false} timeFormat="HH:mm" />
@@ -247,7 +247,7 @@ class EditorBase extends React.Component {
             return currentDate.diff(startDay, 'days') >= 0;
           }} />
         <DatePicker
-          inputProps={{ name: 'endHour', readOnly: 'readonly' }} className={cx('newsTimeHour')}
+          inputProps={{ name: 'endHour' }} className={cx('newsTimeHour')}
           viewMode="time" dateFormat={false} timeFormat="HH:mm"
           value={this.getTimeString("endTime")}
           onChange={(selectedTime) => this.handleTimeChange(selectedTime, 'endTime')}
