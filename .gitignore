@@ -19,6 +19,9 @@ classes/
 *.iml
 *.ipr
 
+### Visual Studio Code ###
+.vscode
+
 ### NetBeans ###
 nbproject/private/
 build/
