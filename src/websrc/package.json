@@ -61,6 +61,7 @@
     "react": "^15.4.2",
     "react-datetime": "^2.8.8",
     "react-dom": "^15.4.2",
+    "react-intl": "^2.3.0",
     "react-router": "^2.8.1"
   },
   "scripts": {
