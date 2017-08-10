@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import 'jquery-validation';
 import classNames from 'classnames/bind';
 
@@ -16,7 +17,7 @@ class ActivityEditor extends EditorBase {
     return (
       <div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('活动名称', true)}
+          {this.getInputName(<FormattedMessage id="session_name" />, true)}
           <div>
             <input
               name="name" className={cx('newsNameInput')} type="text"
@@ -26,14 +27,14 @@ class ActivityEditor extends EditorBase {
           </div>
         </div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('活动时间', true)}
+          {this.getInputName(<FormattedMessage id="session_time_range" />, true)}
           <div>
             {this.getDateInput()}
-            <div className='invalidTimeError'>活动时间不能为空且结束时间不能早于开始时间</div>
+            <div className='invalidTimeError'><FormattedMessage id="invalid_time_error" /></div>
           </div>
         </div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('活动地点', true)}
+          {this.getInputName(<FormattedMessage id="session_location" />, true)}
           <div>
             <input
               name="location" className={cx('newsNameInput')} type="text"
@@ -43,7 +44,7 @@ class ActivityEditor extends EditorBase {
           </div>
         </div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('主办方', true)}
+          {this.getInputName(<FormattedMessage id="session_host" />, true)}
           <div>
             <input
               name="sponsor" className={cx('newsNameInput')} type="text"
@@ -53,7 +54,7 @@ class ActivityEditor extends EditorBase {
           </div>
         </div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('活动嘉宾', false)}
+          {this.getInputName(<FormattedMessage id="session_guest" />, false)}
           <div>
             <input
               name="guest" className={cx('newsNameInput')} type="text"
@@ -63,7 +64,7 @@ class ActivityEditor extends EditorBase {
           </div>
         </div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('活动描述', true)}
+          {this.getInputName(<FormattedMessage id="session_description" />, true)}
           <div>
             <textarea
               name="description" className={cx('newsDescriptionInput')} type="text"

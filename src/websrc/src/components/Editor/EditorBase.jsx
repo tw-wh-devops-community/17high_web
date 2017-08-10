@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import $ from 'jquery';
 import 'jquery-validation';
 import Moment from 'moment';
@@ -66,12 +67,12 @@ class EditorBase extends React.Component {
               alt=""
               className={cx('previewIcon')}
               src={previewImg} />
-            <div className={cx('previewText')}>预览看看</div>
+            <div className={cx('previewText')}><FormattedMessage id="preview" /></div>
           </div>
         </div>
         <div className={cx('newsSubmit')}>
           <button type="button" className={cx('publish')} onClick={this.publishEvent}>{ this.getPublishTitle() }</button>
-          <button type="button" className={cx('cancelPublish')} onClick={ this.cancelPublish}>取消</button>
+          <button type="button" className={cx('cancelPublish')} onClick={ this.cancelPublish}><FormattedMessage id="cancel" /></button>
         </div>
         <Preview
           ref={ preview => this.preview = preview }>
@@ -121,7 +122,7 @@ class EditorBase extends React.Component {
   }
 
   getPublishTitle() {
-    return this.props.currentEvent.id ? '更新' : '发布';
+    return this.props.currentEvent.id ? <FormattedMessage id="update" /> : <FormattedMessage id="submit" />;
   }
 
   cancelPublish = () => {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import $ from 'jquery';
 import classNames from 'classnames/bind';
 import styles from '../../css/notification.scss';
@@ -20,13 +21,13 @@ class NotificationComponent extends Component {
 
   generateNotification() {
     if (window.location.hash.match('activityPublished')) {
-      return this.notificationTemplate('活动发布成功');
+      return this.notificationTemplate(<FormattedMessage id="dashboard_label_post_success" />);
     } else if (window.location.hash.match('activityUpdated')) {
-      return this.notificationTemplate('活动更新成功');
+      return this.notificationTemplate(<FormattedMessage id="dashboard_label_update_success" />);
     } else if (window.location.hash.match('newsPublished')) {
-      return this.notificationTemplate('新闻发布成功');
+      return this.notificationTemplate(<FormattedMessage id="dashboard_label_post_news_success" />);
     } else if (window.location.hash.match('newsUpdated')) {
-      return this.notificationTemplate('新闻更新成功');
+      return this.notificationTemplate(<FormattedMessage id="dashboard_label_update_news_success" />);
     } else {
       return (<div></div>);
     }

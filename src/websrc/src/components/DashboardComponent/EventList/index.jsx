@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { FormattedMessage } from 'react-intl';
 import {Link} from "react-router";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
@@ -57,8 +58,20 @@ class EventList extends Component {
             const startTime = formatDate(activity.startTime);
             const endTime = formatDate(activity.endTime);
             const createTime = formatDate(activity.createTime);
-            const sessionTimeTemp = (loc, sponsor) => `活动时间:${startTime} - ${endTime} 活动地点:${loc} 主办方:${sponsor}`;
-            const newsTimeTemp = () => `展示时间:${startTime} - ${endTime}`;
+            const sessionTimeTemp = (loc, sponsor) => <FormattedMessage
+              id="dashboard_session_time"
+              values={{
+                startTime,
+                endTime,
+                loc,
+                sponsor
+              }} />;
+            const newsTimeTemp = () => <FormattedMessage
+              id="dashboard_news_time"
+              values={{
+                startTime,
+                endTime
+              }} />;
 
             if (activity.type) {
               return (
@@ -69,33 +82,33 @@ class EventList extends Component {
                       className={ cx('option') }
                       id={ activity.id }
                       onClick={ this.handlePreviewClick }>
-                      预览
+                      <FormattedMessage id="dashboard_preview" />
                     </button>
-                    <button className={ cx('option') }><Link to={ 'editor/' + activity.id }>编辑</Link></button>
+                    <button className={ cx('option') }><Link to={ 'editor/' + activity.id }><FormattedMessage id="dashboard_edit" /></Link></button>
                     <button
                       className={ cx('option') }
                       id={ activity.id }
                       onClick={ this.handleDeleteClick }>
-                      删除
+                      <FormattedMessage id="dashboard_delete" />
                     </button>
                     <div className={ cx('display-time') }>
-                      <button>播放10S</button>
+                      <button><FormattedMessage id="dashboard_display_10s" /></button>
                       <div id="options" className={ cx('options') }>
-                        <a data-id={ activity.id } onClick={ (evt) => this.updateDisplayTime(10, evt) }>播放10S</a>
-                        <a data-id={ activity.id } onClick={ (evt) => this.updateDisplayTime(20, evt) }>播放20S</a>
+                        <a data-id={ activity.id } onClick={ (evt) => this.updateDisplayTime(10, evt) }><FormattedMessage id="dashboard_display_10s" /></a>
+                        <a data-id={ activity.id } onClick={ (evt) => this.updateDisplayTime(20, evt) }><FormattedMessage id="dashboard_display_20s" /></a>
                       </div>
                     </div>
                   </div>
                   <div
                     className={ cx('activity-loc-time') }>{ activity.type === 'SESSION' ? sessionTimeTemp(activity.location, activity.sponsor) : newsTimeTemp(startTime, endTime) }</div>
                   <div className={ cx('activity-desc') }>{ activity.description }</div>
-                  <div className={ cx('activity-owner') }>{ createTime } { activity.owner } 发布</div>
+                  <div className={ cx('activity-owner') }>{ createTime } { activity.owner } <FormattedMessage id="dashboard_label_post" /></div>
                   <br />
                 </div>
               );
             }
 
-            return <div key="unknown-activity-type">未知的活动类型</div>;
+            return <div key="unknown-activity-type"><FormattedMessage id="dashboard_warn_unknown_type" /></div>;
           })
         }
         <Dialog

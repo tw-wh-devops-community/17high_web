@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
 import NewsIcon from './svg/NewsIcon';
@@ -9,11 +10,9 @@ import DateUtil from './DateUtils';
 const DetailComponent = (props) => {
   const item = props.activity;
   const style = classNames(scss.detaildiv, scss[item.imageURL]);
-  let typeText = '活动';
   let hideNewsField = '';
   let typeicon = ActivityIcon;
   if (item.type === 'NEWS') {
-    typeText = '新闻';
     typeicon = NewsIcon;
     hideNewsField = scss.hideinfo;
   }
@@ -22,7 +21,7 @@ const DetailComponent = (props) => {
     <div className={style} data-additionflag={props.addition}>
       <div className={classNames(scss.typediv)}>
         { typeicon({ className: classNames(scss.labelIcon) }) }
-        <span className={classNames(scss.typetext)}>{typeText}</span>
+        <span className={classNames(scss.typetext)}><FormattedMessage id={item.type} /></span>
       </div>
       <div className={classNames(scss.logoIconWrapper)}>
         <LogoIcon className={classNames(scss.logoIcon)} />
@@ -39,10 +38,10 @@ const DetailComponent = (props) => {
         <span className={classNames(scss.locationdivtext)}>{item.location}</span>
       </div>
       <div className={classNames(scss.ownerdiv, hideNewsField)}>
-        <span>主办方:</span>
+        <span><FormattedMessage id="hold_by" />:</span>
         <span>{item.sponsor}</span>
         /
-        <span>活动嘉宾:</span>
+        <span><FormattedMessage id="guest" />:</span>
         <span>{item.guest}</span>
       </div>
       <div className={classNames(scss.describediv)}>
