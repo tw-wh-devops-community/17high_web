@@ -149,7 +149,7 @@ integration {
     systemProperties['spring.profiles.active']='test'
 }
 
-if ("$env" == 'dev') {
+if (project.hasProperty('env') && env == 'dev') {
   println 'In development mode...'
   compileJava.dependsOn devbuild
 } else {

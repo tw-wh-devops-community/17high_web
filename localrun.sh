@@ -6,4 +6,4 @@ yarn install
 yarn bundle-watch &
 yarn server &
 cd ./../..
-./gradlew clean bootRun -P env=dev
+./gradlew clean bootRun -Penv=dev
