@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
@@ -15,6 +16,8 @@ const DetailComponent = (props) => {
   if (item.type === 'NEWS') {
     typeicon = NewsIcon;
     hideNewsField = scss.hideinfo;
+  } else {
+    item.type = 'SESSION';
   }
 
   return (
@@ -52,17 +55,17 @@ const DetailComponent = (props) => {
 };
 
 DetailComponent.propTypes = {
-  activity: React.PropTypes.shape({
-    sponsor: React.PropTypes.string,
-    location: React.PropTypes.string,
-    guest: React.PropTypes.string,
-    description: React.PropTypes.string,
-    endTime: React.PropTypes.date,
-    name: React.PropTypes.string,
-    type: React.PropTypes.string,
-    imageURL: React.PropTypes.string
+  activity: PropTypes.shape({
+    sponsor: PropTypes.string,
+    location: PropTypes.string,
+    guest: PropTypes.string,
+    description: PropTypes.string,
+    endTime: PropTypes.date,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    imageURL: PropTypes.string
   }).isRequired,
-  addition: React.PropTypes.string.isRequired
+  addition: PropTypes.string.isRequired
 };
 
 

@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from '../../css/editor.scss';
 
@@ -6,8 +7,8 @@ const cx = classNames.bind(styles);
 
 class Navigator extends React.Component {
   static propTypes = {
-    onSelect: React.PropTypes.func.isRequired,
-    isUpdate: React.PropTypes.bool
+    onSelect: PropTypes.func.isRequired,
+    isUpdate: PropTypes.bool
   };
 
   constructor(props) {

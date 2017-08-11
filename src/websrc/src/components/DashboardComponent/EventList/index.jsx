@@ -54,7 +54,7 @@ class EventList extends Component {
     return (
       <div className={cx('event-list-container')}>
         {
-          this.state.items.map((activity) => {
+          this.state.items.map((activity, index) => {
             const startTime = formatDate(activity.startTime);
             const endTime = formatDate(activity.endTime);
             const createTime = formatDate(activity.createTime);
@@ -108,7 +108,7 @@ class EventList extends Component {
               );
             }
 
-            return <div key="unknown-activity-type"><FormattedMessage id="dashboard_warn_unknown_type" /></div>;
+            return <div key={`unknown-activity-type-${index}`}><FormattedMessage id="dashboard_warn_unknown_type" /></div>;
           })
         }
         <Dialog

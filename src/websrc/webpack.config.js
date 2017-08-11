@@ -58,6 +58,7 @@ const config = {
     }),
     extractCSS
   ],
+  devtool: 'source-map'
 };
 
 module.exports = config;
