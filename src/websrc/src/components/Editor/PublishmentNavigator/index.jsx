@@ -14,7 +14,7 @@ class Navigator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: props.selectedIndex
+      selectedIndex: props.selectedIndex,
     };
   }
 
@@ -60,7 +60,7 @@ class Navigator extends React.Component {
   }
 
   shouldShowTab(index) {
-    return !(this.props.isUpdate && this.state.selectedIndex !== index)
+    return !(this.props.isUpdate && this.state.selectedIndex !== index);
   }
 
   getActivityTabTitle() {

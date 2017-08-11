@@ -5,7 +5,7 @@
     "react"
   ],
   "rules": {
-    "comma-dangle": ["error", "never"],
+    "comma-dangle": ["error", "always-multiline"],
     "semi": [2, "always"],
     "react-in-jsx-scope": 0,
     "no-unused-expressions": [2, {"allowShortCircuit": true}],
