@@ -72,7 +72,7 @@ export default class ActivityApiService {
         xhrFields: { withCredentials: true },
         dataType: 'json',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         }
       };
       axios.put(url, requestData, config).then((result) => {

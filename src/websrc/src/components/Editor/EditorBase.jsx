@@ -310,6 +310,11 @@ class EditorBase extends React.Component {
     return currentEvent && currentEvent[attrName] && currentEvent[attrName].substr(11);
   }
 
+  getChecked(attrName) {
+    let currentEvent = this.state.currentEvent;
+    return currentEvent && currentEvent[attrName];
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
