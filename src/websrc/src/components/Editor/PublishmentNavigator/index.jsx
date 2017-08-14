@@ -27,7 +27,7 @@ class Navigator extends React.Component {
     return (
       <div className={cx('navBlock')}>
         <nav className={cx('navigation')}>
-          {this.shouldShowTab(0) && (
+          {this.shouldShowTab(0) &&
             <div className={cx('activityNavBlock')}>
               <button
                 className={cx(this.state.selectedIndex === 0
@@ -37,9 +37,8 @@ class Navigator extends React.Component {
                 {this.getActivityTabTitle()}
               </button>
             </div>
-          )
           }
-          {this.shouldShowTab(1) && (
+          {this.shouldShowTab(1) &&
             <div className={cx('activityNavBlock')}>
               <button
                 className={cx(this.state.selectedIndex === 1
@@ -49,7 +48,6 @@ class Navigator extends React.Component {
                 {this.getNewsTabTitle()}
               </button>
             </div>
-          )
           }
         </nav>
         <div className={cx('horizontalLine')} />
