@@ -8,7 +8,8 @@ const cx = classNames.bind(styles);
 class Navigator extends React.Component {
   static propTypes = {
     onSelect: PropTypes.func.isRequired,
-    isUpdate: PropTypes.bool
+    isUpdate: PropTypes.bool.isRequired,
+    selectedIndex: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -26,26 +27,30 @@ class Navigator extends React.Component {
     return (
       <div className={cx('navBlock')}>
         <nav className={cx('navigation')}>
-          { this.shouldShowTab(0) && (
-              <div className={cx('activityNavBlock')}>
-                <button
-                  className={cx(this.state.selectedIndex === 0 ? 'activityNavSelected' : 'activityNav')}
-                  onClick={() => this.onSelectNav(0)}>
-                  {this.getActivityTabTitle()}
-                </button>
-              </div>
-            )
-          }
-          { this.shouldShowTab(1) && (
-              <div className={cx('activityNavBlock')}>
-                <button
-                  className={cx(this.state.selectedIndex === 1 ? 'newsNavSelected' : 'newsNav')}
-                  onClick={() => this.onSelectNav(1)}>
-                  {this.getNewsTabTitle()}
-                </button>
-              </div>
-            )
-          }
+          {this.shouldShowTab(0) && (
+            <div className={cx('activityNavBlock')}>
+              <button
+                className={cx(this.state.selectedIndex === 0
+                ? 'activityNavSelected'
+                : 'activityNav')}
+                onClick={() => this.onSelectNav(0)}>
+                {this.getActivityTabTitle()}
+              </button>
+            </div>
+          )
+}
+          {this.shouldShowTab(1) && (
+            <div className={cx('activityNavBlock')}>
+              <button
+                className={cx(this.state.selectedIndex === 1
+                ? 'newsNavSelected'
+                : 'newsNav')}
+                onClick={() => this.onSelectNav(1)}>
+                {this.getNewsTabTitle()}
+              </button>
+            </div>
+          )
+}
         </nav>
         <div className={cx('horizontalLine')} />
       </div>
@@ -64,11 +69,11 @@ class Navigator extends React.Component {
   }
 
   getActivityTabTitle() {
-    return this.props.isUpdate ? '更新活动' :'发布活动';
+    return this.props.isUpdate ? '更新活动' : '发布活动';
   }
 
   getNewsTabTitle() {
-    return this.props.isUpdate ? '更新新闻' :'发布新闻';
+    return this.props.isUpdate ? '更新新闻' : '发布新闻';
   }
 
 }
