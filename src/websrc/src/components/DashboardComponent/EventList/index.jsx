@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import { FormattedMessage } from 'react-intl';
+import {FormattedMessage} from "react-intl";
 import {Link} from "react-router";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import $ from 'jquery';
-import Preview from '../PreviewComponent/'
+import $ from "jquery";
+import Preview from "../PreviewComponent/";
 
 import ActivityApiService from "../../services/ActivityApiService";
 import scss from "./eventList.scss";
@@ -103,6 +103,7 @@ class EventList extends Component {
                     className={ cx('activity-loc-time') }>{ activity.type === 'SESSION' ? sessionTimeTemp(activity.location, activity.sponsor) : newsTimeTemp(startTime, endTime) }</div>
                   <div className={ cx('activity-desc') }>{ activity.description }</div>
                   <div className={ cx('activity-owner') }>{ createTime } { activity.owner } <FormattedMessage id="dashboard_label_post" /></div>
+                  <div className={ cx('activity-display-time') }>{ activity.displayTime + 's' }</div>
                   <br />
                 </div>
               );
@@ -146,12 +147,16 @@ class EventList extends Component {
   }
 
   updateDisplayTime = (time, evt) => {
-    let id = evt.target.getAttribute('data-id');
-
-    let items = this.state.items;
+    let id = evt.target.parentElement.getAttribute('data-id');
     let item = this.state.items.filter(item => item.id.toString() === id);
-    ActivityApiService.updateActivity(`/v1/activities/${id}`,
-      JSON.stringify({...item[0], displayTime: time}), () => $('#options')[0].style.display = 'none');
+    ActivityApiService.updateActivity(`/v1/activities/${id}`, JSON.stringify({
+        ...item[0],
+        displayTime: time
+      }),
+      () => {
+        $('#options')[0].style.display = 'none';
+      }
+    );
   }
 
   fetchData = (url, callback) => {
