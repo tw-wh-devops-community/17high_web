@@ -38,6 +38,7 @@ const DetailComponent = (props) => {
         <span className={classNames(scss.titletext)}>{item.name}</span>
       </div>
       <div className={classNames(scss.locationdiv, hideNewsField)}>
+        <span>地点: </span>
         <span className={classNames(scss.locationdivtext)}>{item.location}</span>
       </div>
       <div className={classNames(scss.ownerdiv, hideNewsField)}>
@@ -47,8 +48,7 @@ const DetailComponent = (props) => {
         <span><FormattedMessage id="guest" />:</span>
         <span>{item.guest}</span>
       </div>
-      <div className={classNames(scss.describediv)}>
-        {item.description}
+      <div className={classNames(scss.describediv)} dangerouslySetInnerHTML={{__html:item.description}}>
       </div>
     </div>
   );

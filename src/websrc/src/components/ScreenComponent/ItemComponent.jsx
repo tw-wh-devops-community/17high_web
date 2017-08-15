@@ -14,8 +14,8 @@ const ItemComponent = (props) => {
   const formatFromTo = DateUtils.formatFromTo(activity.startTime, activity.endTime);
   return (
     <div className={recentStyle}>
-      <div className={classNames(scss.recentitemdate)}>{formatFromTo}</div>
       <div className={classNames(scss.recentitemtitle)}>{activity.name}</div>
+      <div className={classNames(scss.recentitemdate)}>{formatFromTo}</div>
     </div>
   );
 };

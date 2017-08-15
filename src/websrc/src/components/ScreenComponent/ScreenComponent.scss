@@ -88,9 +88,9 @@ html body {
 }
 
 .datediv {
-  width: 62.2%;
-  height: 6.5%;
-  margin-top: 4.46%;
+  width: 66%;
+  height: 6.6%;
+  margin-top: 3%;
   margin-left: 5.6%;
 }
 
@@ -106,8 +106,8 @@ html body {
 }
 
 .titlediv {
-  width: 62.2%;
-  height: 20.6%;
+  width: 66%;
+  height: 16%;
   margin-top: 0.88%;
   margin-left: 5.6%;
 }
@@ -119,9 +119,9 @@ html body {
 }
 
 .locationdiv {
-  width: 62.2%;
+  width: 66%;
   height: 5.3%;
-  font-size: 5vh;
+  font-size: 3.6vh;
   color: #ffffff;
   margin-top: 0.677%;
   margin-left: 5.6%;
@@ -133,8 +133,8 @@ html body {
 
 .ownerdiv {
   height: 5.3%;
-  width: 62.2%;
-  font-size: 4.5vh;
+  width: 66%;
+  font-size: 3.6vh;
   color: #ffffff;
   margin-top: 0.31%;
   margin-left: 5.6%;
@@ -145,9 +145,9 @@ html body {
 }
 
 .describediv {
-  width: 62.2%;
+  width: 66%;
   height: 102px;
-  font-size: 4vh;
+  font-size: 2.8vh;
   font-weight: 100;
   color: #ffffff;
   margin-top: 3.28%;
@@ -169,14 +169,14 @@ html body {
   font-weight: 300;
   color: #ffffff;
   margin-top:14.8%;
-  margin-left: 12.2%
+  margin-left: 10%
 }
 .recentlistdiv{
   margin-top: 3.6%;
   height: 100%;
 }
 .recentitemdiv{
-  padding-left: 12.2%;
+  padding-left: 10%;
   height: 13%;
   color: #838283;
 }
@@ -188,20 +188,17 @@ html body {
 }
 .recentitemdate{
   height: 35%;
-  font-size: 2.8vh;
+  font-size: 2vh;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  position: relative;
-  top: 19.3%;
+  padding-top: 1%;
 }
 .recentitemtitle{
-  height: 37px;
   font-size: 3vh;
-  position: relative;
-  top: 25%;
+  padding-top: 5%;
 }
 
 .hideinfo{

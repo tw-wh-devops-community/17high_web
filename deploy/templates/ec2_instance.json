@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
-  "Description" : "17high Web app deployment",
+  "Description" : "17high Web Application",
   "Parameters" : {
     "SSHLocation" : {
       "Description" : " The IP address range that can be used to SSH to the EC2 instances",
@@ -33,7 +33,7 @@
     "AppInstance" : {
       "Type": "AWS::EC2::Instance",
       "Properties" : {
-        "ImageId" : "ami-7439ee19",
+        "ImageId" : "ami-8609dfeb",
         "InstanceType" : "t2.medium",
         "SecurityGroups" : [
           {

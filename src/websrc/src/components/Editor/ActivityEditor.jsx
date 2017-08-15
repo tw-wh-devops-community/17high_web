@@ -71,7 +71,7 @@ class ActivityEditor extends EditorBase {
           <div>
             <textarea
               name="description" className={cx('newsDescriptionInput')} type="text"
-              placeholder="请输入一句简短的宣传语, 最多100个字符" maxLength="100"
+              placeholder="请输入一句简短的宣传语, 最多100个字符" maxLength="200"
               value={getEventAttribute('description')}
               onInput={event => this.handleInputChange(event)} />
           </div>
