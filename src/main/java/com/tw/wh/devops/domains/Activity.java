@@ -28,6 +28,7 @@ public class Activity {
     private String description;
     @Enumerated(EnumType.STRING)
     private ActivityType type;
+    private Boolean weeklyRepeat;
 
     public Activity() {
     }
@@ -104,9 +105,13 @@ public class Activity {
         this.endTime = endTime;
     }
 
-    public Date getCreateTime() { return createTime; }
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-    public void setCreateTime(Date createTime) { this.createTime = createTime; }
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public String getDescription() {
         return description;
@@ -116,16 +121,32 @@ public class Activity {
         this.description = description;
     }
 
-    public String getOwner() { return owner; }
+    public String getOwner() {
+        return owner;
+    }
 
-    public void setOwner(String owner) { this.owner = owner; }
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
-    public byte getDisplayTime() { return displayTime; }
+    public byte getDisplayTime() {
+        return displayTime;
+    }
 
-    public void setDisplayTime(byte displayTime) { this.displayTime = displayTime; }
+    public void setDisplayTime(byte displayTime) {
+        this.displayTime = displayTime;
+    }
 
     public ActivityType getType() {
         return type;
+    }
+
+    public Boolean getWeeklyRepeat() {
+        return weeklyRepeat;
+    }
+
+    public void setWeeklyRepeat(Boolean weeklyRepeat) {
+        this.weeklyRepeat = weeklyRepeat;
     }
 
     public void setType(ActivityType type) {
@@ -134,21 +155,10 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", sponsor='" + sponsor + '\'' +
-                ", guest='" + guest + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                ", status='" + status + '\'' +
-                ", location='" + location + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", description='" + description + '\'' +
-                ", type=" + type +
-                ", createTime=" + createTime +
-                ", owner='" + owner + '\'' +
-                ", displayTime=" + displayTime +
-                '}';
+        return "Activity{" + "id=" + id + ", name='" + name + '\'' + ", sponsor='" + sponsor + '\'' + ", guest='"
+                + guest + '\'' + ", imageURL='" + imageURL + '\'' + ", status='" + status + '\'' + ", location='"
+                + location + '\'' + ", startTime=" + startTime + ", endTime=" + endTime + ", description='"
+                + description + '\'' + ", type=" + type + ", createTime=" + createTime + ", owner='" + owner + '\''
+                + ", displayTime=" + displayTime + ", weeklyRepeat=" + weeklyRepeat + '}';
     }
 }
