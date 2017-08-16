@@ -31,7 +31,7 @@ class ActivityEditor extends EditorBase {
           <div>
             {this.getDateInput()}
             <div className={cx('inputBlock')}>
-              <input type="checkbox" className={cx('inputCheck')} name="weeklyRepeat" checked={this.getChecked('weeklyRepeat')} onChange={event => this.handleInputChange(event)} />每周重复
+              <input type="checkbox" className={cx('inputCheck')} name="weeklyRepeat" defaultChecked={this.getChecked('weeklyRepeat')} onChange={event => this.handleInputChange(event)} />每周重复
             </div>
             <div className='invalidTimeError'><FormattedMessage id="invalid_time_error" /></div>
           </div>
