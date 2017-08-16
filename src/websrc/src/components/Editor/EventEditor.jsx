@@ -36,7 +36,7 @@ export default class PublishActivity extends React.Component {
 
   render() {
     return (
-      <div className={ cx('eventEditorPage') }>
+      <div className={cx('eventEditorPage')}>
         <Header />
         <div className={cx('contentContainer')}>
           <div className={cx('content')}>
@@ -44,7 +44,7 @@ export default class PublishActivity extends React.Component {
               onSelect={index => this.handleSelect(index)}
               isUpdate={this.isUpdate()}
               selectedIndex={this.getSelectedTabIndex()} />
-            { this.getSelectedEditor(this.state.selectedTab) }
+            {this.getSelectedEditor(this.state.selectedTab)}
           </div>
         </div>
       </div>
@@ -53,9 +53,9 @@ export default class PublishActivity extends React.Component {
 
   getSelectedEditor(selectedTab) {
     if (selectedTab === 0) {
-      return <ActivityEditor currentEvent={ this.state.currentEvent } />;
+      return <ActivityEditor currentEvent={this.state.currentEvent} />;
     }
-    return <NewsEditor currentEvent={ this.state.currentEvent } />;
+    return <NewsEditor currentEvent={this.state.currentEvent} />;
   }
 
   handleSelect(selectedKey) {
