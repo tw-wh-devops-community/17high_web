@@ -25,6 +25,9 @@ export default class PublishActivity extends React.Component {
       selectedTab: 0,
       currentEvent: {},
     };
+    if (!isNaN(props.params.id)) {
+      this.initEvent(props.params.id);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
