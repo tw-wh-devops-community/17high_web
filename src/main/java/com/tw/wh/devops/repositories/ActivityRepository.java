@@ -18,6 +18,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     Page<Activity> findAllWithStartTimeLaterThan(@Param("startTime") Date startTime, Pageable pageable);
 
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE Activity a SET a.startTime = TIMESTAMPADD(DAY, CEIL(TIMESTAMPDIFF(DAY, a.startTime, NOW())/7.0) * 7, a.startTime), end_time = TIMESTAMPADD(DAY, CEIL(TIMESTAMPDIFF(DAY, a.startTime, NOW())/7.0) * 7, end_time) WHERE a.startTime < NOW() AND a.weeklyRepeat = 1")
+    @Query("UPDATE Activity a SET a.startTime = TIMESTAMPADD(DAY, (TIMESTAMPDIFF(WEEK, a.startTime, NOW()) + 1) * 7, a.startTime), a.endTime = TIMESTAMPADD(DAY, (TIMESTAMPDIFF(WEEK, a.startTime, NOW()) + 1) * 7, a.endTime) WHERE a.startTime < NOW() AND a.weeklyRepeat = 1")
     void updateWeeklyActivityStartTime();
 }
