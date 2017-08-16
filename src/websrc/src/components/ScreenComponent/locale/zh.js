@@ -3,5 +3,5 @@ export default {
   hold_by: '主办方',
   guest: '活动嘉宾',
   NEWS: '新闻',
-  SESSION: '活动'
+  SESSION: '活动',
 };

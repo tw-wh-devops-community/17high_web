@@ -14,7 +14,7 @@ const cx = classNames.bind(scss);
 
 const SORT_DIRECTION = {
   startTime: 'asc',
-  createTime: 'desc'
+  createTime: 'desc',
 };
 
 class EventList extends Component {
@@ -76,7 +76,7 @@ class EventList extends Component {
             if (activity.type) {
               return (
                 <div key={activity.id} className={ cx('activity-event') }>
-                  <div className={ titleClassNames(activity.id) }>[活动] &nbsp;{ activity.name }</div>
+                  <div className={ titleClassNames(activity.id) }>[<FormattedMessage id={activity.type} />] &nbsp;{ activity.name }</div>
                   <div className={ cx('activity-operations') }>
                     <button
                       className={ cx('option') }
