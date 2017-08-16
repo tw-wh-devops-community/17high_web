@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
 import NewsIcon from './svg/NewsIcon';
@@ -9,20 +11,20 @@ import DateUtil from './DateUtils';
 const DetailComponent = (props) => {
   const item = props.activity;
   const style = classNames(scss.detaildiv, scss[item.imageURL]);
-  let typeText = '活动';
   let hideNewsField = '';
   let typeicon = ActivityIcon;
   if (item.type === 'NEWS') {
-    typeText = '新闻';
     typeicon = NewsIcon;
     hideNewsField = scss.hideinfo;
+  } else {
+    item.type = 'SESSION';
   }
 
   return (
     <div className={style} data-additionflag={props.addition}>
       <div className={classNames(scss.typediv)}>
         { typeicon({ className: classNames(scss.labelIcon) }) }
-        <span className={classNames(scss.typetext)}>{typeText}</span>
+        <span className={classNames(scss.typetext)}><FormattedMessage id={item.type} /></span>
       </div>
       <div className={classNames(scss.logoIconWrapper)}>
         <LogoIcon className={classNames(scss.logoIcon)} />
@@ -40,14 +42,11 @@ const DetailComponent = (props) => {
         <span className={classNames(scss.locationdivtext)}>{item.location}</span>
       </div>
       <div className={classNames(scss.ownerdiv, hideNewsField)}>
-        { item.sponsor && (
-              <span>主办方: {item.sponsor}</span>
-          )
-        }
-        { item.guest && (
-              <span> / 活动嘉宾: {item.guest}</span>
-            )
-        }
+        <span><FormattedMessage id="hold_by" />:</span>
+        <span>{item.sponsor}</span>
+        /
+        <span><FormattedMessage id="guest" />:</span>
+        <span>{item.guest}</span>
       </div>
       <div className={classNames(scss.describediv)} dangerouslySetInnerHTML={{__html:item.description}}>
       </div>
@@ -56,17 +55,17 @@ const DetailComponent = (props) => {
 };
 
 DetailComponent.propTypes = {
-  activity: React.PropTypes.shape({
-    sponsor: React.PropTypes.string,
-    location: React.PropTypes.string,
-    guest: React.PropTypes.string,
-    description: React.PropTypes.string,
-    endTime: React.PropTypes.date,
-    name: React.PropTypes.string,
-    type: React.PropTypes.string,
-    imageURL: React.PropTypes.string
+  activity: PropTypes.shape({
+    sponsor: PropTypes.string,
+    location: PropTypes.string,
+    guest: PropTypes.string,
+    description: PropTypes.string,
+    endTime: PropTypes.date,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    imageURL: PropTypes.string
   }).isRequired,
-  addition: React.PropTypes.string.isRequired
+  addition: PropTypes.string.isRequired
 };
 
 

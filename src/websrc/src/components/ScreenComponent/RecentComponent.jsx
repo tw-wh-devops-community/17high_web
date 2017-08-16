@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
 import ItemComponent from './ItemComponent';
 import ActivityApiService from './../services/ActivityApiService';
-
 
 class RecentComponent extends Component {
   static propTypes = {
@@ -42,7 +42,7 @@ class RecentComponent extends Component {
     ));
     return (
       <div className={classNames(scss.recentdiv)}>
-        <button className={classNames(scss.recenttext)} onClick={ this.stopLoop }>近期活动</button>
+        <button className={classNames(scss.recenttext)} onClick={ this.stopLoop }><FormattedMessage id="recent" /></button>
         <div className={classNames(scss.recentlistdiv)}>
           {items}
         </div>

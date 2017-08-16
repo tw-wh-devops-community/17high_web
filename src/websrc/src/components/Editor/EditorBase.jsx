@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import $ from 'jquery';
 import 'jquery-validation';
 import Moment from 'moment';
@@ -8,18 +9,18 @@ import classNames from 'classnames/bind';
 import Dialog from '../BaseComponent/PopupComponent';
 import TemplateSelector from './TemplateSelector';
 import styles from '../css/editor.scss';
-import Preview from '../DashboardComponent/PreviewComponent'
+import Preview from '../DashboardComponent/PreviewComponent';
 
 const cx = classNames.bind(styles);
 const previewImg = require('../../image/preview.png');
 
 const imageURLMap = {
-  style1 : 0,
-  style2 : 1,
-  style3 : 2,
-  style4 : 3,
-  style5 : 4,
-  style6 : 5
+  style1: 0,
+  style2: 1,
+  style3: 2,
+  style4: 3,
+  style5: 4,
+  style6: 5,
 };
 
 const indexToStyle = {
@@ -28,7 +29,7 @@ const indexToStyle = {
   2: 'style3',
   3: 'style4',
   4: 'style5',
-  5: 'style6'
+  5: 'style6',
 };
 
 const DEFAULT_OWNER = 'admin';
@@ -48,33 +49,33 @@ class EditorBase extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({currentEvent: this.getInitialEvent(nextProps), selectedTemplateId: this.getSelectedTemplateId(nextProps.currentEvent)});
+    this.setState({ currentEvent: this.getInitialEvent(nextProps), selectedTemplateId: this.getSelectedTemplateId(nextProps.currentEvent) });
   }
 
   getInitialEvent(nextProps) {
-    return nextProps.currentEvent.id ? nextProps.currentEvent : {type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME, imageURL: DEFAULT_IMAGE_URL};
+    return nextProps.currentEvent.id ? nextProps.currentEvent : { type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME, imageURL: DEFAULT_IMAGE_URL };
   };
 
   render() {
     return (
       <form noValidate="noValidate" id="editorForm" className={cx('formContainer')} onSubmit={(event) => event.preventDefault()}>
         {this.onRenderContent(this.getEventAttribute)}
-        <TemplateSelector onSelect={ this.onTemplateSelect } selectedTemplate={this.getSelectedTemplateId(this.state.currentEvent)} />
+        <TemplateSelector onSelect={this.onTemplateSelect} selectedTemplate={this.getSelectedTemplateId(this.state.currentEvent)} />
         <div className={cx('previewBlock')}>
-          <div className={cx('preview')} onClick={ this.handlePreviewDetailClick }>
+          <div className={cx('preview')} onClick={this.handlePreviewDetailClick}>
             <img
               alt=""
               className={cx('previewIcon')}
               src={previewImg} />
-            <div className={cx('previewText')}>预览看看</div>
+            <div className={cx('previewText')}><FormattedMessage id="preview" /></div>
           </div>
         </div>
         <div className={cx('newsSubmit')}>
-          <button type="button" className={cx('publish')} onClick={this.publishEvent}>{ this.getPublishTitle() }</button>
-          <button type="button" className={cx('cancelPublish')} onClick={ this.cancelPublish}>取消</button>
+          <button type="button" className={cx('publish')} onClick={this.publishEvent}>{this.getPublishTitle()}</button>
+          <button type="button" className={cx('cancelPublish')} onClick={this.cancelPublish}><FormattedMessage id="cancel" /></button>
         </div>
         <Preview
-          ref={ preview => this.preview = preview }>
+          ref={preview => this.preview = preview}>
         </Preview>
         <Dialog
           ref='dialog'
@@ -83,7 +84,7 @@ class EditorBase extends React.Component {
           message="确认要发布这篇公告吗？"
           positiveText="确认"
           negativeText="取消"
-          onPositiveClick={ this.handleSubmit}
+          onPositiveClick={this.handleSubmit}
         />
         <Dialog
           ref='dialog'
@@ -92,8 +93,8 @@ class EditorBase extends React.Component {
           message="确认要取消发布这篇公告吗?"
           positiveText="确认"
           negativeText="取消"
-          onPositiveClick={ this.backToDashboard }
-          />
+          onPositiveClick={this.backToDashboard}
+        />
         <Dialog
           ref='dialog'
           id="updateActivity"
@@ -101,7 +102,7 @@ class EditorBase extends React.Component {
           message="确认要更新这篇公告吗？"
           positiveText="确认"
           negativeText="取消"
-          onPositiveClick={ this.handleUpdate }
+          onPositiveClick={this.handleUpdate}
         />
         <Dialog
           ref='dialog'
@@ -110,7 +111,7 @@ class EditorBase extends React.Component {
           message="确认要取消更新这篇公告吗？"
           positiveText="确认"
           negativeText="取消"
-          onPositiveClick={ this.backToDashboard }
+          onPositiveClick={this.backToDashboard}
         />
       </form>
     );
@@ -121,11 +122,11 @@ class EditorBase extends React.Component {
   }
 
   getPublishTitle() {
-    return this.props.currentEvent.id ? '更新' : '发布';
+    return this.props.currentEvent.id ? <FormattedMessage id="update" /> : <FormattedMessage id="submit" />;
   }
 
   cancelPublish = () => {
-    this.refs.dialog.showDialog( this.props.currentEvent ? 'cancelUpdate' : 'cancelPublish');
+    this.refs.dialog.showDialog(this.props.currentEvent ? 'cancelUpdate' : 'cancelPublish');
   };
 
   backToDashboard() {
@@ -168,7 +169,7 @@ class EditorBase extends React.Component {
   onTemplateSelect = (templateId) => {
     let currentEvent = this.state.currentEvent;
     currentEvent.imageURL = indexToStyle[templateId];
-    this.setState({ selectedTemplateId: templateId, currentEvent: currentEvent});
+    this.setState({ selectedTemplateId: templateId, currentEvent: currentEvent });
   };
 
   initValidator() {
@@ -226,11 +227,11 @@ class EditorBase extends React.Component {
     return (
       <div className={cx('timeBlock')}>
         <DatePicker
-          inputProps={{ name: 'startDay', readOnly: 'readonly' } } className={cx('newsTimeDay')}
-          viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={ false }
+          inputProps={{ name: 'startDay', readOnly: 'readonly' }} className={cx('newsTimeDay')}
+          viewMode="days" dateFormat="YYYY-MM-DD" timeFormat={false}
           value={this.getDateString("startTime")}
           onChange={(selectedTime) => this.handleDateChange(selectedTime, 'startTime')}
-          isValidDate={ currentDate => currentDate.diff(now, 'days') >= 0} />
+          isValidDate={currentDate => currentDate.diff(now, 'days') >= 0} />
         <DatePicker
           inputProps={{ name: 'startHour' }} className={cx('newsTimeHour')}
           value={this.getTimeString("startTime")}
@@ -287,7 +288,7 @@ class EditorBase extends React.Component {
   }
 
   getActivity(status) {
-    return JSON.stringify(Object.assign(this.state.currentEvent, {status: status}));
+    return JSON.stringify(Object.assign(this.state.currentEvent, { status: status }));
 
   }
 
@@ -301,7 +302,7 @@ class EditorBase extends React.Component {
 
   getDateString(attrName) {
     let currentEvent = this.state.currentEvent;
-    return currentEvent && currentEvent[attrName] && currentEvent[attrName].substr(0,10);
+    return currentEvent && currentEvent[attrName] && currentEvent[attrName].substr(0, 10);
   }
 
   getTimeString(attrName) {
@@ -309,12 +310,17 @@ class EditorBase extends React.Component {
     return currentEvent && currentEvent[attrName] && currentEvent[attrName].substr(11);
   }
 
+  getChecked(attrName) {
+    let currentEvent = this.state.currentEvent;
+    return currentEvent && currentEvent[attrName];
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     this.setState({
-      currentEvent: Object.assign(this.state.currentEvent, {[name]: value})
+      currentEvent: Object.assign(this.state.currentEvent, { [name]: value })
     });
   }
 
@@ -326,7 +332,7 @@ class EditorBase extends React.Component {
       existingTime = ' ' + dateTime.substr(11);
     }
     this.setState({
-      currentEvent: Object.assign(this.state.currentEvent, {[attrName]: selectedDate + existingTime})
+      currentEvent: Object.assign(this.state.currentEvent, { [attrName]: selectedDate + existingTime })
     });
   }
 
@@ -335,10 +341,10 @@ class EditorBase extends React.Component {
     let selectedTime = time.format('HH:mm');
     let existingDate = '';
     if (dateTime) {
-      existingDate = dateTime.substr(0, 10)  + ' ' ;
+      existingDate = dateTime.substr(0, 10) + ' ';
     }
     this.setState({
-      currentEvent: Object.assign(this.state.currentEvent, {[attrName]: existingDate + selectedTime})
+      currentEvent: Object.assign(this.state.currentEvent, { [attrName]: existingDate + selectedTime })
     });
   }
 

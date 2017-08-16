@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import 'jquery-validation';
 import classNames from 'classnames/bind';
 
@@ -20,7 +21,7 @@ class NewsEditor extends EditorBase {
     return (
       <div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('新闻名称', true)}
+          {this.getInputName(<FormattedMessage id="news_name" />, true)}
           <div>
             <input
               name="name" className={cx('newsNameInput')} type="text"
@@ -30,14 +31,14 @@ class NewsEditor extends EditorBase {
           </div>
         </div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('展示时间', true)}
+          {this.getInputName(<FormattedMessage id="display_time_range" />, true)}
           <div>
             {this.getDateInput()}
-            <div className='invalidTimeError'>活动时间不能为空且结束时间不能早于开始时间</div>
+            <div className='invalidTimeError'><FormattedMessage id="invalid_time_error" /></div>
           </div>
         </div>
         <div className={cx('inputBlock')}>
-          {this.getInputName('新闻内容', true)}
+          {this.getInputName(<FormattedMessage id="news_content" />, true)}
           <div>
             <textarea
               name="description" className={cx('newsDescriptionInput')} type="text"

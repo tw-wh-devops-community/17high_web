@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
@@ -41,7 +42,7 @@ class TemplateSelector extends Component {
   render() {
     return (
       <div className={cx('templateSelectBlock')}>
-        {TemplateSelector.getInputName('选择模板', true)}
+        {TemplateSelector.getInputName(<FormattedMessage id="choose_template" />, true)}
         {this.getTemplates(this.state.templates)}
       </div>
     );

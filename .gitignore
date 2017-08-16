@@ -1,5 +1,6 @@
 .gradle
 /build/
+/bin/
 classes/
 !gradle/wrapper/gradle-wrapper.jar
 
@@ -17,6 +18,9 @@ classes/
 *.iws
 *.iml
 *.ipr
+
+### Visual Studio Code ###
+.vscode
 
 ### NetBeans ###
 nbproject/private/

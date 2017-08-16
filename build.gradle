@@ -56,6 +56,11 @@ task febuild (type: Exec, description: 'Runs the front-end webpack build.', grou
     commandLine 'yarn', 'bundle:prod'
 }
 
+task devbuild (type: Exec, description: 'Runs the front-end webpack build development.', group: 'Verification') {
+    workingDir 'src/websrc'
+    commandLine 'yarn', 'bundle'
+}
+
 applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]
 
 jacoco {
@@ -144,11 +149,16 @@ integration {
     systemProperties['spring.profiles.active']='test'
 }
 
-compileJava.dependsOn febuild
+if (project.hasProperty('env') && env == 'dev') {
+  println 'In development mode...'
+  compileJava.dependsOn devbuild
+} else {
+  println 'In production mode...'
+  compileJava.dependsOn febuild
+}
 
 check.dependsOn integration
 integration.mustRunAfter test
-
 
 test {
     environment 'MYSQL_HOST', '127.0.0.1'

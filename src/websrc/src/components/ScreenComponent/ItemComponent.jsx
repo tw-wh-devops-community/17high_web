@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import scss from './ScreenComponent.scss';
 import DateUtils from './DateUtils';
@@ -20,18 +21,18 @@ const ItemComponent = (props) => {
 };
 
 ItemComponent.propTypes = {
-  activity: React.PropTypes.shape({
-    sponsor: React.PropTypes.string,
-    location: React.PropTypes.string,
-    guest: React.PropTypes.string,
-    description: React.PropTypes.string,
-    startTime: React.PropTypes.date,
-    endTime: React.PropTypes.date,
-    name: React.PropTypes.string,
-    type: React.PropTypes.string,
-    imageURL: React.PropTypes.string
+  activity: PropTypes.shape({
+    sponsor: PropTypes.string,
+    location: PropTypes.string,
+    guest: PropTypes.string,
+    description: PropTypes.string,
+    startTime: PropTypes.date,
+    endTime: PropTypes.date,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    imageURL: PropTypes.string
   }).isRequired,
-  active: React.PropTypes.bool.isRequired
+  active: PropTypes.bool.isRequired
 };
 
 export default ItemComponent;

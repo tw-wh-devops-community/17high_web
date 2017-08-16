@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
@@ -6,8 +7,8 @@ import scss from './filterDropDown.scss';
 
 const cx = classNames.bind(scss);
 const TEXT_MAPPER = {
-  createTime: '按活动发布时间排序',
-  startTime: '按活动开始时间排序'
+  createTime: <FormattedMessage id="dashboard_label_sort_by_post_time" />,
+  startTime: <FormattedMessage id="dashboard_label_sort_by_start_time" />
 };
 
 class FilterDropDown extends PureComponent {

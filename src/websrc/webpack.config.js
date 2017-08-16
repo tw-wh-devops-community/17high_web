@@ -34,7 +34,7 @@ const config = {
         test: /\.scss$/,
         loader: extractCSS.extract(['css?minimize&modules&importLoaders=2&localIdentName=[name]__[local]', 'postcss', 'sass']),
       },
-      {test: /\.json$/, loader: 'json'},
+      { test: /\.json$/, loader: 'json' },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
@@ -58,6 +58,7 @@ const config = {
     }),
     extractCSS
   ],
+  devtool: 'source-map'
 };
 
 module.exports = config;

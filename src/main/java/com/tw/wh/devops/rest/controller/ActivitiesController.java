@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
@@ -21,6 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @CrossOrigin(origins = "${cross.origin.url}")
 @RestController
 @RequestMapping("/v1/activities")
+@Transactional
 public class ActivitiesController {
 
     @Autowired
@@ -33,6 +35,7 @@ public class ActivitiesController {
                                   @RequestParam(required = false, defaultValue = "") String type,
                                   @RequestParam(required = false, defaultValue = "") String status,
                                   @RequestParam(required = false, defaultValue = "false") boolean validation, Sort sort) {
+        activityRepository.updateWeeklyActivityStartTime();
         PageRequest pageRequest = new PageRequest(page, size, sort);
         Page<Activity> all;
         if (validation) {
