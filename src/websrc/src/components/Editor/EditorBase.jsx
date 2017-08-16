@@ -43,7 +43,7 @@ class EditorBase extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      currentEvent: props.currentEvent ? props.currentEvent : {},
+      currentEvent: props.currentEvent ? props.currentEvent : { type: this.getEditorType() },
       selectedTemplateId: this.getSelectedTemplateId()
     };
   }
@@ -122,7 +122,7 @@ class EditorBase extends React.Component {
   }
 
   getPublishTitle() {
-    return this.props.currentEvent.id ? <FormattedMessage id="update" /> : <FormattedMessage id="submit" />;
+    return (this.props.currentEvent && this.props.currentEvent.id) ? <FormattedMessage id="update" /> : <FormattedMessage id="submit" />;
   }
 
   cancelPublish = () => {

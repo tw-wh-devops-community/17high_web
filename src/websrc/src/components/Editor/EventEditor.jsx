@@ -23,7 +23,7 @@ export default class PublishActivity extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      currentEvent: {},
+      currentEvent: null,
     };
     if (!isNaN(props.params.id)) {
       this.initEvent(props.params.id);
@@ -80,7 +80,7 @@ export default class PublishActivity extends React.Component {
         this.setState({ selectedTab: editorsIndex[data.type], currentEvent: data });
       });
     } else {
-      this.setState({ currentEvent: {}, selectedTab: 0 });
+      this.setState({ currentEvent: null, selectedTab: 0 });
     }
   }
 
