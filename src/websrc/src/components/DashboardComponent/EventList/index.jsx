@@ -169,7 +169,7 @@ class EventList extends Component {
 
 
   handleDeleteClick = (evt) => {
-    const id = evt.target.id;
+    const id = evt.target.parentNode.id;
     this.setState({ selectedId: id }, this.dialog.showDialog('event-list-dialog'));
   }
 
