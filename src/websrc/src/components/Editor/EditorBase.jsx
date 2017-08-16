@@ -43,7 +43,7 @@ class EditorBase extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      currentEvent: props.currentEvent ? props.currentEvent : { type: this.getEditorType() },
+      currentEvent: props.currentEvent ? props.currentEvent : this.getInitialEvent(props),
       selectedTemplateId: this.getSelectedTemplateId()
     };
   }
@@ -53,7 +53,7 @@ class EditorBase extends React.Component {
   }
 
   getInitialEvent(nextProps) {
-    return nextProps.currentEvent.id ? nextProps.currentEvent : { type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME, imageURL: DEFAULT_IMAGE_URL };
+    return (nextProps.currentEvent && nextProps.currentEvent.id) ? nextProps.currentEvent : { type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME, imageURL: DEFAULT_IMAGE_URL };
   };
 
   render() {
