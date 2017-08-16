@@ -15,7 +15,7 @@ export default class PublishActivity extends React.Component {
 
   static propTypes = {
     params: PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
     }).isRequired,
   };
 
