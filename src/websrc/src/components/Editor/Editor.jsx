@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Nav from './PublishmentNavigator';
+import Navigator from './Navigator';
 import ActivityEditor from './ActivityEditor';
 import NewsEditor from './NewsEditor';
 import Header from '../Header/index';
@@ -11,7 +11,7 @@ import activityService from '../services/ActivityApiService';
 const cx = classNames.bind(styles);
 const editorsIndex = { SESSION: 0, NEWS: 1 };
 
-export default class PublishActivity extends React.Component {
+export default class Editor extends React.Component {
 
   static propTypes = {
     params: PropTypes.shape({
@@ -40,7 +40,7 @@ export default class PublishActivity extends React.Component {
         <Header />
         <div className={cx('contentContainer')}>
           <div className={cx('content')}>
-            <Nav
+            <Navigator
               onSelect={index => this.handleSelect(index)}
               isUpdate={this.isUpdate()}
               selectedIndex={this.getSelectedTabIndex()} />
