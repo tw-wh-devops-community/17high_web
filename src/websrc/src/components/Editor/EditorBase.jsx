@@ -289,7 +289,6 @@ class EditorBase extends React.Component {
 
   getActivity(status) {
     return JSON.stringify(Object.assign(this.state.currentEvent, { status: status }));
-
   }
 
   showInvalidTimeError() {
@@ -338,7 +337,12 @@ class EditorBase extends React.Component {
 
   handleTimeChange(time, attrName) {
     let dateTime = this.state.currentEvent[attrName];
-    let selectedTime = time.format('HH:mm');
+    let selectedTime = '';
+    if (time instanceof Moment) {
+      selectedTime = time.format('HH:mm');
+    } else {
+      selectedTime = time;
+    }
     let existingDate = '';
     if (dateTime) {
       existingDate = dateTime.substr(0, 10) + ' ';
