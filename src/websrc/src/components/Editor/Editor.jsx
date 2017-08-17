@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Nav from './PublishmentNavigator';
+import Navigator from './Navigator';
 import ActivityEditor from './ActivityEditor';
 import NewsEditor from './NewsEditor';
 import Header from '../Header/index';
@@ -11,11 +11,11 @@ import activityService from '../services/ActivityApiService';
 const cx = classNames.bind(styles);
 const editorsIndex = { SESSION: 0, NEWS: 1 };
 
-export default class PublishActivity extends React.Component {
+export default class Editor extends React.Component {
 
   static propTypes = {
     params: PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
     }).isRequired,
   };
 
@@ -23,8 +23,11 @@ export default class PublishActivity extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      currentEvent: {},
+      currentEvent: null,
     };
+    if (!isNaN(props.params.id)) {
+      this.initEvent(props.params.id);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,15 +36,15 @@ export default class PublishActivity extends React.Component {
 
   render() {
     return (
-      <div className={ cx('eventEditorPage') }>
+      <div className={cx('eventEditorPage')}>
         <Header />
         <div className={cx('contentContainer')}>
           <div className={cx('content')}>
-            <Nav
+            <Navigator
               onSelect={index => this.handleSelect(index)}
               isUpdate={this.isUpdate()}
               selectedIndex={this.getSelectedTabIndex()} />
-            { this.getSelectedEditor(this.state.selectedTab) }
+            {this.getSelectedEditor(this.state.selectedTab)}
           </div>
         </div>
       </div>
@@ -50,9 +53,9 @@ export default class PublishActivity extends React.Component {
 
   getSelectedEditor(selectedTab) {
     if (selectedTab === 0) {
-      return <ActivityEditor currentEvent={ this.state.currentEvent } />;
+      return <ActivityEditor currentEvent={this.state.currentEvent} />;
     }
-    return <NewsEditor currentEvent={ this.state.currentEvent } />;
+    return <NewsEditor currentEvent={this.state.currentEvent} />;
   }
 
   handleSelect(selectedKey) {
@@ -77,7 +80,7 @@ export default class PublishActivity extends React.Component {
         this.setState({ selectedTab: editorsIndex[data.type], currentEvent: data });
       });
     } else {
-      this.setState({ currentEvent: {}, selectedTab: 0 });
+      this.setState({ currentEvent: null, selectedTab: 0 });
     }
   }
 

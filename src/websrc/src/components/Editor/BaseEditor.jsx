@@ -43,7 +43,7 @@ class EditorBase extends React.Component {
     super(props);
     this.state = {
       selectedTab: 0,
-      currentEvent: props.currentEvent ? props.currentEvent : {},
+      currentEvent: props.currentEvent ? props.currentEvent : this.getInitialEvent(props),
       selectedTemplateId: this.getSelectedTemplateId()
     };
   }
@@ -53,7 +53,7 @@ class EditorBase extends React.Component {
   }
 
   getInitialEvent(nextProps) {
-    return nextProps.currentEvent.id ? nextProps.currentEvent : { type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME, imageURL: DEFAULT_IMAGE_URL };
+    return (nextProps.currentEvent && nextProps.currentEvent.id) ? nextProps.currentEvent : { type: this.getEditorType(), owner: DEFAULT_OWNER, display_time: DEFAULT_DISPLAY_TIME, imageURL: DEFAULT_IMAGE_URL };
   };
 
   render() {
@@ -122,7 +122,7 @@ class EditorBase extends React.Component {
   }
 
   getPublishTitle() {
-    return this.props.currentEvent.id ? <FormattedMessage id="update" /> : <FormattedMessage id="submit" />;
+    return (this.props.currentEvent && this.props.currentEvent.id) ? <FormattedMessage id="update" /> : <FormattedMessage id="submit" />;
   }
 
   cancelPublish = () => {
@@ -289,7 +289,6 @@ class EditorBase extends React.Component {
 
   getActivity(status) {
     return JSON.stringify(Object.assign(this.state.currentEvent, { status: status }));
-
   }
 
   showInvalidTimeError() {
@@ -338,7 +337,12 @@ class EditorBase extends React.Component {
 
   handleTimeChange(time, attrName) {
     let dateTime = this.state.currentEvent[attrName];
-    let selectedTime = time.format('HH:mm');
+    let selectedTime = '';
+    if (time instanceof Moment) {
+      selectedTime = time.format('HH:mm');
+    } else {
+      selectedTime = time;
+    }
     let existingDate = '';
     if (dateTime) {
       existingDate = dateTime.substr(0, 10) + ' ';

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import 'jquery-validation';
 import classNames from 'classnames/bind';
 
-import EditorBase from './EditorBase';
+import BaseEditor from './BaseEditor';
 import styles from '../css/editor.scss';
 
 import ActivityApiService from '../services/ActivityApiService';
@@ -11,7 +11,7 @@ import ActivityApiService from '../services/ActivityApiService';
 const cx = classNames.bind(styles);
 
 /* eslint-disable */
-class NewsEditor extends EditorBase {
+class NewsEditor extends BaseEditor {
 
   componentDidMount() {
     this.initValidator();

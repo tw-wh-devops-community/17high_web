@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import 'jquery-validation';
 import classNames from 'classnames/bind';
 
-import EditorBase from './EditorBase';
+import BaseEditor from './BaseEditor';
 import styles from '../css/editor.scss';
 
 import ActivityApiService from '../services/ActivityApiService';
@@ -11,7 +11,7 @@ import ActivityApiService from '../services/ActivityApiService';
 const cx = classNames.bind(styles);
 
 /* eslint-disable */
-class ActivityEditor extends EditorBase {
+class ActivityEditor extends BaseEditor {
 
   onRenderContent(getEventAttribute) {
     return (
@@ -31,7 +31,7 @@ class ActivityEditor extends EditorBase {
           <div>
             {this.getDateInput()}
             <div className={cx('inputBlock')}>
-              <input type="checkbox" className={cx('inputCheck')} name="weeklyRepeat" checked={this.getChecked('weeklyRepeat')} onChange={event => this.handleInputChange(event)} />每周重复
+              <input type="checkbox" className={cx('inputCheck')} name="weeklyRepeat" defaultChecked={this.getChecked('weeklyRepeat')} onChange={event => this.handleInputChange(event)} />每周重复
             </div>
             <div className='invalidTimeError'><FormattedMessage id="invalid_time_error" /></div>
           </div>
