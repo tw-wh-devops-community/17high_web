@@ -1,5 +1,5 @@
 CREATE TABLE activity (
-  id int(20) NOT NULL AUTO_INCREMENT,
+  id int(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   end_time datetime DEFAULT NULL,
   imageurl varchar(255) DEFAULT NULL,
   location varchar(255)  DEFAULT NULL,

@@ -39,7 +39,7 @@ public class ActivitiesController {
         PageRequest pageRequest = new PageRequest(page, size, sort);
         Page<Activity> all;
         if (validation) {
-            all = activityRepository.findAllWithStartTimeLaterThan(new Date(), pageRequest);
+            all = activityRepository.findAllWithEndTimeLaterThan(new Date(), pageRequest);
         } else {
             all = activityRepository.findAll(pageRequest);
         }
