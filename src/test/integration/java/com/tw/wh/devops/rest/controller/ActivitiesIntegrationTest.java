@@ -39,10 +39,10 @@ public class ActivitiesIntegrationTest {
 
     @Test
     @Ignore
-    @Sql("FindAllWithStartTimeTest.sql")
-    public void testFindAllWithStartTimeLaterThan() throws Exception {
+    @Sql("FindAllWithEndTimeTest.sql")
+    public void testFindAllWithEndTimeLaterThan() throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Page<Activity> activities = activityRepository.findAllWithStartTimeLaterThan(formatter.parse("2018-02-17 18:00:00"), null);
+        Page<Activity> activities = activityRepository.findAllWithEndTimeLaterThan(formatter.parse("2018-02-17 18:00:00"), null);
         assertThat(activities.getSize(), is(2));
     }
 }
