@@ -3,7 +3,6 @@ package com.tw.wh.devops.repositories;
 import com.tw.wh.devops.domains.Activity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,10 +13,10 @@ import java.util.Date;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
-    @Query("SELECT a FROM Activity a WHERE a.startTime >= :startTime")
-    Page<Activity> findAllWithStartTimeLaterThan(@Param("startTime") Date startTime, Pageable pageable);
+    @Query("SELECT a FROM Activity a WHERE a.endTime >= :currentTime")
+    Page<Activity> findAllWithEndTimeLaterThan(@Param("currentTime") Date currentTime, Pageable pageable);
 
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE Activity a SET a.startTime = TIMESTAMPADD(DAY, (TIMESTAMPDIFF(WEEK, a.startTime, NOW()) + 1) * 7, a.startTime), a.endTime = TIMESTAMPADD(DAY, (TIMESTAMPDIFF(WEEK, a.startTime, NOW()) + 1) * 7, a.endTime) WHERE a.startTime < NOW() AND a.weeklyRepeat = 1")
+    @Query("UPDATE Activity a SET a.startTime = TIMESTAMPADD(DAY, CEIL(TIMESTAMPDIFF(DAY, a.startTime, DATE(NOW()))/7.0) * 7, a.startTime), a.endTime = TIMESTAMPADD(DAY, CEIL(TIMESTAMPDIFF(DAY, a.startTime, DATE(NOW()))/7.0) * 7, a.endTime) WHERE a.endTime < NOW() AND a.weeklyRepeat = 1")
     void updateWeeklyActivityStartTime();
 }

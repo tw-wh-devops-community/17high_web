@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('se.transmode.gradle:gradle-docker:1.2')
+        classpath("gradle.plugin.com.boxfuse.client:flyway-release:4.2.0")
     }
 }
 
@@ -23,6 +24,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 apply plugin: 'jacoco'
 apply plugin: 'application'
+apply plugin: 'org.flywaydb.flyway'
 
 sourceSets {
     test {
@@ -166,4 +168,10 @@ test {
     environment 'MYSQL_USER', '17high'
     environment 'MYSQL_PASSWORD', '17high'
     environment 'MYSQL_DATABASE', '17high'
+}
+
+flyway {
+    url = 'jdbc:mysql://localhost:3306/lanedb'
+    user = 'lane'
+    password = 'Passw0rd'
 }

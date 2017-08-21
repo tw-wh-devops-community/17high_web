@@ -1,1 +1,0 @@
-ALTER TABLE activity ADD COLUMN weekly_repeat TINYINT(1) DEFAULT 0;

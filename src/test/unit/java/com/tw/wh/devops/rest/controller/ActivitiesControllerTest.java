@@ -86,10 +86,10 @@ public class ActivitiesControllerTest {
         Sort sort = new Sort(Sort.Direction.ASC, "id");
 
         when(activityPage.getContent().iterator()).thenReturn(iterator);
-        when(mockActivityRepository.findAllWithStartTimeLaterThan(any(Date.class), any(Pageable.class))).thenReturn(activityPage);
+        when(mockActivityRepository.findAllWithEndTimeLaterThan(any(Date.class), any(Pageable.class))).thenReturn(activityPage);
         Iterator expectedIterator = ac.getActivities(1, 1, "", "", true, sort);
 
-        verify(mockActivityRepository).findAllWithStartTimeLaterThan(any(Date.class), any(Pageable.class));
+        verify(mockActivityRepository).findAllWithEndTimeLaterThan(any(Date.class), any(Pageable.class));
         assertThat(expectedIterator, equalTo(iterator));
     }
 

@@ -1,5 +1,5 @@
 CREATE TABLE `activity` (
-`id` bigint(20) NOT NULL AUTO_INCREMENT,
+`id` bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 `end_time` datetime DEFAULT NULL,
 `imageurl` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
 `location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
