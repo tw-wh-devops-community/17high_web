@@ -22,13 +22,11 @@ class DateUtils {
     const toDay = end.getDate();
     const formatBuilder = `${single2double(fromMouth)}月${single2double(fromDay)}日${single2double(begin.getHours())}:${single2double(begin.getMinutes())} - `;
     const toHourMinuteFormat = `${single2double(end.getHours())}:${single2double(end.getMinutes())}`;
-    if (fromMouth === toMouth) {
-      if (toDay === fromDay) {
-        return formatBuilder + toHourMinuteFormat;
-      }
-      return `${formatBuilder + single2double(toDay)}日${toHourMinuteFormat}`;
+    if (toDay === fromDay) {
+      return formatBuilder + toHourMinuteFormat;
+    } else {
+      return `${formatBuilder} ${single2double(toMouth)}月${single2double(toDay)}日${toHourMinuteFormat}`;
     }
-    return `${formatBuilder} ${toHourMinuteFormat}`;
   }
 }
 
