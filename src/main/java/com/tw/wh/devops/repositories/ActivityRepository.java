@@ -17,6 +17,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     Page<Activity> findAllWithEndTimeLaterThan(@Param("currentTime") Date currentTime, Pageable pageable);
 
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE Activity a SET a.startTime = TIMESTAMPADD(DAY, CEIL(TIMESTAMPDIFF(DAY, a.startTime, DATE(NOW()))/7.0) * 7, a.startTime), a.endTime = TIMESTAMPADD(DAY, CEIL(TIMESTAMPDIFF(DAY, a.endTime, DATE(NOW()))/7.0) * 7, a.endTime) WHERE a.endTime < NOW() AND a.weeklyRepeat = 1")
+    @Query("UPDATE Activity a SET a.startTime = TIMESTAMPADD(DAY, (TIMESTAMPDIFF(WEEK, a.startTime, NOW()) + 1) * 7, a.startTime), a.endTime = TIMESTAMPADD(DAY, (TIMESTAMPDIFF(WEEK, a.startTime, NOW()) + 1) * 7, a.endTime) WHERE a.endTime < NOW() AND a.weeklyRepeat = 1")
     void updateWeeklyActivityStartTime();
 }
