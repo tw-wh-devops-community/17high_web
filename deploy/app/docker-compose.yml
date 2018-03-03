@@ -38,7 +38,17 @@ services:
       - MYSQL_DATABASE=17high
       - MYSQL_USER=17high
       - MYSQL_PASSWORD=17high
+      - VIRTUAL_HOST=17high.twer.vip
     volumes:
       - ~/17high/app/tmp:/tmp
     links:
       - database
+
+  nginx:
+    image: jwilder/nginx-proxy
+    volumes:
+      - ~/17high/certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock
+    ports:
+      - "80:80"
+      - "443:443"
